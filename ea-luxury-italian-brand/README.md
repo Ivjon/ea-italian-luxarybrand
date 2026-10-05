@@ -41,7 +41,8 @@ ea-luxury-italian-brand/
 │   ├── admin/                             CRM (index.html, admin.js, admin.css)
 │   └── assets/
 │       ├── products/        product photos — 600×750 (4:5) on a #eeebe7 background
-│       └── editorial/       Women/Men banners, mobile hero
+│       ├── editorial/       Women/Men banners, mobile hero
+│       └── brand/           logo, transparent (ea-logo-dark.svg), loader mark (ea-mark.svg), tab icon (ea-icon.png)
 └── design/                  reference mockups + the script that cut the product photos (not served)
 ```
 
@@ -49,6 +50,12 @@ ea-luxury-italian-brand/
 Product photos are shown whole (`object-fit: contain`) inside a 4:5 frame with a `#eeebe7` background.
 For the best result, add new photos as **600×750 JPGs on a plain light background**, save them in
 `frontend/assets/products/`, and point the product's `image` field in `backend/data/products.json` at them.
+
+## Men / Women collections
+**MEN** / **WOMEN** in the header and the Discover links on the Women/Men banners open a full-screen collection
+at `#men` / `#women`, filterable by brand and price. Its "New arrivals" sort shows the products added last in
+`backend/data/products.json` first, so add new products at the end of that file.
+While a collection opens, the EA mark is shown in the centre and fills from the bottom up, then fades out.
 
 ## API
 

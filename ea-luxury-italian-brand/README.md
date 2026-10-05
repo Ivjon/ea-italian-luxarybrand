@@ -47,7 +47,8 @@ ea-luxury-italian-brand/
 │       ├── editorial/       Women/Men banners, mobile hero
 │       ├── brand/           logo, transparent (ea-logo-dark.svg), loader mark (ea-mark.svg), tab icon (ea-icon.png)
 │       └── brands/          brand logos for the home brand row and the ☰ menu, named after the brand
-│                            (armani.png, dolce-gabbana.png, …): transparent PNG at 3× display size
+│                            (armani.png, dolce-gabbana.png, …): transparent PNG, 78 px tall with the logo
+│                            centred; shown 30 px tall on the home page (24 px on phones and in the menu)
 └── design/                  reference mockups + the script that cut the product photos (not served)
 ```
 

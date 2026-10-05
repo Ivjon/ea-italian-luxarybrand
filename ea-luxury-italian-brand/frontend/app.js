@@ -13,13 +13,13 @@ const inCategory=(p,c)=>p.category===c||p.category==='Unisex';
 // Colours a product comes in, set in the CRM (older products have a single `color` / `colorHex`); the first is the main one.
 const productColors=p=>p.colors||(p.color?[{name:p.color,hex:p.colorHex}]:[]);
 const swatch=c=>`<span class="pdp-swatch${c.hex?'':' empty'}"${c.hex?` style="background:${esc(c.hex)}"`:''}></span>`;
-// Brand logo (assets/brands/<brand>.png, cut at 3x the design size). The srcset density sets the display size and
-// keeps the logos' relative sizes; a brand without a logo file falls back to its name.
-const brandLogo=(b,density)=>`<img src="/assets/brands/${slug(b)}.png" srcset="/assets/brands/${slug(b)}.png ${density}x" alt="${esc(b)}" onerror="this.replaceWith(this.alt)">`;
+// Brand logo (assets/brands/<brand>.png). All logo files share one canvas height, so a single CSS height sizes them
+// while keeping their relative sizes; a brand without a logo file falls back to its name. ?v= busts old cached cuts.
+const brandLogo=b=>`<img src="/assets/brands/${slug(b)}.png?v=2" alt="${esc(b)}" onerror="this.replaceWith(this.alt)">`;
 // #all, #men, #women, #watches, #jewellery[/type], #shoes[/type], #brand/<brand> -> {title, test, brand?}; any other hash -> null.
 function viewFor(hash){const[a,b]=hash.slice(1).toLowerCase().split('/');if(a==='all')return{title:'All products',test:()=>true};if(a==='men'||a==='women'){const c=cap(a);return{title:c,test:p=>inCategory(p,c)}}if(a==='watches')return{title:'Watches',test:p=>p.type==='Watches'};if(GROUPS[a]){const types=b?GROUPS[a].filter(t=>slug(t)===b):GROUPS[a];return types.length?{title:b?types[0]:cap(a),test:p=>types.includes(p.type)}:null}if(a==='brand'){const brand=[...new Set(state.products.map(p=>p.brand))].find(x=>slug(x)===b);return brand?{title:brand,test:p=>p.brand===brand,brand:true}:null}return null}
 async function json(url,opts){const r=await fetch(url,opts);const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.message||`Request failed (${r.status})`);return d}
-async function init(){try{const[products,brands]=await Promise.all([json('/api/products'),json('/api/brands')]);state.products=products;$('#brandRow').innerHTML=brands.map(b=>`<a class="brand-pill" href="#brand/${slug(b)}">${brandLogo(b,2.6)}</a>`).join('');renderMenu(brands)}catch(err){$('#productGrid').innerHTML=`<div class="empty">The collection could not be loaded. Is the backend running? (${esc(err.message)})</div>`;return}renderProducts();renderCart();route()}
+async function init(){try{const[products,brands]=await Promise.all([json('/api/products'),json('/api/brands')]);state.products=products;$('#brandRow').innerHTML=brands.map(b=>`<a class="brand-pill" href="#brand/${slug(b)}">${brandLogo(b)}</a>`).join('');renderMenu(brands)}catch(err){$('#productGrid').innerHTML=`<div class="empty">The collection could not be loaded. Is the backend running? (${esc(err.message)})</div>`;return}renderProducts();renderCart();route()}
 const productCard=p=>`<article class="product-card"><a class="product-image" href="#product/${esc(p.id)}"><img src="${esc(p.image)}" alt="${esc(p.brand)} ${esc(p.name)}"></a><div class="product-meta"><div class="product-brand">${esc(p.brand)}</div><h3 class="product-name"><a href="#product/${esc(p.id)}">${esc(p.name)}</a></h3><div class="product-row"><span class="product-price">${money(p.price)}</span><button class="add-btn" data-add="${esc(p.id)}" data-color="${esc(productColors(p)[0]?.name)}">Add to bag</button></div></div></article>`;
 function renderProducts(){const q=state.search.toLowerCase();const rows=state.products.filter(p=>(state.category==='All'||inCategory(p,state.category))&&(!q||`${p.name} ${p.brand} ${p.category} ${p.type||''}`.toLowerCase().includes(q)));$('#productGrid').innerHTML=rows.length?rows.map(productCard).join(''):'<div class="empty">No pieces found.</div>'}
 // "New arrivals" = newest first, where newest is the product added last in products.json.
@@ -61,7 +61,7 @@ $('#infoTitle').textContent=title;$('#infoBody').innerHTML=html;$('#infoBody').s
 function closeInfo(){$('#infoDrawer').classList.remove('open');syncOverlay()}
 
 // Side menu (☰): brands with their logos, shop links, and the Jewellery / Shoes sub-menus built from GROUPS.
-function renderMenu(brands){$('#sideBrands').innerHTML=brands.map(b=>`<li><a href="#brand/${slug(b)}">${brandLogo(b,3.2)}</a></li>`).join('');for(const g in GROUPS)$(`#side-${g}`).innerHTML=[[`All ${g}`,`#${g}`],...GROUPS[g].map(t=>[t,`#${g}/${slug(t)}`])].map(([t,h])=>`<li><a href="${h}">${esc(t)}</a></li>`).join('')}
+function renderMenu(brands){$('#sideBrands').innerHTML=brands.map(b=>`<li><a href="#brand/${slug(b)}">${brandLogo(b)}</a></li>`).join('');for(const g in GROUPS)$(`#side-${g}`).innerHTML=[[`All ${g}`,`#${g}`],...GROUPS[g].map(t=>[t,`#${g}/${slug(t)}`])].map(([t,h])=>`<li><a href="${h}">${esc(t)}</a></li>`).join('')}
 function showPanel(name){document.querySelectorAll('.side-panel').forEach(p=>{p.hidden=p.dataset.panel!==name})}
 function openMenu(){showPanel('main');$('#sideMenu').classList.add('open');syncOverlay();$('#sideClose').focus()}
 function closeMenu(){$('#sideMenu').classList.remove('open');syncOverlay()}

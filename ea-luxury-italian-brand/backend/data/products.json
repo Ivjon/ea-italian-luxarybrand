@@ -82,7 +82,19 @@
     "type": "Clothing",
     "price": 880,
     "stock": 6,
-    "image": "/assets/products/jacket-black.jpg"
+    "image": "/assets/products/jacket-black.jpg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/jacket-black.jpg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      }
+    ]
   },
   {
     "id": "p7",

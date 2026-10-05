@@ -13,7 +13,25 @@ window.EA_CATALOG = (() => {
   const bar = y => `<path d="M7 ${y}h18"/>`;
   const hand = '<path d="M12.5 22.5c-1-1.2-2.4-3-2.4-3a1.1 1.1 0 0 1 1.8-1.2l1.1 1.3v-5.8a1.1 1.1 0 0 1 2.2 0v4m0-.5v-1.5a1.1 1.1 0 0 1 2.2 0v2m0-1a1.1 1.1 0 0 1 2.2 0v1m0-.2a1.1 1.1 0 0 1 2 0v2.6c0 1.6-1.2 2.3-2.4 2.3"/>';
 
+  // Sizes: letter sizes in wearing order, then numbers (shoes) ascending, then anything else alphabetically.
+  const LETTERS = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+  const sizeRank = s => {
+    const i = LETTERS.indexOf(String(s).toUpperCase());
+    if (i >= 0) return [0, i];
+    const n = parseFloat(String(s).replace(',', '.'));
+    return Number.isFinite(n) ? [1, n] : [2, 0];
+  };
+  const sortSizes = list => [...list].sort((a, b) => {
+    const [ga, va] = sizeRank(a), [gb, vb] = sizeRank(b);
+    return ga - gb || va - vb || String(a).localeCompare(String(b));
+  });
+
   return {
+    sortSizes,
+    sizePresets: {
+      clothing: ['XS', 'S', 'M', 'L', 'XL'],
+      shoes: Array.from({ length: 12 }, (_, i) => String(35 + i)),
+    },
     groups: {
       jewellery: ['Necklaces', 'Watches', 'Rings', 'Earrings', 'Sunglasses'],
       shoes: ['Heels', 'Sandals', 'Sneakers', 'Boots', 'Loafers'],

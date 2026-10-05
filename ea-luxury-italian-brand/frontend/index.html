@@ -81,6 +81,7 @@
         <h1 id="pdpName"></h1>
         <p class="pdp-price" id="pdpPrice"></p>
         <div class="pdp-color" id="pdpColor"></div>
+        <div class="pdp-sizes" id="pdpSizes"></div>
         <button class="pdp-btn" id="pdpStore">Find a store</button>
         <button class="pdp-btn solid" id="pdpAdd" data-add="">Add to bag</button>
         <nav class="pdp-crumbs" id="pdpCrumbs" aria-label="Breadcrumb"></nav>
@@ -97,9 +98,10 @@
   <aside class="filter-drawer" id="filterDrawer" aria-labelledby="filterTitle">
     <div class="filter-head"><h2 id="filterTitle">Filter</h2><button class="filter-clear" id="filterClear">Clear all</button><button class="filter-close" id="filterClose" aria-label="Close filters">×</button></div>
     <div class="filter-body">
-      <section class="filter-sec"><h3><span class="num">01</span>Sort by</h3><div class="filter-opts" id="fSort"><button data-sort="price-asc">Price: low to high</button><button data-sort="price-desc">Price: high to low</button><button data-sort="new">New arrivals</button></div></section>
-      <section class="filter-sec"><h3><span class="num">02</span>Price</h3><div><div class="range" id="fRange"><div class="range-track"><span class="range-fill" id="fFill"></span><span id="fTicks"></span></div><input type="range" id="fMin" step="100" aria-label="Minimum price"><input type="range" id="fMax" step="100" aria-label="Maximum price"></div><p class="range-values" id="fValues"></p></div></section>
-      <section class="filter-sec" id="fColorSec"><h3><span class="num">03</span>Colour</h3><div class="filter-opts" id="fColors"></div></section>
+      <section class="filter-sec"><h3>Sort by</h3><div class="filter-opts" id="fSort"><button data-sort="price-asc">Price: low to high</button><button data-sort="price-desc">Price: high to low</button><button data-sort="new">New arrivals</button></div></section>
+      <section class="filter-sec" id="fSizeSec"><h3>Size</h3><div class="size-chips" id="fSizes"></div></section>
+      <section class="filter-sec"><h3>Price</h3><div><div class="range" id="fRange"><div class="range-track"><span class="range-fill" id="fFill"></span><span id="fTicks"></span></div><input type="range" id="fMin" step="100" aria-label="Minimum price"><input type="range" id="fMax" step="100" aria-label="Maximum price"></div><p class="range-values" id="fValues"></p></div></section>
+      <section class="filter-sec" id="fColorSec"><h3>Colour</h3><div class="filter-opts" id="fColors"></div></section>
     </div>
     <button class="filter-apply" id="filterApply">View results</button>
   </aside>

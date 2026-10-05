@@ -59,7 +59,10 @@ videos, description, composition, details (one per line), the garment-care symbo
 (shown in the product page's **Product care** panel). **Colours**: list every colour the product comes in. Type a
 colour (a name like "Navy" or a code like `#7A4B2C`, with a live swatch), click a named swatch or pick anywhere on the
 spectrum, then **+ Add colour** (or Enter). Click a colour to edit its shade, ★ to make it the main (first) colour,
-× to remove it. Saving updates
+× to remove it. **Sizes & stock**: one click adds the clothing sizes (XS–XL) or shoe sizes (35–46), or type any
+other size (38.5, XXL, One size…); give every size its quantity. With sizes, the product's stock is their total, the
+product page asks customers to choose a size (sold-out sizes are disabled) and the Filter panel can filter by size.
+Saving updates
 `backend/data/products.json`; new products are added at the end, so they lead the "New arrivals" sort.
 
 Photos (JPG, PNG, WebP, GIF, up to 15 MB) and videos (MP4, MOV, WebM, up to 95 MB, under GitHub's 100 MB file limit)
@@ -80,8 +83,8 @@ For the best result, use **600×750 photos on a plain light background**.
 ## Menu and collections
 The ☰ menu (top left) lists every brand with its logo, then All products, Women, Men, Watches, and the
 **Jewellery** and **Shoes** sub-menus. Each link opens a full-screen collection with a brand dropdown and a black
-**Filter** button that opens a panel on the right: sort (price low→high, high→low, new arrivals), a price slider in
-€100 steps (a circle at every €100) and the collection's colours. Collections:
+**Filter** button that opens a black panel on the right: sort (price low→high, high→low, new arrivals), the sizes in
+stock, a price slider in €100 steps (a circle at every €100) and the collection's colours. Collections:
 `#all`, `#women`, `#men`, `#watches`, `#jewellery/<type>`, `#shoes/<type>`, `#brand/<brand>`.
 **MEN** / **WOMEN** in the header and the Discover links on the Women/Men banners open it too.
 

@@ -30,13 +30,20 @@ function productFields(body) {
     .map(c => ({ name: validate.text(c && c.name, 'Colour name', { max: 60 }), hex: /^#[0-9a-f]{6}$/i.test((c && c.hex) || '') ? c.hex.toLowerCase() : '' }))
     .filter(c => c.name && !seen.has(c.name.toLowerCase()) && seen.add(c.name.toLowerCase()))
     .map(c => (c.hex ? c : { name: c.name }));
+  // Sizes with their own stock (clothing XS–XL, shoes 35–46, …); when present, the product's stock is their total.
+  const seenSizes = new Set();
+  const sizes = (Array.isArray(body.sizes) ? body.sizes : [])
+    .slice(0, 40)
+    .map(s => ({ size: validate.text(s && s.size, 'Size', { max: 10 }), qty: validate.number(s && s.qty, 'Size quantity', { min: 0, max: 1e5, integer: true }) }))
+    .filter(s => s.size && !seenSizes.has(s.size.toLowerCase()) && seenSizes.add(s.size.toLowerCase()));
   const fields = {
     brand: validate.text(body.brand, 'Brand', { required: true, max: 60 }),
     name: validate.text(body.name, 'Name', { required: true }),
     category: validate.oneOf(body.category, 'Category', CATEGORIES, 'Women'),
     type: validate.text(body.type, 'Type', { required: true, max: 40 }),
     price: validate.number(body.price, 'Price', { min: 1, max: 1e6 }),
-    stock: validate.number(body.stock, 'Stock', { min: 0, max: 1e5, integer: true }),
+    stock: sizes.length ? sizes.reduce((sum, s) => sum + s.qty, 0) : validate.number(body.stock, 'Stock', { min: 0, max: 1e5, integer: true }),
+    sizes,
     image: cover.src,
     media,
     colors,
@@ -48,7 +55,7 @@ function productFields(body) {
     care: (Array.isArray(body.care) ? body.care : []).filter(k => /^[a-z0-9-]{1,40}$/.test(k)).slice(0, 20),
     careNote: validate.text(body.careNote, 'Care notes', { max: 1000 }),
   };
-  for (const key of ['colors', 'code', 'description', 'composition', 'details', 'care', 'careNote']) {
+  for (const key of ['colors', 'sizes', 'code', 'description', 'composition', 'details', 'care', 'careNote']) {
     if (!fields[key].length) delete fields[key];
   }
   return fields;

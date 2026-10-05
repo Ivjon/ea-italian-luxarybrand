@@ -6,7 +6,29 @@
     "category": "Women",
     "type": "Clothing",
     "price": 520,
-    "stock": 8,
+    "stock": 5,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 1
+      },
+      {
+        "size": "S",
+        "qty": 1
+      },
+      {
+        "size": "M",
+        "qty": 1
+      },
+      {
+        "size": "L",
+        "qty": 1
+      },
+      {
+        "size": "XL",
+        "qty": 1
+      }
+    ],
     "image": "/assets/products/blazer-ivory.jpg",
     "media": [
       {
@@ -36,7 +58,57 @@
     "category": "Women",
     "type": "Sandals",
     "price": 590,
-    "stock": 11,
+    "stock": 10,
+    "sizes": [
+      {
+        "size": "35",
+        "qty": 10
+      },
+      {
+        "size": "36",
+        "qty": 0
+      },
+      {
+        "size": "37",
+        "qty": 0
+      },
+      {
+        "size": "38",
+        "qty": 0
+      },
+      {
+        "size": "39",
+        "qty": 0
+      },
+      {
+        "size": "40",
+        "qty": 0
+      },
+      {
+        "size": "41",
+        "qty": 0
+      },
+      {
+        "size": "42",
+        "qty": 0
+      },
+      {
+        "size": "43",
+        "qty": 0
+      },
+      {
+        "size": "44",
+        "qty": 0
+      },
+      {
+        "size": "45",
+        "qty": 0
+      },
+      {
+        "size": "46",
+        "qty": 0
+      }
+    ],
     "image": "/assets/products/sandal-black.jpg",
     "media": [
       {

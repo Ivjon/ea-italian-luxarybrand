@@ -79,7 +79,9 @@ For the best result, use **600×750 photos on a plain light background**.
 
 ## Menu and collections
 The ☰ menu (top left) lists every brand with its logo, then All products, Women, Men, Watches, and the
-**Jewellery** and **Shoes** sub-menus. Each link opens a full-screen collection, filterable by brand, colour and price:
+**Jewellery** and **Shoes** sub-menus. Each link opens a full-screen collection with a brand dropdown and a black
+**Filter** button that opens a panel on the right: sort (price low→high, high→low, new arrivals), a price slider in
+€100 steps (a circle at every €100) and the collection's colours. Collections:
 `#all`, `#women`, `#men`, `#watches`, `#jewellery/<type>`, `#shoes/<type>`, `#brand/<brand>`.
 **MEN** / **WOMEN** in the header and the Discover links on the Women/Men banners open it too.
 

@@ -2,8 +2,9 @@
 const loadCart=()=>{try{const c=JSON.parse(localStorage.getItem('ea-cart')||'[]');return Array.isArray(c)?c.map(x=>typeof x==='string'?{id:x,color:''}:x).filter(x=>x&&x.id):[]}catch{return[]}};
 const state={products:[],cart:loadCart(),category:'All',search:''};
 // Collection panel: a full-screen product list for the current #hash (see viewFor). fromPage: the hash was set by navigating inside the site, so closing can go back.
-const coll={key:null,view:null,brand:'All',color:'All',price:'all',sort:'new',fromPage:false};
-const PRICE_RANGES={all:[0,Infinity],'0-500':[0,500],'500-1000':[500,1000],'1000-':[1000,Infinity]};
+// Filters: brand (dropdown) + the Filter panel: sort, price range (null = no limit), colours (any of).
+const coll={key:null,view:null,brand:'All',colors:[],min:null,max:null,bounds:[0,100],sort:'new',fromPage:false};
+const PRICE_STEP=100;
 // Product types (the "type" field in products.json) listed under the Jewellery and Shoes menus, and the care guide; see catalog.js.
 const GROUPS=EA_CATALOG.groups, CARE=EA_CATALOG.care;
 const $=s=>document.querySelector(s), money=n=>new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
@@ -23,16 +24,31 @@ async function init(){try{const[products,brands]=await Promise.all([json('/api/p
 const productCard=p=>`<article class="product-card"><a class="product-image" href="#product/${esc(p.id)}"><img src="${esc(p.image)}" alt="${esc(p.brand)} ${esc(p.name)}"></a><div class="product-meta"><div class="product-brand">${esc(p.brand)}</div><h3 class="product-name"><a href="#product/${esc(p.id)}">${esc(p.name)}</a></h3><div class="product-row"><span class="product-price">${money(p.price)}</span><button class="add-btn" data-add="${esc(p.id)}" data-color="${esc(productColors(p)[0]?.name)}">Add to bag</button></div></div></article>`;
 function renderProducts(){const q=state.search.toLowerCase();const rows=state.products.filter(p=>(state.category==='All'||inCategory(p,state.category))&&(!q||`${p.name} ${p.brand} ${p.category} ${p.type||''}`.toLowerCase().includes(q)));$('#productGrid').innerHTML=rows.length?rows.map(productCard).join(''):'<div class="empty">No pieces found.</div>'}
 // "New arrivals" = newest first, where newest is the product added last in products.json.
-function renderCollection(){const inView=state.products.filter(coll.view.test);const brands=[...new Set(inView.map(p=>p.brand))];if(!brands.includes(coll.brand))coll.brand='All';$('#collectionBrand').hidden=!!coll.view.brand;$('#collectionBrand').innerHTML=['All',...brands].map(b=>`<option value="${esc(b)}"${b===coll.brand?' selected':''}>${b==='All'?'All brands':esc(b)}</option>`).join('');const colors=[...new Set(inView.flatMap(p=>productColors(p).map(c=>c.name)))].sort((a,b)=>a.localeCompare(b));if(!colors.includes(coll.color))coll.color='All';$('#collectionColor').hidden=!colors.length;$('#collectionColor').innerHTML=['All',...colors].map(c=>`<option value="${esc(c)}"${c===coll.color?' selected':''}>${c==='All'?'All colours':esc(c)}</option>`).join('');const[min,max]=PRICE_RANGES[coll.price];const rows=inView.filter(p=>(coll.brand==='All'||p.brand===coll.brand)&&(coll.color==='All'||productColors(p).some(c=>c.name===coll.color))&&p.price>=min&&p.price<max);if(coll.sort==='new')rows.reverse();else rows.sort((a,b)=>coll.sort==='price-asc'?a.price-b.price:b.price-a.price);$('#collectionCount').textContent=`${rows.length} ${rows.length===1?'piece':'pieces'}`;$('#collectionGrid').innerHTML=rows.length?rows.map(productCard).join(''):`<div class="empty">${inView.length?'No pieces match these filters.':'New pieces are arriving soon.'}</div>`}
+function renderCollection(){const inView=state.products.filter(coll.view.test);const brands=[...new Set(inView.map(p=>p.brand))];if(!brands.includes(coll.brand))coll.brand='All';$('#collectionBrand').hidden=!!coll.view.brand;$('#collectionBrand').innerHTML=['All',...brands].map(b=>`<option value="${esc(b)}"${b===coll.brand?' selected':''}>${b==='All'?'All brands':esc(b)}</option>`).join('');const colors=[...new Set(inView.flatMap(p=>productColors(p).map(c=>c.name)))].sort((a,b)=>a.localeCompare(b));coll.colors=coll.colors.filter(c=>colors.includes(c));
+const[lo,hi]=coll.bounds=priceBounds(inView),min=Math.min(Math.max(coll.min??lo,lo),hi-PRICE_STEP),max=Math.max(Math.min(coll.max??hi,hi),min+PRICE_STEP);coll.min=min>lo?min:null;coll.max=max<hi?max:null;
+const rows=inView.filter(p=>(coll.brand==='All'||p.brand===coll.brand)&&(!coll.colors.length||productColors(p).some(c=>coll.colors.includes(c.name)))&&p.price>=min&&p.price<=max);if(coll.sort==='new')rows.reverse();else rows.sort((a,b)=>coll.sort==='price-asc'?a.price-b.price:b.price-a.price);$('#collectionCount').textContent=`${rows.length} ${rows.length===1?'piece':'pieces'}`;$('#collectionGrid').innerHTML=rows.length?rows.map(productCard).join(''):`<div class="empty">${inView.length?'No pieces match these filters.':'New pieces are arriving soon.'}</div>`;renderFilters(inView,colors,rows.length)}
+// Price slider range: the view's lowest and highest price, rounded out to whole €100 steps.
+function priceBounds(list){if(!list.length)return[0,PRICE_STEP];const prices=list.map(p=>p.price),lo=Math.floor(Math.min(...prices)/PRICE_STEP)*PRICE_STEP;return[lo,Math.max(lo+PRICE_STEP,Math.ceil(Math.max(...prices)/PRICE_STEP)*PRICE_STEP)]}
+// Filter panel. The slider inputs and colour list are only rebuilt when their options change, never while dragging.
+function renderFilters(inView,colors,count){const[lo,hi]=coll.bounds,min=coll.min??lo,max=coll.max??hi,pct=v=>`${(v-lo)/(hi-lo)*100}%`;
+document.querySelectorAll('#fSort [data-sort]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.sort===coll.sort));
+const range=$('#fRange');if(range.dataset.bounds!==`${lo}-${hi}`){range.dataset.bounds=`${lo}-${hi}`;for(const i of[$('#fMin'),$('#fMax')]){i.min=lo;i.max=hi}const steps=(hi-lo)/PRICE_STEP,every=Math.ceil(steps/40);/* a circle at every €100; thinned out only for very wide ranges */$('#fTicks').innerHTML=Array.from({length:Math.floor(steps/every)+1},(_,k)=>lo+k*every*PRICE_STEP).map(v=>`<i data-v="${v}" style="left:${pct(v)}"></i>`).join('')}
+$('#fMin').value=min;$('#fMax').value=max;$('#fMin').setAttribute('aria-valuetext',money(min));$('#fMax').setAttribute('aria-valuetext',money(max));$('#fMin').style.zIndex=min-lo>(hi-lo)/2?3:1;
+Object.assign($('#fFill').style,{left:pct(min),right:`${(hi-max)/(hi-lo)*100}%`});$('#fTicks').querySelectorAll('i').forEach(t=>t.classList.toggle('on',+t.dataset.v>=min&&+t.dataset.v<=max));$('#fValues').textContent=`${money(min)} – ${money(max)}`;
+$('#fColorSec').hidden=!colors.length;if($('#fColors').dataset.key!==colors.join('|')){$('#fColors').dataset.key=colors.join('|');const hex={};inView.flatMap(productColors).forEach(c=>{if(c.hex&&!hex[c.name])hex[c.name]=c.hex});$('#fColors').innerHTML=colors.map(c=>`<button data-filter-color="${esc(c)}"><span class="sq${hex[c]?'':' none'}"${hex[c]?` style="background:${esc(hex[c])}"`:''}></span>${esc(c)}</button>`).join('')}
+$('#fColors').querySelectorAll('[data-filter-color]').forEach(b=>b.setAttribute('aria-pressed',coll.colors.includes(b.dataset.filterColor)));
+const active=coll.colors.length+(coll.min!==null||coll.max!==null?1:0);$('#filterCount').textContent=active?` (${active})`:'';$('#filterApply').textContent=`View results (${count})`;$('#filterClear').hidden=!active&&coll.sort==='new'}
+function openFilters(){$('#filterDrawer').classList.add('open');syncOverlay();$('#filterClose').focus()}
+function closeFilters(){$('#filterDrawer').classList.remove('open');syncOverlay()}
 // Brand loader while a collection opens: the EA mark fills from the bottom up (CSS, 1.2s), holds, then fades out.
 let loaderTimer;
 function showLoader(){const l=$('#loader');clearTimeout(loaderTimer);l.classList.remove('done');l.hidden=false;loaderTimer=setTimeout(()=>{l.classList.add('done');loaderTimer=setTimeout(()=>{l.hidden=true},350)},1500)}
 function hideLoader(){clearTimeout(loaderTimer);$('#loader').hidden=true}
 // The page behind full-screen panels doesn't scroll; the overlay dims the page while a drawer is open.
 function syncLock(){document.body.classList.toggle('locked',!$('#collection').hidden||!$('#product').hidden)}
-function syncOverlay(){$('#overlay').classList.toggle('show',['#cartDrawer','#sideMenu','#infoDrawer'].some(s=>$(s).classList.contains('open')))}
-function openCollection(key,view){showLoader();if(coll.key!==key){coll.brand='All';coll.color='All'}coll.key=key;coll.view=view;$('#collectionTitle').textContent=view.title;renderCollection();$('#collection').hidden=false;$('#collection').scrollTop=0;syncLock()}
-function closeCollection(){hideLoader();$('#collection').hidden=true;syncLock()}
+function syncOverlay(){$('#overlay').classList.toggle('show',['#cartDrawer','#sideMenu','#infoDrawer','#filterDrawer'].some(s=>$(s).classList.contains('open')))}
+function openCollection(key,view){showLoader();if(coll.key!==key){coll.brand='All';coll.colors=[];coll.min=coll.max=null}coll.key=key;coll.view=view;$('#collectionTitle').textContent=view.title;renderCollection();$('#collection').hidden=false;$('#collection').scrollTop=0;syncLock()}
+function closeCollection(){hideLoader();closeFilters();$('#collection').hidden=true;syncLock()}
 // #product/<id> opens the product page on top (a collection underneath stays as it was); other hashes go to viewFor.
 function route(){const m=/^#product\/(.+)$/.exec(location.hash);const product=m&&state.products.find(p=>p.id===decodeURIComponent(m[1]));if(product)return openProduct(product);closeProduct();const key=location.hash.toLowerCase(),view=state.products.length?viewFor(location.hash):null;if(!view)return closeCollection();if(coll.key!==key||$('#collection').hidden)openCollection(key,view)}
 
@@ -40,7 +56,7 @@ function route(){const m=/^#product\/(.+)$/.exec(location.hash);const product=m&
 const pdp={product:null,index:0,colorIndex:0};
 const productMedia=p=>p.media&&p.media.length?p.media:[{type:'image',src:p.image}];
 // Opening from a collection filtered by colour preselects that colour.
-function openProduct(p){if(pdp.product!==p){pdp.product=p;pdp.index=0;pdp.colorIndex=Math.max(0,productColors(p).findIndex(c=>c.name===coll.color))}renderProduct();$('#product').hidden=false;$('#product').scrollTop=0;syncLock()}
+function openProduct(p){if(pdp.product!==p){pdp.product=p;pdp.index=0;pdp.colorIndex=Math.max(0,productColors(p).findIndex(c=>coll.colors.includes(c.name)))}renderProduct();$('#product').hidden=false;$('#product').scrollTop=0;syncLock()}
 // One colour: shown as text. Several: a dropdown; the chosen colour goes into the bag with the product.
 function renderColorPicker(){const colors=productColors(pdp.product),cur=colors[pdp.colorIndex]||colors[0];
 $('#pdpColor').innerHTML=!cur?'':colors.length===1?`<b>Color:</b> ${swatch(cur)}${esc(cur.name)}`:`<b>Color:</b><div class="color-select"><button class="color-current" id="pdpColorBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Color: ${esc(cur.name)}, choose another colour">${swatch(cur)}<span>${esc(cur.name)}</span><span class="caret" aria-hidden="true"></span></button><ul class="color-options" id="pdpColorList" role="listbox" aria-label="Colours" hidden>${colors.map((c,i)=>`<li role="option" data-color-index="${i}" aria-selected="${i===pdp.colorIndex}" tabindex="-1">${swatch(c)}${esc(c.name)}</li>`).join('')}</ul></div>`;
@@ -73,7 +89,7 @@ function renderCart(){const count=state.cart.length;document.querySelectorAll('.
 function openCart(){$('#cartDrawer').classList.add('open');syncOverlay()}function closeCart(){$('#cartDrawer').classList.remove('open');syncOverlay()}
 document.addEventListener('click',e=>{const add=e.target.closest('[data-add]');if(add){state.cart.push({id:add.dataset.add,color:add.dataset.color||''});saveCart();openCart()}if(!e.target.closest('.color-select'))toggleColors(false);const rem=e.target.closest('[data-remove]');if(rem){state.cart.splice(+rem.dataset.remove,1);saveCart()}if(e.target.closest('[data-open-cart]'))openCart()});
 document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.filter;state.search='';document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));renderProducts()}));
-['#bagOpen','#mobileBag'].forEach(s=>{const el=$(s);if(el)el.addEventListener('click',openCart)});$('#closeCart').addEventListener('click',closeCart);$('#overlay').addEventListener('click',()=>{closeCart();closeMenu();closeInfo()});
+['#bagOpen','#mobileBag'].forEach(s=>{const el=$(s);if(el)el.addEventListener('click',openCart)});$('#closeCart').addEventListener('click',closeCart);$('#overlay').addEventListener('click',()=>{closeCart();closeMenu();closeInfo();closeFilters()});
 ['#menuOpen','#mobileMenu'].forEach(s=>{const el=$(s);if(el)el.addEventListener('click',openMenu)});$('#sideClose').addEventListener('click',closeMenu);
 $('#sideMenu').addEventListener('click',e=>{const sub=e.target.closest('[data-sub]');if(sub)showPanel(sub.dataset.sub);if(e.target.closest('[data-back]'))showPanel('main');if(e.target.closest('a'))closeMenu()});
 const openSearch=()=>{$('#searchPanel').classList.add('open');$('#searchInput').focus()};if($('#searchOpen'))$('#searchOpen').addEventListener('click',openSearch);$('#searchClose').addEventListener('click',()=>$('#searchPanel').classList.remove('open'));$('#searchInput').addEventListener('input',e=>{state.search=e.target.value;renderProducts()});
@@ -82,17 +98,23 @@ window.addEventListener('hashchange',()=>{coll.fromPage=true;route()});
 const closeHashPanel=close=>{if(coll.fromPage)history.back();else{history.replaceState(null,'',location.pathname+location.search);close()}};
 $('#collectionClose').addEventListener('click',()=>closeHashPanel(closeCollection));
 $('#pdpClose').addEventListener('click',()=>closeHashPanel(closeProduct));
-document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#sideMenu').classList.contains('open'))closeMenu();else if($('#infoDrawer').classList.contains('open'))closeInfo();else if($('#cartDrawer').classList.contains('open'))closeCart();else if(!$('#product').hidden)$('#pdpClose').click();else if(!$('#collection').hidden)$('#collectionClose').click()});
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#filterDrawer').classList.contains('open'))closeFilters();else if($('#sideMenu').classList.contains('open'))closeMenu();else if($('#infoDrawer').classList.contains('open'))closeInfo();else if($('#cartDrawer').classList.contains('open'))closeCart();else if(!$('#product').hidden)$('#pdpClose').click();else if(!$('#collection').hidden)$('#collectionClose').click()});
 $('#collectionBrand').addEventListener('change',e=>{coll.brand=e.target.value;renderCollection()});
-$('#collectionColor').addEventListener('change',e=>{coll.color=e.target.value;renderCollection()});
+$('#filterOpen').addEventListener('click',openFilters);$('#filterClose').addEventListener('click',closeFilters);$('#filterApply').addEventListener('click',()=>{closeFilters();$('#collection').scrollTo({top:0})});
+$('#filterClear').addEventListener('click',()=>{coll.colors=[];coll.min=coll.max=null;coll.sort='new';renderCollection()});
+$('#fSort').addEventListener('click',e=>{const b=e.target.closest('[data-sort]');if(b){coll.sort=b.dataset.sort;renderCollection()}});
+$('#fColors').addEventListener('click',e=>{const b=e.target.closest('[data-filter-color]');if(!b)return;const c=b.dataset.filterColor;coll.colors=coll.colors.includes(c)?coll.colors.filter(x=>x!==c):[...coll.colors,c];renderCollection()});
+// Price slider: two handles in €100 steps, kept at least one step apart.
+const onPriceRange=e=>{const[lo,hi]=coll.bounds;let min=+$('#fMin').value,max=+$('#fMax').value;if(min>=max){if(e.target.id==='fMin')min=max-PRICE_STEP;else max=min+PRICE_STEP}coll.min=min>lo?min:null;coll.max=max<hi?max:null;renderCollection()};
+$('#fMin').addEventListener('input',onPriceRange);$('#fMax').addEventListener('input',onPriceRange);
+// Clicking the line (not a handle) moves the nearest handle there.
+$('#fRange').addEventListener('pointerdown',e=>{if(e.target.tagName==='INPUT')return;const[lo,hi]=coll.bounds,t=$('.range-track').getBoundingClientRect(),v=Math.round((lo+(e.clientX-t.left)/t.width*(hi-lo))/PRICE_STEP)*PRICE_STEP,input=Math.abs(v-$('#fMin').value)<Math.abs(v-$('#fMax').value)?$('#fMin'):$('#fMax');input.value=v;input.dispatchEvent(new Event('input',{bubbles:true}))});
 $('#pdpColor').addEventListener('click',e=>{if(e.target.closest('#pdpColorBtn'))toggleColors($('#pdpColorList').hidden);const opt=e.target.closest('[data-color-index]');if(opt)chooseColor(+opt.dataset.colorIndex)});
 $('#pdpColor').addEventListener('keydown',e=>{const list=$('#pdpColorList');if(!list)return;const opt=e.target.closest('[role=option]');
 if(!opt){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();toggleColors(true)}return} // Enter/Space click the button
 const opts=[...list.children],i=opts.indexOf(opt),go=j=>opts[(j+opts.length)%opts.length].focus();
 if(e.key==='ArrowDown'){e.preventDefault();go(i+1)}else if(e.key==='ArrowUp'){e.preventDefault();go(i-1)}else if(e.key==='Home'){e.preventDefault();go(0)}else if(e.key==='End'){e.preventDefault();go(opts.length-1)}
 else if(e.key==='Enter'||e.key===' '){e.preventDefault();chooseColor(i)}else if(e.key==='Escape'){e.stopPropagation();toggleColors(false);$('#pdpColorBtn').focus()}else if(e.key==='Tab')toggleColors(false)});
-$('#collectionPrice').addEventListener('change',e=>{coll.price=e.target.value;renderCollection()});
-$('#collectionSort').addEventListener('change',e=>{coll.sort=e.target.value;renderCollection()});
 $('#pdpThumbs').addEventListener('click',e=>{const t=e.target.closest('[data-media]');if(t){pdp.index=+t.dataset.media;renderProduct()}});
 $('#pdpInfo').addEventListener('click',()=>openInfo('info'));$('#pdpCare').addEventListener('click',()=>openInfo('care'));$('#pdpStore').addEventListener('click',()=>openInfo('store'));$('#infoClose').addEventListener('click',closeInfo);
 $('#infoBody').addEventListener('click',e=>{if(e.target.id!=='readMore')return;const clamped=$('#infoDesc').classList.toggle('clamp');e.target.textContent=clamped?'Read More':'Read Less'});

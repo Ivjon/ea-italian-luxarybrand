@@ -27,7 +27,6 @@
   </header>
 
   <header class="mobile-header">
-    <div class="mobile-top">COMPLIMENTARY SHIPPING ON ORDERS OVER €300</div>
     <div class="mobile-nav"><button id="mobileMenu" aria-label="Menu">☰</button><a href="#top" class="mobile-logo"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><button id="mobileBag">BAG <b id="mobileBagCount" class="bag-count">0</b></button></div>
   </header>
 
@@ -70,11 +69,7 @@
     <div class="collection-head"><div><p class="kicker">THE COLLECTION</p><h2 id="collectionTitle"></h2><span id="collectionCount"></span></div><button class="collection-close" id="collectionClose" aria-label="Close collection">×</button></div>
     <div class="collection-tools">
       <select id="collectionBrand" aria-label="Brand"></select>
-      <div class="collection-selects">
-        <select id="collectionColor" aria-label="Colour" hidden></select>
-        <select id="collectionPrice" aria-label="Price"><option value="all">All prices</option><option value="0-500">Under €500</option><option value="500-1000">€500 – €999</option><option value="1000-">€1,000 and above</option></select>
-        <select id="collectionSort" aria-label="Sort by"><option value="new">New arrivals</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option></select>
-      </div>
+      <button class="filter-open" id="filterOpen" aria-controls="filterDrawer">Filter<span id="filterCount"></span></button>
     </div>
     <div class="product-grid" id="collectionGrid"></div>
   </section>
@@ -99,6 +94,15 @@
       </div>
     </div>
   </section>
+  <aside class="filter-drawer" id="filterDrawer" aria-labelledby="filterTitle">
+    <div class="filter-head"><h2 id="filterTitle">Filter</h2><button class="filter-clear" id="filterClear">Clear all</button><button class="filter-close" id="filterClose" aria-label="Close filters">×</button></div>
+    <div class="filter-body">
+      <section class="filter-sec"><h3><span class="num">01</span>Sort by</h3><div class="filter-opts" id="fSort"><button data-sort="price-asc">Price: low to high</button><button data-sort="price-desc">Price: high to low</button><button data-sort="new">New arrivals</button></div></section>
+      <section class="filter-sec"><h3><span class="num">02</span>Price</h3><div><div class="range" id="fRange"><div class="range-track"><span class="range-fill" id="fFill"></span><span id="fTicks"></span></div><input type="range" id="fMin" step="100" aria-label="Minimum price"><input type="range" id="fMax" step="100" aria-label="Maximum price"></div><p class="range-values" id="fValues"></p></div></section>
+      <section class="filter-sec" id="fColorSec"><h3><span class="num">03</span>Colour</h3><div class="filter-opts" id="fColors"></div></section>
+    </div>
+    <button class="filter-apply" id="filterApply">View results</button>
+  </aside>
   <aside class="info-drawer" id="infoDrawer" aria-labelledby="infoTitle"><div class="info-head"><h2 id="infoTitle"></h2><button class="info-close" id="infoClose" aria-label="Close">×</button></div><div class="info-body" id="infoBody"></div></aside>
   <div class="loader" id="loader" hidden><div class="loader-mark"><img src="/assets/brand/ea-mark.svg" alt="" /><img class="loader-fill" src="/assets/brand/ea-mark.svg" alt="" /></div></div>
 

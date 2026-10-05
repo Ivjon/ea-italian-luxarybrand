@@ -3,7 +3,7 @@
     "id": "p1",
     "brand": "Armani",
     "name": "Tailored Wool Blazer",
-    "category": "Women",
+    "category": "Kids",
     "type": "Clothing",
     "price": 520,
     "stock": 5,
@@ -29,6 +29,7 @@
         "qty": 1
       }
     ],
+    "sizeType": "clothing",
     "image": "/assets/products/blazer-ivory.jpg",
     "media": [
       {

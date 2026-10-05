@@ -1,0 +1,10 @@
+[
+  {"id":"p1","brand":"Armani","name":"Tailored Wool Blazer","category":"Women","price":520,"stock":8,"image":"/assets/blazer.jpg"},
+  {"id":"p2","brand":"Moschino","name":"Leather Top Handle Bag","category":"Women","price":690,"stock":5,"image":"/assets/handbag.jpg"},
+  {"id":"p3","brand":"Versace","name":"Sculpted Leather Sandal","category":"Women","price":590,"stock":11,"image":"/assets/heels.jpg"},
+  {"id":"p4","brand":"Valentino","name":"Fine Knit Cashmere","category":"Women","price":480,"stock":3,"image":"/assets/knit.jpg"},
+  {"id":"p5","brand":"Dolce & Gabbana","name":"Signature Sunglasses","category":"Women","price":310,"stock":16,"image":"/assets/sunglasses.jpg"},
+  {"id":"p6","brand":"Philipp Plein","name":"Monochrome Evening Jacket","category":"Men","price":880,"stock":6,"image":"/assets/men-edit.jpg"},
+  {"id":"p7","brand":"Armani","name":"Italian Wool Overcoat","category":"Men","price":1250,"stock":4,"image":"/assets/editorial-rome.png"},
+  {"id":"p8","brand":"Moschino","name":"Structured Black Tote","category":"Women","price":760,"stock":9,"image":"/assets/bag-edit.jpg"}
+]

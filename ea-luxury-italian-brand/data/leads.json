@@ -1,0 +1,5 @@
+[
+ {"id":"L1","name":"Isabella Conti","email":"isabella@example.com","source":"Newsletter","stage":"Warm"},
+ {"id":"L2","name":"Noah Williams","email":"noah@example.com","source":"Instagram","stage":"New"},
+ {"id":"L3","name":"Amelia Dubois","email":"amelia@example.com","source":"Website","stage":"Qualified"}
+]

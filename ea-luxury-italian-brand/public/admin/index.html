@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EA Luxury CRM</title><link rel="stylesheet" href="/admin/admin.css"></head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="/"><strong>EA</strong><span>LUXURY<br>ITALIAN BRANDS</span></a>
+    <nav>
+      <button class="nav-item active" data-view="dashboard">⌂ <span>Dashboard</span></button>
+      <button class="nav-item" data-view="orders">▣ <span>Orders</span><b id="orderBadge">0</b></button>
+      <button class="nav-item" data-view="products">◇ <span>Products</span></button>
+      <button class="nav-item" data-view="customers">♙ <span>Customers</span></button>
+      <button class="nav-item" data-view="leads">✦ <span>Leads</span></button>
+      <button class="nav-item" data-view="inventory">▤ <span>Inventory</span></button>
+    </nav>
+    <a class="view-store" href="/">VIEW STORE ↗</a>
+  </aside>
+  <main class="main">
+    <header class="topbar"><input id="globalSearch" placeholder="Search orders, products, customers…"><div class="user"><span class="bell">○</span><div class="avatar">EA</div><div><b>EA Manager</b><small>Store Admin</small></div></div></header>
+    <section class="content" id="viewRoot"></section>
+  </main>
+</div>
+<div class="modal" id="modal"><div class="modal-card"><button class="modal-close" id="modalClose">×</button><div id="modalBody"></div></div></div>
+<script src="/admin/admin.js" defer></script>
+</body>
+</html>

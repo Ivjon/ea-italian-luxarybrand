@@ -1,0 +1,7 @@
+[
+ {"id":"C1001","name":"Chiara Rossi","email":"chiara@example.com","city":"Milano","orders":5,"spent":4820,"status":"VIP"},
+ {"id":"C1002","name":"Marco Bianchi","email":"marco@example.com","city":"Roma","orders":3,"spent":2190,"status":"Active"},
+ {"id":"C1003","name":"Sofia Laurent","email":"sofia@example.com","city":"Paris","orders":7,"spent":7680,"status":"VIP"},
+ {"id":"C1004","name":"Elena Moretti","email":"elena@example.com","city":"Firenze","orders":2,"spent":1310,"status":"Active"},
+ {"id":"C1005","name":"James Carter","email":"james@example.com","city":"London","orders":1,"spent":520,"status":"New"}
+]

@@ -1,0 +1,7 @@
+[
+ {"id":"EA10284","customer":"Chiara Rossi","items":2,"total":1280,"status":"Processing","date":"2026-10-05"},
+ {"id":"EA10283","customer":"Marco Bianchi","items":1,"total":690,"status":"Shipped","date":"2026-10-05"},
+ {"id":"EA10282","customer":"Sofia Laurent","items":3,"total":2150,"status":"Processing","date":"2026-10-04"},
+ {"id":"EA10281","customer":"James Carter","items":1,"total":520,"status":"Delivered","date":"2026-10-04"},
+ {"id":"EA10280","customer":"Elena Moretti","items":4,"total":3420,"status":"Shipped","date":"2026-10-03"}
+]

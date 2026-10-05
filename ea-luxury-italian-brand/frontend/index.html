@@ -11,8 +11,9 @@
 </head>
 <body>
   <header class="desktop-exact" aria-label="EA Luxury hero">
-    <img class="exact-image" src="/assets/ea-luxury-home.png" alt="EA Luxury Italian Excellence homepage" />
+    <img class="exact-image" src="/assets/ea-luxury-home.png?v=2" alt="EA Luxury Italian Excellence homepage" />
     <nav class="hotspots" aria-label="Primary navigation">
+      <button class="hot menu-btn" id="menuOpen" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6.5h20M2 12h20M2 17.5h20" /></svg></button>
       <a class="hot logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a>
       <a class="hot men" href="#men" aria-label="Men"></a>
       <a class="hot women" href="#women" aria-label="Women"></a>
@@ -27,7 +28,7 @@
 
   <header class="mobile-header">
     <div class="mobile-top">COMPLIMENTARY SHIPPING ON ORDERS OVER €300</div>
-    <div class="mobile-nav"><button id="mobileMenu" aria-label="Menu">☰</button><a href="#top" class="mobile-logo"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><button id="mobileBag">BAG <b id="mobileBagCount">0</b></button></div>
+    <div class="mobile-nav"><button id="mobileMenu" aria-label="Menu">☰</button><a href="#top" class="mobile-logo"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><button id="mobileBag">BAG <b id="mobileBagCount" class="bag-count">0</b></button></div>
   </header>
 
   <main>
@@ -68,18 +69,60 @@
   <section class="collection" id="collection" aria-labelledby="collectionTitle" hidden>
     <div class="collection-head"><div><p class="kicker">THE COLLECTION</p><h2 id="collectionTitle"></h2><span id="collectionCount"></span></div><button class="collection-close" id="collectionClose" aria-label="Close collection">×</button></div>
     <div class="collection-tools">
-      <div class="brand-filters" id="collectionBrands"></div>
+      <select id="collectionBrand" aria-label="Brand"></select>
       <div class="collection-selects">
+        <select id="collectionColor" aria-label="Colour" hidden></select>
         <select id="collectionPrice" aria-label="Price"><option value="all">All prices</option><option value="0-500">Under €500</option><option value="500-1000">€500 – €999</option><option value="1000-">€1,000 and above</option></select>
         <select id="collectionSort" aria-label="Sort by"><option value="new">New arrivals</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option></select>
       </div>
     </div>
     <div class="product-grid" id="collectionGrid"></div>
   </section>
+  <section class="pdp" id="product" aria-labelledby="pdpName" hidden>
+    <div class="pdp-bar"><button class="pdp-back" id="pdpClose"><span aria-hidden="true">‹</span> Back</button><a class="pdp-logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><button class="pdp-bag" data-open-cart>BAG <b class="bag-count">0</b></button></div>
+    <div class="pdp-main">
+      <div class="pdp-info">
+        <p class="pdp-brand" id="pdpBrand"></p>
+        <h1 id="pdpName"></h1>
+        <p class="pdp-price" id="pdpPrice"></p>
+        <div class="pdp-color" id="pdpColor"></div>
+        <button class="pdp-btn" id="pdpStore">Find a store</button>
+        <button class="pdp-btn solid" id="pdpAdd" data-add="">Add to bag</button>
+        <nav class="pdp-crumbs" id="pdpCrumbs" aria-label="Breadcrumb"></nav>
+      </div>
+      <div class="pdp-stage" id="pdpStage"></div>
+      <div class="pdp-thumbs" id="pdpThumbs"></div>
+      <div class="pdp-rows">
+        <button class="pdp-row" id="pdpInfo">Info &amp; Details<span class="chev" aria-hidden="true">›</span></button>
+        <button class="pdp-row" id="pdpCare">Product care<span class="chev" aria-hidden="true">›</span></button>
+        <button class="pdp-share" id="pdpShare" aria-label="Share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3.5M7.5 8L12 3.5 16.5 8M5.5 11.5v9h13v-9" /></svg><span id="pdpShared" role="status"></span></button>
+      </div>
+    </div>
+  </section>
+  <aside class="info-drawer" id="infoDrawer" aria-labelledby="infoTitle"><div class="info-head"><h2 id="infoTitle"></h2><button class="info-close" id="infoClose" aria-label="Close">×</button></div><div class="info-body" id="infoBody"></div></aside>
   <div class="loader" id="loader" hidden><div class="loader-mark"><img src="/assets/brand/ea-mark.svg" alt="" /><img class="loader-fill" src="/assets/brand/ea-mark.svg" alt="" /></div></div>
 
   <aside class="drawer" id="cartDrawer"><div class="drawer-head"><h2>Your bag</h2><button id="closeCart">×</button></div><div id="cartItems"></div><div class="drawer-foot"><span>Total</span><strong id="cartTotal">€0</strong><button class="checkout">Proceed to checkout</button></div></aside><div class="overlay" id="overlay"></div>
+  <aside class="side-menu" id="sideMenu" aria-label="Menu">
+    <div class="side-head"><button class="side-close" id="sideClose" aria-label="Close menu">×</button></div>
+    <nav class="side-panel" data-panel="main">
+      <p class="side-label">Brands</p>
+      <ul class="side-list side-brands" id="sideBrands"></ul>
+      <p class="side-label">Shop</p>
+      <ul class="side-list">
+        <li><a href="#all">All products</a></li>
+        <li><a href="#women">Women</a></li>
+        <li><a href="#men">Men</a></li>
+        <li><a href="#watches">Watches</a></li>
+        <li><button data-sub="jewellery">Jewellery<span class="chev" aria-hidden="true">›</span></button></li>
+        <li><button data-sub="shoes">Shoes<span class="chev" aria-hidden="true">›</span></button></li>
+      </ul>
+    </nav>
+    <nav class="side-panel" data-panel="jewellery" hidden><button class="side-back" data-back><span aria-hidden="true">‹</span> Jewellery</button><ul class="side-list" id="side-jewellery"></ul></nav>
+    <nav class="side-panel" data-panel="shoes" hidden><button class="side-back" data-back><span aria-hidden="true">‹</span> Shoes</button><ul class="side-list" id="side-shoes"></ul></nav>
+  </aside>
   <div class="search-panel" id="searchPanel"><input id="searchInput" type="search" placeholder="Search collection"><button id="searchClose">×</button></div>
+  <script src="/catalog.js" defer></script>
   <script src="/app.js" defer></script>
 </body>
 </html>

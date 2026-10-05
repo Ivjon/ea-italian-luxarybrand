@@ -15,7 +15,9 @@ async function handleApi(req, res, url) {
     const pathExists = Object.keys(routes).some(key => key.split(' ')[1] === url.pathname);
     throw pathExists ? new HttpError(405, 'Method not allowed.') : new HttpError(404, 'Not found.');
   }
-  const ctx = { req, url, status: 200, body: req.method === 'POST' ? await readJson(req) : {} };
+  // Handlers marked `raw` (file uploads) read the request stream themselves.
+  const hasJsonBody = ['POST', 'PUT', 'DELETE'].includes(req.method) && !handler.raw;
+  const ctx = { req, url, status: 200, body: hasJsonBody ? await readJson(req) : {} };
   const data = await handler(ctx);
   sendJson(res, ctx.status, data);
 }

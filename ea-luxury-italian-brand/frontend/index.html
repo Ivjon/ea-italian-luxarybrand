@@ -101,13 +101,12 @@
   <section class="co" id="checkout" aria-labelledby="coTitle" hidden>
     <div class="pdp-bar"><button class="pdp-back" id="coClose"><span aria-hidden="true">‹</span> Back</button><a class="pdp-logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><span></span></div>
     <div class="co-main" id="coMain">
+      <header class="co-head"><p class="kicker">Checkout</p><h1 id="coTitle">Your details</h1></header>
       <form class="co-form" id="coForm">
-        <p class="kicker">Checkout</p>
-        <h1 id="coTitle">Your details</h1>
         <fieldset class="co-sec"><legend><span>01</span>Contact</legend>
           <div class="co-grid">
-            <label>Email<input name="email" type="email" required maxlength="254" autocomplete="email" /></label>
-            <label>Phone<input name="phone" type="tel" required maxlength="30" autocomplete="tel" /></label>
+            <label>Email<input name="email" type="email" required maxlength="254" autocomplete="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]+" spellcheck="false" /></label>
+            <label>Phone<input name="phone" type="tel" required maxlength="30" autocomplete="tel" pattern="(?=(?:[^0-9]*[0-9]){6})[+0-9 \(\)\/.\-]+" /></label>
           </div>
         </fieldset>
         <fieldset class="co-sec"><legend><span>02</span>Delivery address</legend>
@@ -121,13 +120,17 @@
             <label class="full">Country<input name="country" required maxlength="60" autocomplete="country-name" /></label>
           </div>
         </fieldset>
-        <fieldset class="co-sec"><legend><span>03</span>Delivery</legend><div class="co-options" id="coDelivery"></div></fieldset>
-        <fieldset class="co-sec"><legend><span>04</span>Payment</legend><div class="co-options" id="coPayment"></div></fieldset>
+        <fieldset class="co-sec"><legend><span>03</span>Delivery</legend><div class="co-options" id="coDelivery"><p class="co-wait">Loading…</p></div></fieldset>
+        <fieldset class="co-sec"><legend><span>04</span>Payment</legend><div class="co-options" id="coPayment"><p class="co-wait">Loading…</p></div></fieldset>
         <label class="co-note"><span>Note for your order <small>optional</small></span><textarea name="note" rows="3" maxlength="500" placeholder="Gift message, delivery instructions…"></textarea></label>
         <p class="co-error" id="coError" role="alert"></p>
         <button class="pdp-btn solid co-place" id="coPlace">Place order</button>
       </form>
-      <aside class="co-summary" aria-label="Order summary"><h2>Your order</h2><div id="coLines"></div><dl class="co-totals" id="coTotals"></dl></aside>
+      <aside class="co-summary" aria-labelledby="coSumTitle">
+        <div class="co-sum-head"><h2 id="coSumTitle">Your order</h2><button type="button" class="co-link" data-open-cart>Edit bag</button></div>
+        <button type="button" class="co-sum-toggle" id="coSumToggle" aria-expanded="false" aria-controls="coSumBody"><span class="vh">Order details: </span><span class="co-sum-count" id="coSumCount"></span><b class="co-sum-total" id="coSumTotal"></b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6" /></svg></button>
+        <div class="co-sum-body" id="coSumBody"><div class="co-lines" id="coLines"></div><dl class="co-totals" id="coTotals"></dl></div>
+      </aside>
     </div>
     <div class="co-done" id="coDone" hidden></div>
   </section>
@@ -145,7 +148,7 @@
   <aside class="info-drawer" id="infoDrawer" aria-labelledby="infoTitle"><div class="info-head"><h2 id="infoTitle"></h2><button class="info-close" id="infoClose" aria-label="Close">×</button></div><div class="info-body" id="infoBody"></div></aside>
   <div class="loader" id="loader" hidden><div class="loader-mark"><img src="/assets/brand/ea-mark.svg" alt="" /><img class="loader-fill" src="/assets/brand/ea-mark.svg" alt="" /></div></div>
 
-  <aside class="drawer" id="cartDrawer"><div class="drawer-head"><h2>Your bag</h2><button id="closeCart">×</button></div><div id="cartItems"></div><div class="drawer-foot"><span>Total</span><strong id="cartTotal">€0</strong><button class="checkout" id="checkoutBtn">Proceed to checkout</button></div></aside><div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="cartDrawer"><div class="drawer-head"><h2>Your bag</h2><button id="closeCart" aria-label="Close bag">×</button></div><div id="cartItems"></div><div class="drawer-foot"><span>Total</span><strong id="cartTotal">€0</strong><button class="checkout" id="checkoutBtn">Proceed to checkout</button></div></aside><div class="overlay" id="overlay"></div>
   <aside class="side-menu" id="sideMenu" aria-label="Menu">
     <div class="side-head"><button class="side-close" id="sideClose" aria-label="Close menu">×</button></div>
     <nav class="side-panel" data-panel="main">

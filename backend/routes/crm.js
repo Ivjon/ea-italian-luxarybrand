@@ -1,10 +1,11 @@
-// CRM / admin API. Demo only: there is no authentication on these routes.
+// CRM / admin API. Every /api/crm/* route needs the signed-in admin (checked in server.js, see lib/auth.js).
 const store = require('../lib/store');
 const validate = require('../lib/validate');
 const { HttpError } = require('../lib/http');
 const { saveUpload } = require('../lib/uploads');
 
 const ORDER_STATUSES = ['Processing', 'Shipped', 'Delivered'];
+const LEAD_STAGES = ['New', 'Warm', 'Qualified', 'Won', 'Lost'];
 const GENDERS = ['Women', 'Men', 'Unisex', 'Kids']; // saved as the product's `category`
 const SIZE_TYPES = ['clothing', 'shoes', 'kids-clothing', 'kids-shoes']; // size charts, see frontend/catalog.js
 const NUMBER_SIZE_TYPES = ['shoes', 'kids-shoes']; // shoe charts take number sizes only (38, 38.5)
@@ -145,7 +146,7 @@ function createOrder({ body }) {
   if (!customer) throw new HttpError(400, 'Customer not found.');
 
   const orders = store.read('orders');
-  const order = { id: store.nextId(orders, 'EA', 10001), customer: customer.name, items, total, status, date: today() };
+  const order = { id: store.nextId(orders, 'EA', 10001), customer: customer.name, customerId: customer.id, email: customer.email, items, total, status, date: today() };
   orders.unshift(order); // newest first, like the existing data
 
   customer.orders += 1;
@@ -155,6 +156,25 @@ function createOrder({ body }) {
   store.write('orders', orders);
   store.write('customers', customers);
   return order;
+}
+
+// Status changes from the CRM: an order moves Processing -> Shipped -> Delivered, a lead through its stages.
+function updateOrder({ body }) {
+  const orders = store.read('orders');
+  const order = orders.find(o => o.id === String(body.id || ''));
+  if (!order) throw new HttpError(404, 'Order not found.');
+  order.status = validate.oneOf(body.status, 'Status', ORDER_STATUSES, order.status);
+  store.write('orders', orders);
+  return order;
+}
+
+function updateLead({ body }) {
+  const leads = store.read('leads');
+  const lead = leads.find(l => l.id === String(body.id || ''));
+  if (!lead) throw new HttpError(404, 'Lead not found.');
+  lead.stage = validate.oneOf(body.stage, 'Stage', LEAD_STAGES, lead.stage);
+  store.write('leads', leads);
+  return lead;
 }
 
 const created = handler => Object.assign(ctx => {
@@ -167,6 +187,8 @@ module.exports = {
   'GET /api/crm/customers': () => store.read('customers'),
   'GET /api/crm/leads': () => store.read('leads'),
   'POST /api/crm/orders': created(createOrder),
+  'PUT /api/crm/orders': updateOrder,
+  'PUT /api/crm/leads': updateLead,
   'POST /api/crm/customers': created(createCustomer),
   'POST /api/crm/leads': created(createLead),
   'POST /api/crm/products': created(createProduct),

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "frontend/index.html"
+        ],
+        "createdAt": "2026-10-05T22:07:04.772Z",
+        "reason": "Claude, measured: hero/mobile-nav/pdp-bar/drawer-head content sits 9-36px inside its boundary; only the full-bleed hero photo touches the edges (critique Assessment B, 2026-10-05)"
+      }
+    ]
+  }
+}

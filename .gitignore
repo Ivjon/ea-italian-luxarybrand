@@ -7,3 +7,6 @@ npm-debug.log*
 Thumbs.db
 .vscode/
 design/hero-man.jpg
+backend/data/admin.json
+backend/data/accounts.json
+backend/data/account-sessions.json

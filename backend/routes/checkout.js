@@ -2,6 +2,7 @@
 const store = require('../lib/store');
 const validate = require('../lib/validate');
 const { HttpError } = require('../lib/http');
+const { sessionAccount } = require('../lib/accounts');
 
 // Delivery and payment choices offered at checkout (the prices here are the ones charged).
 const DELIVERY = [
@@ -84,7 +85,8 @@ function takeStock(lines) {
   }
 }
 
-function placeOrder({ body }) {
+function placeOrder({ req, body }) {
+  const account = sessionAccount(req); // a signed-in customer finds this order under My account
   const { firstName, lastName, email, phone, address } = contactFields(body);
   const delivery = DELIVERY.find(d => d.key === body.delivery);
   if (!delivery) throw new HttpError(400, 'Please choose a delivery option.');
@@ -119,6 +121,7 @@ function placeOrder({ body }) {
     status: 'Processing',
     date: today(),
     source: 'Website',
+    ...(account && { account: account.email }),
   };
   orders.unshift(order); // newest first, like the CRM's orders
 

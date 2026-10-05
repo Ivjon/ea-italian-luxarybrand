@@ -1,6 +1,6 @@
 # EA Luxury Italian Brand — Store + CRM
 
-This version is rebuilt to visually match the final EA Luxury reference image as closely as possible on desktop. The exact generated reference is included locally and used for the first fold so the appearance does not change because of missing external assets.
+The desktop first fold follows the final EA Luxury reference image (`design/references/`), built as a real header and hero: the photograph is `frontend/assets/editorial/hero-desktop-*.webp/.jpg` (the reference with its painted text removed) and the headline, navigation and bag count are live HTML. Phones get `hero-mobile.jpg` instead.
 
 ## Run in VS Code
 1. Extract the ZIP.
@@ -13,7 +13,15 @@ npm start
 ```
 
 Store: http://localhost:3000
-CRM / Admin: http://localhost:3000/admin/
+CRM / Admin: http://localhost:3000/admin/ (sign-in required)
+
+**Customer accounts.** The person icon in the store header opens My account (`#account`): customers sign in or create an account (email + password, at least 8 characters) and see every order they placed while signed in or with that email, with its status (Order placed → On its way → Delivered) as you change it in the CRM. Signed-in customers get their name and email filled in at checkout. Accounts are linked to the CRM customer with the same email (one is added if needed). Passwords are hashed in `backend/data/accounts.json`; sign-ins last 30 days (`backend/data/account-sessions.json`). Both files stay out of git.
+
+**CRM sign-in.** On the first start the server creates the admin account (username `admin`) with a random password and
+prints it once in the terminal. Change it in the CRM with the key icon (top right). Forgot it? Stop the server, delete
+`backend/data/admin.json` (not committed to git) and start again for a new one. To set your own instead, start with
+`ADMIN_PASSWORD` (and optionally `ADMIN_USER`), e.g. PowerShell: `$env:ADMIN_PASSWORD="choose-a-long-one"; npm start`.
+Sessions last 12 hours and end when the server restarts; 8 wrong passwords in 15 minutes pause sign-in for that address.
 
 No `npm install` is required. The project uses Node.js built-in modules only.
 `npm run dev` restarts the server automatically when backend files change.
@@ -119,12 +127,12 @@ first, so add new products at the end. While a collection opens, the EA mark fil
 Errors come back as `{ ok: false, message }` with a 4xx status.
 
 ## Included
-- Pixel-faithful desktop first fold based on the approved final visual
+- Desktop first fold matching the approved final visual, with real text and a live bag count
 - Local image assets (no remote image dependency)
 - Responsive mobile layout
 - Brand filter and category filter
 - Product catalogue
-- Search
+- Search (header icon on every screen size): results as you type; Enter opens them all as a collection (`#search/<query>`)
 - Shopping bag saved in localStorage
 - Newsletter endpoint
 - CRM/Admin dashboard

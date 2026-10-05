@@ -7,36 +7,38 @@
   <title>EA Luxury Italian Brand</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400&display=swap" />
+  <link rel="preload" as="image" href="/assets/editorial/hero-desktop-1536.webp" media="(min-width: 901px)" imagesrcset="/assets/editorial/hero-desktop-1024.webp 1024w, /assets/editorial/hero-desktop-1536.webp 1536w" imagesizes="100vw" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="icon" href="/assets/brand/ea-icon.png" />
   <link rel="apple-touch-icon" href="/assets/brand/ea-icon.png" />
 </head>
 <body>
-  <header class="desktop-exact" aria-label="EA Luxury hero">
-    <img class="exact-image" src="/assets/ea-luxury-home.png?v=2" alt="EA Luxury Italian Excellence homepage" />
-    <nav class="hotspots" aria-label="Primary navigation">
-      <button class="hot menu-btn" id="menuOpen" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6.5h20M2 12h20M2 17.5h20" /></svg></button>
-      <a class="hot logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a>
-      <a class="hot men" href="#men" aria-label="Men"></a>
-      <a class="hot women" href="#women" aria-label="Women"></a>
-      <a class="hot brands" href="#brands-live" aria-label="Brands"></a>
-      <a class="hot about" href="#story" aria-label="About"></a>
-      <button class="hot search" id="searchOpen" aria-label="Search"></button>
-      <a class="hot account" href="/admin/" aria-label="CRM admin"></a>
-      <button class="hot bag" id="bagOpen" aria-label="Shopping bag"></button>
-      <a class="hot discover" href="#shop" aria-label="Discover collection"></a>
-    </nav>
-  </header>
-
-  <header class="mobile-header">
-    <div class="mobile-nav"><button id="mobileMenu" aria-label="Menu">☰</button><a href="#top" class="mobile-logo"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><button id="mobileBag">BAG <b id="mobileBagCount" class="bag-count">0</b></button></div>
+  <!-- One header for every width: over the hero photo on desktop, a plain bar at 900px and below. -->
+  <header class="site-header">
+    <button class="hdr-btn hdr-menu" id="menuOpen" aria-label="Open menu" aria-controls="sideMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6.5h20M2 12h20M2 17.5h20" /></svg></button>
+    <a class="hdr-logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" width="105" height="84" /></a>
+    <nav class="hdr-nav" aria-label="Primary"><a href="#men">Men</a><a href="#women">Women</a><a href="#brands-live">Brands</a><a href="#story">About</a></nav>
+    <div class="hdr-end">
+      <button class="hdr-btn" id="searchOpen" aria-label="Search" aria-controls="searchPanel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.3 15.3 21 21" /></svg></button>
+      <a class="hdr-btn hdr-account" id="accountLink" href="#account" aria-label="Sign in or create an account" title="My account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4.5 20.5c.8-4 3.8-6 7.5-6s6.7 2 7.5 6" /></svg></a>
+      <button class="hdr-btn hdr-bag" id="bagOpen" aria-label="Bag, 0 items" data-count="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8.5h14l-1.2 12.5H6.2z" /><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5" /></svg><span class="hdr-bag-label" aria-hidden="true">Bag</span> <b class="bag-count" aria-hidden="true">0</b></button>
+    </div>
   </header>
 
   <main>
-    <section class="mobile-hero">
-      <img src="/assets/editorial/hero-mobile.jpg" alt="EA Luxury editorial" />
-      <div class="mobile-copy"><p>A SELECTION OF ICONS</p><h1>ITALIAN<br>EXCELLENCE</h1><em>Timeless style. A curated selection of iconic luxury brands.</em><a href="#shop">DISCOVER THE COLLECTION</a></div>
+    <section class="hero" aria-labelledby="heroTitle">
+      <picture>
+        <source media="(min-width: 901px)" type="image/webp" srcset="/assets/editorial/hero-desktop-1024.webp 1024w, /assets/editorial/hero-desktop-1536.webp 1536w" sizes="100vw" />
+        <source media="(min-width: 901px)" srcset="/assets/editorial/hero-desktop-1024.jpg 1024w, /assets/editorial/hero-desktop-1536.jpg 1536w" sizes="100vw" />
+        <img class="hero-img" src="/assets/editorial/hero-mobile.jpg" alt="" width="800" height="628" fetchpriority="high" />
+      </picture>
+      <div class="hero-copy">
+        <p class="hero-kicker">A selection of icons</p>
+        <h1 id="heroTitle">Italian<br /> excellence</h1>
+        <p class="hero-sub">Timeless style. A curated selection of the world’s most iconic luxury brands.</p>
+        <a class="hero-cta" href="#shop">Discover the collection</a>
+      </div>
     </section>
 
     <section class="brands-live" id="brands-live">
@@ -45,7 +47,7 @@
       <div id="brandRow" class="brand-row"></div>
     </section>
 
-    <section class="edit-grid" id="story">
+    <section class="edit-grid">
       <article><img src="/assets/editorial/women.jpg" alt="Women's collection" loading="lazy"><div><span>EA EDIT</span><h3>Women</h3><a href="#women">Discover</a></div></article>
       <article><img src="/assets/editorial/men.jpg" alt="Men's collection" loading="lazy"><div><span>THE CLASSICS</span><h3>Men</h3><a href="#men">Discover</a></div></article>
     </section>
@@ -55,7 +57,7 @@
       <div class="product-grid" id="productGrid"></div>
     </section>
 
-    <section class="story-band">
+    <section class="story-band" id="story">
       <div><p class="kicker light">EA LUXURY</p><h2>Italian character.<br>Quiet confidence.</h2></div>
       <p>A focused selection of established fashion houses, presented through a calm and editorial shopping experience.</p>
     </section>
@@ -66,7 +68,7 @@
     </section>
   </main>
 
-  <footer><div class="footer-mark"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></div><nav><a href="#shop">Collection</a><a href="#brands-live">Brands</a><a href="#story">About</a><a href="/admin/">CRM / Admin</a></nav><small>© 2026 EA Luxury Italian Brand.</small></footer>
+  <footer><div class="footer-mark"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></div><nav aria-label="Footer"><a href="#shop">Collection</a><a href="#brands-live">Brands</a><a href="#story">About</a></nav><small>© 2026 EA Luxury Italian Brand.</small></footer>
 
   <section class="collection" id="collection" aria-labelledby="collectionTitle" hidden>
     <div class="collection-head"><div><p class="kicker">THE COLLECTION</p><h2 id="collectionTitle"></h2><span id="collectionCount"></span></div><button class="collection-close" id="collectionClose" aria-label="Close collection">×</button></div>
@@ -134,6 +136,10 @@
     </div>
     <div class="co-done" id="coDone" hidden></div>
   </section>
+  <section class="co acct" id="account" aria-labelledby="acctTitle" hidden>
+    <div class="pdp-bar"><button class="pdp-back" id="acctClose"><span aria-hidden="true">‹</span> Back</button><a class="pdp-logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><span></span></div>
+    <div class="acct-main" id="acctMain"></div>
+  </section>
   <aside class="filter-drawer" id="filterDrawer" aria-labelledby="filterTitle">
     <div class="filter-head"><h2 id="filterTitle">Filter</h2><button class="filter-clear" id="filterClear">Clear all</button><button class="filter-close" id="filterClose" aria-label="Close filters">×</button></div>
     <div class="filter-body">
@@ -168,7 +174,11 @@
     <nav class="side-panel" data-panel="jewellery" hidden><button class="side-back" data-back><span aria-hidden="true">‹</span> Jewellery</button><ul class="side-list" id="side-jewellery"></ul></nav>
     <nav class="side-panel" data-panel="shoes" hidden><button class="side-back" data-back><span aria-hidden="true">‹</span> Shoes</button><ul class="side-list" id="side-shoes"></ul></nav>
   </aside>
-  <div class="search-panel" id="searchPanel"><input id="searchInput" type="search" placeholder="Search collection"><button id="searchClose">×</button></div>
+  <div class="search-panel" id="searchPanel" role="dialog" aria-label="Search the collection">
+    <form class="search-form" id="searchForm" role="search"><label class="vh" for="searchInput">Search brands, pieces and categories</label><input id="searchInput" type="search" placeholder="Search collection" autocomplete="off" enterkeyhint="search" maxlength="80" /><button type="button" class="search-close" id="searchClose" aria-label="Close search">×</button></form>
+    <p class="vh" id="searchStatus" role="status"></p>
+    <div class="search-results" id="searchResults"></div>
+  </div>
   <script src="/catalog.js" defer></script>
   <script src="/app.js" defer></script>
 </body>

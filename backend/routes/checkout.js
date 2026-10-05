@@ -48,7 +48,7 @@ function bagLines(items, products) {
   const lines = [];
   for (const item of items) {
     const product = products.find(p => p.id === String((item && item.id) || ''));
-    if (!product) throw new HttpError(409, 'A piece in your bag is no longer available. Please remove it and try again.');
+    if (!product || product.hidden) throw new HttpError(409, 'A piece in your bag is no longer available. Please remove it and try again.');
     const size = hasSizes(product) ? String(item.size || '') : '';
     if (hasSizes(product) && !product.sizes.some(s => s.size === size)) throw new HttpError(400, `Please choose a size for ${product.name}.`);
     const color = colorNames(product).includes(item.color) ? item.color : '';

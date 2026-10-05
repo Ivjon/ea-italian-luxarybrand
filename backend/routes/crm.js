@@ -55,6 +55,8 @@ function productFields(body) {
     sizeType,
     // shown with a "New arrival" label and in the home page's New Arrivals
     isNew: body.isNew === true || body.isNew === 'on' || body.isNew === 'true',
+    // hidden pieces stay in the CRM but are left out of the store (drafts, pieces taken off sale)
+    hidden: body.hidden === true || body.hidden === 'on' || body.hidden === 'true',
     // percent off the price; discounted pieces are found with the store's "On sale" filter
     discount: body.discount === '' || body.discount == null ? 0 : validate.number(body.discount, 'Discount', { min: 0, max: 90, integer: true }),
     image: cover.src,
@@ -72,6 +74,7 @@ function productFields(body) {
     if (!fields[key].length) delete fields[key];
   }
   if (!fields.isNew) delete fields.isNew;
+  if (!fields.hidden) delete fields.hidden;
   if (!fields.discount) delete fields.discount;
   return fields;
 }
@@ -96,6 +99,16 @@ function updateProduct({ body }) {
   products[index] = { id: products[index].id, ...productFields(body) };
   store.write('products', products);
   return products[index];
+}
+
+// Stock of a one-size piece, changed from the CRM's product list (sized pieces are edited per size in the editor).
+function updateStock({ body }) {
+  const products = store.read('products');
+  const product = products[findProduct(products, body.id)];
+  if (product.sizes && product.sizes.length) throw new HttpError(400, 'This piece has sizes: change the stock per size in the product editor.');
+  product.stock = validate.number(body.stock, 'Stock', { min: 0, max: 1e5, integer: true });
+  store.write('products', products);
+  return product;
 }
 
 function deleteProduct({ body }) {
@@ -191,7 +204,9 @@ module.exports = {
   'PUT /api/crm/leads': updateLead,
   'POST /api/crm/customers': created(createCustomer),
   'POST /api/crm/leads': created(createLead),
+  'GET /api/crm/products': () => store.read('products'), // all products, hidden ones too
   'POST /api/crm/products': created(createProduct),
+  'PUT /api/crm/products/stock': updateStock,
   'PUT /api/crm/products': updateProduct,
   'DELETE /api/crm/products': deleteProduct,
   'POST /api/crm/uploads': created(upload),

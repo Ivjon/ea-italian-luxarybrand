@@ -3,9 +3,10 @@ const store = require('../lib/store');
 const validate = require('../lib/validate');
 
 module.exports = {
-  'GET /api/products': () => store.read('products'),
+  // Products hidden in the CRM (drafts, pieces taken off sale) are not part of the store.
+  'GET /api/products': () => store.read('products').filter(p => !p.hidden),
 
-  'GET /api/brands': () => [...new Set(store.read('products').map(p => p.brand))],
+  'GET /api/brands': () => [...new Set(store.read('products').filter(p => !p.hidden).map(p => p.brand))],
 
   'POST /api/newsletter': ({ body }) => {
     validate.email(body.email);

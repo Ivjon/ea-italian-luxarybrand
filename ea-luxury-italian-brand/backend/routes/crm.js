@@ -5,7 +5,8 @@ const { HttpError } = require('../lib/http');
 const { saveUpload } = require('../lib/uploads');
 
 const ORDER_STATUSES = ['Processing', 'Shipped', 'Delivered'];
-const CATEGORIES = ['Women', 'Men', 'Unisex'];
+const CATEGORIES = ['Women', 'Men', 'Unisex', 'Kids'];
+const SIZE_TYPES = ['clothing', 'shoes', 'kids-clothing', 'kids-shoes']; // size charts, see frontend/catalog.js
 const MEDIA_SRC = /^\/assets\/[A-Za-z0-9._/-]+$/; // site files only (uploads or bundled product photos)
 const today = () => new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD, local time
 
@@ -44,6 +45,11 @@ function productFields(body) {
     price: validate.number(body.price, 'Price', { min: 1, max: 1e6 }),
     stock: sizes.length ? sizes.reduce((sum, s) => sum + s.qty, 0) : validate.number(body.stock, 'Stock', { min: 0, max: 1e5, integer: true }),
     sizes,
+    sizeType: sizes.length ? validate.oneOf(body.sizeType, 'Size chart', SIZE_TYPES, 'clothing') : '',
+    // shown with a "New arrival" label and in the home page's New Arrivals
+    isNew: body.isNew === true || body.isNew === 'on' || body.isNew === 'true',
+    // percent off the price; discounted pieces are found with the store's "On sale" filter
+    discount: body.discount === '' || body.discount == null ? 0 : validate.number(body.discount, 'Discount', { min: 0, max: 90, integer: true }),
     image: cover.src,
     media,
     colors,
@@ -55,9 +61,11 @@ function productFields(body) {
     care: (Array.isArray(body.care) ? body.care : []).filter(k => /^[a-z0-9-]{1,40}$/.test(k)).slice(0, 20),
     careNote: validate.text(body.careNote, 'Care notes', { max: 1000 }),
   };
-  for (const key of ['colors', 'sizes', 'code', 'description', 'composition', 'details', 'care', 'careNote']) {
+  for (const key of ['colors', 'sizes', 'sizeType', 'code', 'description', 'composition', 'details', 'care', 'careNote']) {
     if (!fields[key].length) delete fields[key];
   }
+  if (!fields.isNew) delete fields.isNew;
+  if (!fields.discount) delete fields.discount;
   return fields;
 }
 

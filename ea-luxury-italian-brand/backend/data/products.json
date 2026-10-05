@@ -49,7 +49,14 @@
     "type": "Bags",
     "price": 690,
     "stock": 5,
-    "image": "/assets/products/handbag-black.jpg"
+    "isNew": true,
+    "image": "/assets/products/handbag-black.jpg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/handbag-black.jpg"
+      }
+    ]
   },
   {
     "id": "p3",

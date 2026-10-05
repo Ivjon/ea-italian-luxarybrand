@@ -59,9 +59,13 @@ videos, description, composition, details (one per line), the garment-care symbo
 (shown in the product page's **Product care** panel). **Colours**: list every colour the product comes in. Type a
 colour (a name like "Navy" or a code like `#7A4B2C`, with a live swatch), click a named swatch or pick anywhere on the
 spectrum, then **+ Add colour** (or Enter). Click a colour to edit its shade, ★ to make it the main (first) colour,
-× to remove it. **Sizes & stock**: one click adds the clothing sizes (XS–XL) or shoe sizes (35–46), or type any
-other size (38.5, XXL, One size…); give every size its quantity. With sizes, the product's stock is their total, the
-product page asks customers to choose a size (sold-out sizes are disabled) and the Filter panel can filter by size.
+× to remove it. **Sizes & stock**: pick the size chart (Clothing, Shoes, Kids clothing, Kids shoes; it follows the
+category and type), add its standard sizes in one click (XS–XL, 35–46, 2Y–14Y, 20–35) or type any other size
+(38.5, XXL, 5Y…), and give every size its quantity. With sizes, the product's stock is their total and the product
+page asks customers to choose a size. In the store's Filter panel, clothing sizes are a dropdown and shoe sizes a
+type-your-size box; new sizes appear there automatically. **New arrival** puts a "New arrival" label on the piece and
+shows it in the home page's New Arrivals (the latest pieces until any are ticked). **Discount (%)** shows the old price
+crossed out; customers find these pieces with the Filter panel's "On sale" option (shown only when there are any).
 Saving updates
 `backend/data/products.json`; new products are added at the end, so they lead the "New arrivals" sort.
 
@@ -85,7 +89,7 @@ The ☰ menu (top left) lists every brand with its logo, then All products, Wome
 **Jewellery** and **Shoes** sub-menus. Each link opens a full-screen collection with a brand dropdown and a black
 **Filter** button that opens a black panel on the right: sort (price low→high, high→low, new arrivals), the sizes in
 stock, a price slider in €100 steps (a circle at every €100) and the collection's colours. Collections:
-`#all`, `#women`, `#men`, `#watches`, `#jewellery/<type>`, `#shoes/<type>`, `#brand/<brand>`.
+`#all`, `#women`, `#men`, `#kids`, `#watches`, `#jewellery/<type>`, `#shoes/<type>`, `#brand/<brand>`.
 **MEN** / **WOMEN** in the header and the Discover links on the Women/Men banners open it too.
 
 A product's `type` in `backend/data/products.json` decides which sub-menu it appears in:

@@ -26,15 +26,25 @@ window.EA_CATALOG = (() => {
     return ga - gb || va - vb || String(a).localeCompare(String(b));
   });
 
+  const range = (from, to) => Array.from({ length: to - from + 1 }, (_, i) => String(from + i));
+  // Size charts: clothing sizes are chosen from a dropdown in the store's filter, shoe sizes are typed in.
+  const sizeTypes = {
+    clothing: { label: 'Clothing', input: 'select', presets: ['XS', 'S', 'M', 'L', 'XL'] },
+    shoes: { label: 'Shoes', input: 'type', presets: range(35, 46) },
+    'kids-clothing': { label: 'Kids clothing', input: 'select', presets: ['2Y', '4Y', '6Y', '8Y', '10Y', '12Y', '14Y'] },
+    'kids-shoes': { label: 'Kids shoes', input: 'type', presets: range(20, 35) },
+  };
+  const shoeTypes = ['Heels', 'Sandals', 'Sneakers', 'Boots', 'Loafers'];
+  // A product's size chart: as set in the CRM, otherwise guessed from its type and category.
+  const sizeKind = p => p.sizeType || `${p.category === 'Kids' ? 'kids-' : ''}${shoeTypes.includes(p.type) ? 'shoes' : 'clothing'}`;
+
   return {
     sortSizes,
-    sizePresets: {
-      clothing: ['XS', 'S', 'M', 'L', 'XL'],
-      shoes: Array.from({ length: 12 }, (_, i) => String(35 + i)),
-    },
+    sizeTypes,
+    sizeKind,
     groups: {
       jewellery: ['Necklaces', 'Watches', 'Rings', 'Earrings', 'Sunglasses'],
-      shoes: ['Heels', 'Sandals', 'Sneakers', 'Boots', 'Loafers'],
+      shoes: shoeTypes,
     },
     otherTypes: ['Clothing', 'Bags'],
     care: [

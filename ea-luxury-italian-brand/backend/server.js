@@ -6,6 +6,7 @@ const { serveStatic } = require('./lib/static');
 
 const routes = {
   ...require('./routes/shop'),
+  ...require('./routes/checkout'),
   ...require('./routes/crm'),
 };
 

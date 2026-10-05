@@ -98,6 +98,39 @@
       </div>
     </div>
   </section>
+  <section class="co" id="checkout" aria-labelledby="coTitle" hidden>
+    <div class="pdp-bar"><button class="pdp-back" id="coClose"><span aria-hidden="true">‹</span> Back</button><a class="pdp-logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><span></span></div>
+    <div class="co-main" id="coMain">
+      <form class="co-form" id="coForm">
+        <p class="kicker">Checkout</p>
+        <h1 id="coTitle">Your details</h1>
+        <fieldset class="co-sec"><legend><span>01</span>Contact</legend>
+          <div class="co-grid">
+            <label>Email<input name="email" type="email" required maxlength="254" autocomplete="email" /></label>
+            <label>Phone<input name="phone" type="tel" required maxlength="30" autocomplete="tel" /></label>
+          </div>
+        </fieldset>
+        <fieldset class="co-sec"><legend><span>02</span>Delivery address</legend>
+          <div class="co-grid">
+            <label>First name<input name="firstName" required maxlength="60" autocomplete="given-name" /></label>
+            <label>Last name<input name="lastName" required maxlength="60" autocomplete="family-name" /></label>
+            <label class="full">Address<input name="line1" required maxlength="120" autocomplete="address-line1" /></label>
+            <label class="full"><span>Apartment, suite, floor <small>optional</small></span><input name="line2" maxlength="120" autocomplete="address-line2" /></label>
+            <label>Postal code<input name="postalCode" required maxlength="20" autocomplete="postal-code" /></label>
+            <label>City<input name="city" required maxlength="80" autocomplete="address-level2" /></label>
+            <label class="full">Country<input name="country" required maxlength="60" autocomplete="country-name" /></label>
+          </div>
+        </fieldset>
+        <fieldset class="co-sec"><legend><span>03</span>Delivery</legend><div class="co-options" id="coDelivery"></div></fieldset>
+        <fieldset class="co-sec"><legend><span>04</span>Payment</legend><div class="co-options" id="coPayment"></div></fieldset>
+        <label class="co-note"><span>Note for your order <small>optional</small></span><textarea name="note" rows="3" maxlength="500" placeholder="Gift message, delivery instructions…"></textarea></label>
+        <p class="co-error" id="coError" role="alert"></p>
+        <button class="pdp-btn solid co-place" id="coPlace">Place order</button>
+      </form>
+      <aside class="co-summary" aria-label="Order summary"><h2>Your order</h2><div id="coLines"></div><dl class="co-totals" id="coTotals"></dl></aside>
+    </div>
+    <div class="co-done" id="coDone" hidden></div>
+  </section>
   <aside class="filter-drawer" id="filterDrawer" aria-labelledby="filterTitle">
     <div class="filter-head"><h2 id="filterTitle">Filter</h2><button class="filter-clear" id="filterClear">Clear all</button><button class="filter-close" id="filterClose" aria-label="Close filters">×</button></div>
     <div class="filter-body">
@@ -112,7 +145,7 @@
   <aside class="info-drawer" id="infoDrawer" aria-labelledby="infoTitle"><div class="info-head"><h2 id="infoTitle"></h2><button class="info-close" id="infoClose" aria-label="Close">×</button></div><div class="info-body" id="infoBody"></div></aside>
   <div class="loader" id="loader" hidden><div class="loader-mark"><img src="/assets/brand/ea-mark.svg" alt="" /><img class="loader-fill" src="/assets/brand/ea-mark.svg" alt="" /></div></div>
 
-  <aside class="drawer" id="cartDrawer"><div class="drawer-head"><h2>Your bag</h2><button id="closeCart">×</button></div><div id="cartItems"></div><div class="drawer-foot"><span>Total</span><strong id="cartTotal">€0</strong><button class="checkout">Proceed to checkout</button></div></aside><div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="cartDrawer"><div class="drawer-head"><h2>Your bag</h2><button id="closeCart">×</button></div><div id="cartItems"></div><div class="drawer-foot"><span>Total</span><strong id="cartTotal">€0</strong><button class="checkout" id="checkoutBtn">Proceed to checkout</button></div></aside><div class="overlay" id="overlay"></div>
   <aside class="side-menu" id="sideMenu" aria-label="Menu">
     <div class="side-head"><button class="side-close" id="sideClose" aria-label="Close menu">×</button></div>
     <nav class="side-panel" data-panel="main">

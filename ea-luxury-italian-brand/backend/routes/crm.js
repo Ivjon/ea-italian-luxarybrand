@@ -5,8 +5,9 @@ const { HttpError } = require('../lib/http');
 const { saveUpload } = require('../lib/uploads');
 
 const ORDER_STATUSES = ['Processing', 'Shipped', 'Delivered'];
-const CATEGORIES = ['Women', 'Men', 'Unisex', 'Kids'];
+const GENDERS = ['Women', 'Men', 'Unisex', 'Kids']; // saved as the product's `category`
 const SIZE_TYPES = ['clothing', 'shoes', 'kids-clothing', 'kids-shoes']; // size charts, see frontend/catalog.js
+const NUMBER_SIZE_TYPES = ['shoes', 'kids-shoes']; // shoe charts take number sizes only (38, 38.5)
 const MEDIA_SRC = /^\/assets\/[A-Za-z0-9._/-]+$/; // site files only (uploads or bundled product photos)
 const today = () => new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD, local time
 
@@ -37,15 +38,20 @@ function productFields(body) {
     .slice(0, 40)
     .map(s => ({ size: validate.text(s && s.size, 'Size', { max: 10 }), qty: validate.number(s && s.qty, 'Size quantity', { min: 0, max: 1e5, integer: true }) }))
     .filter(s => s.size && !seenSizes.has(s.size.toLowerCase()) && seenSizes.add(s.size.toLowerCase()));
+  // The CRM picks the chart from the product's type and gender.
+  const sizeType = sizes.length ? validate.oneOf(body.sizeType, 'Size chart', SIZE_TYPES, 'clothing') : '';
+  if (NUMBER_SIZE_TYPES.includes(sizeType) && sizes.some(s => !/^\d+([.,]\d+)?$/.test(s.size))) {
+    throw new HttpError(400, 'Shoe sizes must be numbers, e.g. 38 or 38.5.');
+  }
   const fields = {
     brand: validate.text(body.brand, 'Brand', { required: true, max: 60 }),
     name: validate.text(body.name, 'Name', { required: true }),
-    category: validate.oneOf(body.category, 'Category', CATEGORIES, 'Women'),
+    category: validate.oneOf(body.category, 'Gender', GENDERS, 'Women'),
     type: validate.text(body.type, 'Type', { required: true, max: 40 }),
     price: validate.number(body.price, 'Price', { min: 1, max: 1e6 }),
     stock: sizes.length ? sizes.reduce((sum, s) => sum + s.qty, 0) : validate.number(body.stock, 'Stock', { min: 0, max: 1e5, integer: true }),
     sizes,
-    sizeType: sizes.length ? validate.oneOf(body.sizeType, 'Size chart', SIZE_TYPES, 'clothing') : '',
+    sizeType,
     // shown with a "New arrival" label and in the home page's New Arrivals
     isNew: body.isNew === true || body.isNew === 'on' || body.isNew === 'true',
     // percent off the price; discounted pieces are found with the store's "On sale" filter

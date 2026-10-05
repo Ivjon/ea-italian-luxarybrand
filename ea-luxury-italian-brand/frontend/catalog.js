@@ -1,5 +1,5 @@
-// Shared by the store (app.js) and the CRM (admin.js): the product types behind the Jewellery / Shoes menus,
-// and the garment-care guide (ISO 3758-style symbols) that admins tick per product.
+// Shared by the store (app.js) and the CRM (admin.js): the product types (behind the CRM's Type dropdown, the size
+// charts and the Jewellery / Shoes menus), and the garment-care guide (ISO 3758-style symbols) that admins tick per product.
 window.EA_CATALOG = (() => {
   const icon = body => `<svg viewBox="0 0 32 32" aria-hidden="true">${body}</svg>`;
   const label = (t, y, size) => `<text x="16" y="${y}" text-anchor="middle" font-family="Arial,sans-serif" font-size="${size}" fill="currentColor" stroke="none">${t}</text>`;
@@ -28,25 +28,49 @@ window.EA_CATALOG = (() => {
 
   const range = (from, to) => Array.from({ length: to - from + 1 }, (_, i) => String(from + i));
   // Size charts: clothing sizes are chosen from a dropdown in the store's filter, shoe sizes are typed in.
+  // Shoe charts take number sizes only (38, 38.5). `men`: the CRM's quick-add sizes for menswear, if they differ.
   const sizeTypes = {
-    clothing: { label: 'Clothing', input: 'select', presets: ['XS', 'S', 'M', 'L', 'XL'] },
-    shoes: { label: 'Shoes', input: 'type', presets: range(35, 46) },
+    clothing: { label: 'Clothing', input: 'select', presets: ['XS', 'S', 'M', 'L', 'XL'], men: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'] },
+    shoes: { label: 'Shoes', input: 'type', numbers: true, presets: range(35, 46), men: range(39, 47) },
     'kids-clothing': { label: 'Kids clothing', input: 'select', presets: ['2Y', '4Y', '6Y', '8Y', '10Y', '12Y', '14Y'] },
-    'kids-shoes': { label: 'Kids shoes', input: 'type', presets: range(20, 35) },
+    'kids-shoes': { label: 'Kids shoes', input: 'type', numbers: true, presets: range(20, 35) },
   };
-  const shoeTypes = ['Heels', 'Sandals', 'Sneakers', 'Boots', 'Loafers'];
-  // A product's size chart: as set in the CRM, otherwise guessed from its type and category.
-  const sizeKind = p => p.sizeType || `${p.category === 'Kids' ? 'kids-' : ''}${shoeTypes.includes(p.type) ? 'shoes' : 'clothing'}`;
+  const isNumberSize = s => /^\d+([.,]\d+)?$/.test(String(s).trim());
+  const sizePresets = (kind, category) => (category === 'Men' && sizeTypes[kind].men) || sizeTypes[kind].presets;
+
+  // Product types by what they are, offered in the CRM's Type dropdown, covering womenswear and menswear. Every
+  // garment (jackets, pants, dresses…) is Clothing. A type named after its group, like the older generic "Clothing",
+  // belongs to that group.
+  const shoeTypes = ['Heels', 'Sandals', 'Sneakers', 'Boots', 'Loafers', 'Lace-ups', 'Moccasins', 'Slides'];
+  const jewelleryTypes = ['Necklaces', 'Watches', 'Rings', 'Earrings', 'Bracelets', 'Cufflinks', 'Sunglasses'];
+  const types = {
+    Clothing: ['Jackets', 'Coats', 'Blazers', 'Suits', 'Waistcoats', 'Shirts', 'Polo shirts', 'T-shirts', 'Knitwear', 'Sweatshirts',
+      'Hoodies', 'Pants', 'Jeans', 'Shorts', 'Tracksuits', 'Swimwear', 'Underwear', 'Dresses', 'Skirts'],
+    Shoes: shoeTypes,
+    Bags: ['Bags', 'Backpacks', 'Briefcases'],
+    Jewellery: jewelleryTypes,
+    Accessories: ['Belts', 'Ties', 'Wallets', 'Scarves', 'Hats', 'Gloves'],
+  };
+  const typeGroup = type => Object.keys(types).find(g => g === type || types[g].includes(type)) || '';
+  // Size chart for a type and gender (the product's `category`): shoe types get shoe sizes, everything else clothing sizes.
+  const sizeChart = (type, category) => `${category === 'Kids' ? 'kids-' : ''}${typeGroup(type) === 'Shoes' ? 'shoes' : 'clothing'}`;
+  // A product's size chart: as saved by the CRM, otherwise worked out from its type and gender.
+  const sizeKind = p => p.sizeType || sizeChart(p.type, p.category);
 
   return {
     sortSizes,
     sizeTypes,
+    isNumberSize,
+    sizePresets,
+    sizeChart,
     sizeKind,
+    types,
+    typeGroup,
+    // the store's Jewellery / Shoes menus
     groups: {
-      jewellery: ['Necklaces', 'Watches', 'Rings', 'Earrings', 'Sunglasses'],
+      jewellery: jewelleryTypes,
       shoes: shoeTypes,
     },
-    otherTypes: ['Clothing', 'Bags'],
     care: [
       { key: 'wash-30', title: 'Machine wash 30 °C', text: 'Machine wash at a maximum of 30 °C, normal process.', svg: icon(tub + label('30', 22.5, 8)) },
       { key: 'wash-30-gentle', title: 'Machine wash 30 °C, gentle', text: 'Machine wash at a maximum of 30 °C on a gentle cycle.', svg: icon(tub + label('30', 22.5, 8) + bar(29)) },

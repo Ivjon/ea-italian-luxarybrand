@@ -2,10 +2,9 @@
 const loadCart=()=>{try{const c=JSON.parse(localStorage.getItem('ea-cart')||'[]');return Array.isArray(c)?c.map(x=>typeof x==='string'?{id:x,color:''}:x).filter(x=>x&&x.id):[]}catch{return[]}};
 const state={products:[],cart:loadCart(),category:'All',search:''};
 // Collection panel: a full-screen product list for the current #hash (see viewFor). fromPage: the hash was set by navigating inside the site, so closing can go back.
-// Filters: brand (dropdown) + the Filter panel: sort, price range (null = no limit), colours (any of).
-// size: chosen size per size chart ({clothing:'M', shoes:'39'}); sale: only discounted pieces.
-const coll={key:null,view:null,brand:'All',colors:[],size:{},sale:false,min:null,max:null,bounds:[0,100],sort:'new',fromPage:false};
-const PRICE_STEP=100;
+// Filters: brand (dropdown) + the Filter panel: sort, price (max: highest price shown, null = no limit), colours (any of).
+// size: chosen size per size chart ({clothing:'M', shoes:'39'}); sale: only discounted pieces. top: the view's highest price.
+const coll={key:null,view:null,brand:'All',colors:[],size:{},sale:false,max:null,top:0,sort:'new',fromPage:false};
 // Product types (the "type" field in products.json) listed under the Jewellery and Shoes menus, and the care guide; see catalog.js.
 const GROUPS=EA_CATALOG.groups, CARE=EA_CATALOG.care;
 const $=s=>document.querySelector(s), money=n=>new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
@@ -43,13 +42,11 @@ const colors=[...new Set(inView.flatMap(p=>productColors(p).map(c=>c.name)))].so
 // sizes in stock per size chart; any size the admin adds in the CRM shows up here automatically
 const bySize={};for(const p of inView)for(const s of inStockSizes(p))(bySize[sizeKind(p)]||=new Set()).add(s);const kinds=Object.keys(SIZE_TYPES).filter(k=>bySize[k]).map(k=>({kind:k,sizes:EA_CATALOG.sortSizes([...bySize[k]])}));
 for(const k in coll.size)if(!bySize[k])delete coll.size[k];const sale=inView.some(p=>p.discount);if(!sale)coll.sale=false;
-const[lo,hi]=coll.bounds=priceBounds(inView),min=Math.min(Math.max(coll.min??lo,lo),hi-PRICE_STEP),max=Math.max(Math.min(coll.max??hi,hi),min+PRICE_STEP);coll.min=min>lo?min:null;coll.max=max<hi?max:null;
+const top=coll.top=inView.length?Math.max(...inView.map(priceOf)):0,max=Math.min(coll.max??top,top);coll.max=max<top?max:null;
 const sizeFilters=Object.entries(coll.size),sizeOk=p=>!sizeFilters.length||sizeFilters.some(([k,v])=>sizeKind(p)===k&&inStockSizes(p).some(s=>sameSize(s,v)));
-const rows=inView.filter(p=>(coll.brand==='All'||p.brand===coll.brand)&&(!coll.colors.length||productColors(p).some(c=>coll.colors.includes(c.name)))&&sizeOk(p)&&(!coll.sale||p.discount>0)&&priceOf(p)>=min&&priceOf(p)<=max);
+const rows=inView.filter(p=>(coll.brand==='All'||p.brand===coll.brand)&&(!coll.colors.length||productColors(p).some(c=>coll.colors.includes(c.name)))&&sizeOk(p)&&(!coll.sale||p.discount>0)&&priceOf(p)<=max);
 if(coll.sort==='new'){rows.reverse();rows.sort((a,b)=>(b.isNew?1:0)-(a.isNew?1:0))}else rows.sort((a,b)=>coll.sort==='price-asc'?priceOf(a)-priceOf(b):priceOf(b)-priceOf(a));
 $('#collectionCount').textContent=`${rows.length} ${rows.length===1?'piece':'pieces'}`;$('#collectionGrid').innerHTML=rows.length?rows.map(productCard).join(''):`<div class="empty">${inView.length?'No pieces match these filters.':'New pieces are arriving soon.'}</div>`;renderFilters(inView,colors,kinds,sale,rows.length)}
-// Price slider range: the view's lowest and highest price (after discounts), rounded out to whole €100 steps.
-function priceBounds(list){if(!list.length)return[0,PRICE_STEP];const prices=list.map(priceOf),lo=Math.floor(Math.min(...prices)/PRICE_STEP)*PRICE_STEP;return[lo,Math.max(lo+PRICE_STEP,Math.ceil(Math.max(...prices)/PRICE_STEP)*PRICE_STEP)]}
 // Filter panel. Controls are only rebuilt when their options change, never while a customer drags or types.
 function renderFilters(inView,colors,kinds,sale,count){
 $('#fSizeSec').hidden=!kinds.length;const sizeKey=kinds.map(k=>`${k.kind}:${k.sizes.join(',')}`).join('|');
@@ -58,14 +55,13 @@ if($('#fSizes').dataset.key!==sizeKey){$('#fSizes').dataset.key=sizeKey;$('#fSiz
 :`<label class="size-filter"><span>${t.label}</span><input data-size-kind="${kind}" list="sizes-${kind}" inputmode="decimal" autocomplete="off" placeholder="Type your size, e.g. ${esc(sizes[Math.floor(sizes.length/2)])}"><datalist id="sizes-${kind}">${sizes.map(s=>`<option value="${esc(s)}">`).join('')}</datalist></label><p class="size-note" data-size-note="${kind}"></p>`}).join('')}
 for(const{kind,sizes}of kinds){const el=$(`#fSizes [data-size-kind="${kind}"]`),v=coll.size[kind]||'';if(document.activeElement!==el)el.value=v;const note=$(`#fSizes [data-size-note="${kind}"]`);if(note)note.textContent=!v?`Available: ${sizes.join(', ')}`:sizes.some(s=>sameSize(s,v))?'':`Not available in ${v}. Available: ${sizes.join(', ')}`}
 $('#fSaleSec').hidden=!sale;$('#fSale').setAttribute('aria-pressed',coll.sale);
-const[lo,hi]=coll.bounds,min=coll.min??lo,max=coll.max??hi,pct=v=>`${(v-lo)/(hi-lo)*100}%`;
 document.querySelectorAll('#fSort [data-sort]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.sort===coll.sort));
-const range=$('#fRange');if(range.dataset.bounds!==`${lo}-${hi}`){range.dataset.bounds=`${lo}-${hi}`;for(const i of[$('#fMin'),$('#fMax')]){i.min=lo;i.max=hi}const steps=(hi-lo)/PRICE_STEP,every=Math.ceil(steps/40);/* a circle at every €100; thinned out only for very wide ranges */$('#fTicks').innerHTML=Array.from({length:Math.floor(steps/every)+1},(_,k)=>lo+k*every*PRICE_STEP).map(v=>`<i data-v="${v}" style="left:${pct(v)}"></i>`).join('')}
-$('#fMin').value=min;$('#fMax').value=max;$('#fMin').setAttribute('aria-valuetext',money(min));$('#fMax').setAttribute('aria-valuetext',money(max));$('#fMin').style.zIndex=min-lo>(hi-lo)/2?3:1;
-Object.assign($('#fFill').style,{left:pct(min),right:`${(hi-max)/(hi-lo)*100}%`});$('#fTicks').querySelectorAll('i').forEach(t=>t.classList.toggle('on',+t.dataset.v>=min&&+t.dataset.v<=max));$('#fValues').textContent=`${money(min)} – ${money(max)}`;
+// Price: one handle on a straight line from €0 to the view's highest price (after discounts), moving smoothly in €1 steps.
+const top=coll.top,max=coll.max??top,price=$('#fMax');$('#fPriceSec').hidden=!top;price.max=top;price.value=max;price.setAttribute('aria-valuetext',money(max));
+$('#fFill').style.width=`${top?max/top*100:0}%`;$('#fValues').textContent=`${money(0)} – ${money(max)}`;
 $('#fColorSec').hidden=!colors.length;if($('#fColors').dataset.key!==colors.join('|')){$('#fColors').dataset.key=colors.join('|');const hex={};inView.flatMap(productColors).forEach(c=>{if(c.hex&&!hex[c.name])hex[c.name]=c.hex});$('#fColors').innerHTML=colors.map(c=>`<button data-filter-color="${esc(c)}"><span class="sq${hex[c]?'':' none'}"${hex[c]?` style="background:${esc(hex[c])}"`:''}></span>${esc(c)}</button>`).join('')}
 $('#fColors').querySelectorAll('[data-filter-color]').forEach(b=>b.setAttribute('aria-pressed',coll.colors.includes(b.dataset.filterColor)));
-const active=coll.colors.length+Object.keys(coll.size).length+(coll.sale?1:0)+(coll.min!==null||coll.max!==null?1:0);$('#filterCount').textContent=active?` (${active})`:'';$('#filterApply').textContent=`View results (${count})`;$('#filterClear').hidden=!active&&coll.sort==='new'}
+const active=coll.colors.length+Object.keys(coll.size).length+(coll.sale?1:0)+(coll.max!==null?1:0);$('#filterCount').textContent=active?` (${active})`:'';$('#filterApply').textContent=`View results (${count})`;$('#filterClear').hidden=!active&&coll.sort==='new'}
 function openFilters(){$('#filterDrawer').classList.add('open');syncOverlay();$('#filterClose').focus()}
 function closeFilters(){$('#filterDrawer').classList.remove('open');syncOverlay()}
 // Brand loader while a collection opens: the EA mark fills from the bottom up (CSS, 1.2s), holds, then fades out.
@@ -75,7 +71,7 @@ function hideLoader(){clearTimeout(loaderTimer);$('#loader').hidden=true}
 // The page behind full-screen panels doesn't scroll; the overlay dims the page while a drawer is open.
 function syncLock(){document.body.classList.toggle('locked',!$('#collection').hidden||!$('#product').hidden)}
 function syncOverlay(){$('#overlay').classList.toggle('show',['#cartDrawer','#sideMenu','#infoDrawer','#filterDrawer'].some(s=>$(s).classList.contains('open')))}
-function openCollection(key,view){showLoader();if(coll.key!==key){coll.brand='All';coll.colors=[];coll.size={};coll.sale=false;coll.min=coll.max=null}coll.key=key;coll.view=view;$('#collectionTitle').textContent=view.title;renderCollection();$('#collection').hidden=false;$('#collection').scrollTop=0;syncLock()}
+function openCollection(key,view){showLoader();if(coll.key!==key){coll.brand='All';coll.colors=[];coll.size={};coll.sale=false;coll.max=null}coll.key=key;coll.view=view;$('#collectionTitle').textContent=view.title;renderCollection();$('#collection').hidden=false;$('#collection').scrollTop=0;syncLock()}
 function closeCollection(){hideLoader();closeFilters();$('#collection').hidden=true;syncLock()}
 // #product/<id> opens the product page on top (a collection underneath stays as it was); other hashes go to viewFor.
 function route(){const m=/^#product\/(.+)$/.exec(location.hash);const product=m&&state.products.find(p=>p.id===decodeURIComponent(m[1]));if(product)return openProduct(product);closeProduct();const key=location.hash.toLowerCase(),view=state.products.length?viewFor(location.hash):null;if(!view)return closeCollection();if(coll.key!==key||$('#collection').hidden)openCollection(key,view)}
@@ -138,14 +134,11 @@ $('#filterOpen').addEventListener('click',openFilters);$('#filterClose').addEven
 $('#pdpSizes').addEventListener('click',e=>{const b=e.target.closest('[data-size]');if(b&&!b.disabled){pdp.size=b.dataset.size;renderSizePicker()}});
 $('#fSizes').addEventListener('input',e=>{const el=e.target.closest('[data-size-kind]');if(!el)return;const v=el.value.trim();if(v)coll.size[el.dataset.sizeKind]=v;else delete coll.size[el.dataset.sizeKind];renderCollection()});
 $('#fSale').addEventListener('click',()=>{coll.sale=!coll.sale;renderCollection()});
-$('#filterClear').addEventListener('click',()=>{coll.colors=[];coll.size={};coll.sale=false;coll.min=coll.max=null;coll.sort='new';renderCollection()});
+$('#filterClear').addEventListener('click',()=>{coll.colors=[];coll.size={};coll.sale=false;coll.max=null;coll.sort='new';renderCollection()});
 $('#fSort').addEventListener('click',e=>{const b=e.target.closest('[data-sort]');if(b){coll.sort=b.dataset.sort;renderCollection()}});
 $('#fColors').addEventListener('click',e=>{const b=e.target.closest('[data-filter-color]');if(!b)return;const c=b.dataset.filterColor;coll.colors=coll.colors.includes(c)?coll.colors.filter(x=>x!==c):[...coll.colors,c];renderCollection()});
-// Price slider: two handles in €100 steps, kept at least one step apart.
-const onPriceRange=e=>{const[lo,hi]=coll.bounds;let min=+$('#fMin').value,max=+$('#fMax').value;if(min>=max){if(e.target.id==='fMin')min=max-PRICE_STEP;else max=min+PRICE_STEP}coll.min=min>lo?min:null;coll.max=max<hi?max:null;renderCollection()};
-$('#fMin').addEventListener('input',onPriceRange);$('#fMax').addEventListener('input',onPriceRange);
-// Clicking the line (not a handle) moves the nearest handle there.
-$('#fRange').addEventListener('pointerdown',e=>{if(e.target.tagName==='INPUT')return;const[lo,hi]=coll.bounds,t=$('.range-track').getBoundingClientRect(),v=Math.round((lo+(e.clientX-t.left)/t.width*(hi-lo))/PRICE_STEP)*PRICE_STEP,input=Math.abs(v-$('#fMin').value)<Math.abs(v-$('#fMax').value)?$('#fMin'):$('#fMax');input.value=v;input.dispatchEvent(new Event('input',{bubbles:true}))});
+// Price slider: the handle sets the highest price shown; at the end of the line there is no limit. Clicking the line moves it there.
+$('#fMax').addEventListener('input',e=>{const v=+e.target.value;coll.max=v<coll.top?v:null;renderCollection()});
 $('#pdpColor').addEventListener('click',e=>{if(e.target.closest('#pdpColorBtn'))toggleColors($('#pdpColorList').hidden);const opt=e.target.closest('[data-color-index]');if(opt)chooseColor(+opt.dataset.colorIndex)});
 $('#pdpColor').addEventListener('keydown',e=>{const list=$('#pdpColorList');if(!list)return;const opt=e.target.closest('[role=option]');
 if(!opt){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();toggleColors(true)}return} // Enter/Space click the button

@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="EA Luxury Italian Brand — curated luxury fashion." />
   <title>EA Luxury Italian Brand</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="icon" href="/assets/brand/ea-icon.png" />
   <link rel="apple-touch-icon" href="/assets/brand/ea-icon.png" />
@@ -100,7 +103,7 @@
     <div class="filter-body">
       <section class="filter-sec"><h3>Sort by</h3><div class="filter-opts" id="fSort"><button data-sort="price-asc">Price: low to high</button><button data-sort="price-desc">Price: high to low</button><button data-sort="new">New arrivals</button></div></section>
       <section class="filter-sec" id="fSizeSec"><h3>Size</h3><div class="size-filters" id="fSizes"></div></section>
-      <section class="filter-sec"><h3>Price</h3><div><div class="range" id="fRange"><div class="range-track"><span class="range-fill" id="fFill"></span><span id="fTicks"></span></div><input type="range" id="fMin" step="100" aria-label="Minimum price"><input type="range" id="fMax" step="100" aria-label="Maximum price"></div><p class="range-values" id="fValues"></p></div></section>
+      <section class="filter-sec" id="fPriceSec"><h3>Price</h3><div><div class="range"><div class="range-track"><span class="range-fill" id="fFill"></span></div><input type="range" id="fMax" min="0" step="1" aria-label="Maximum price"></div><p class="range-values" id="fValues"></p></div></section>
       <section class="filter-sec" id="fColorSec"><h3>Colour</h3><div class="filter-opts" id="fColors"></div></section>
       <section class="filter-sec" id="fSaleSec" hidden><h3>Offers</h3><div class="filter-opts"><button id="fSale">On sale</button></div></section>
     </div>

@@ -4,7 +4,7 @@ This version is rebuilt to visually match the final EA Luxury reference image as
 
 ## Run in VS Code
 1. Extract the ZIP.
-2. Open the folder `ea-luxury-italian-brand` in VS Code.
+2. Open this folder in VS Code.
 3. Open Terminal.
 4. Run:
 
@@ -23,7 +23,7 @@ To use another port (PowerShell): `$env:PORT=4000; npm start`
 ## Project structure
 
 ```
-ea-luxury-italian-brand/
+ea-italian-luxarybrand/
 ├── backend/                 Node.js API + static file server
 │   ├── server.js            entry point: /api/* → routes, everything else → frontend/
 │   ├── config.js            PORT, DATA_DIR, FRONTEND_DIR, UPLOAD_DIR (all overridable via env vars)

@@ -17,14 +17,12 @@
 </svg>
 <div class="app-shell">
   <aside class="sidebar">
-    <a class="brand" href="/" title="View the store"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand"></a>
+    <button class="brand" type="button" data-view="home"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand"></button>
     <nav aria-label="CRM">
-      <button class="nav-item active" data-view="dashboard"><svg aria-hidden="true"><use href="#i-dashboard"/></svg><span>Dashboard</span></button>
-      <button class="nav-item" data-view="orders"><svg aria-hidden="true"><use href="#i-orders"/></svg><span>Orders</span><b id="orderBadge" title="Orders to ship">0</b></button>
-      <button class="nav-item" data-view="products"><svg aria-hidden="true"><use href="#i-products"/></svg><span>Products</span></button>
-      <button class="nav-item" data-view="customers"><svg aria-hidden="true"><use href="#i-customers"/></svg><span>Customers</span></button>
-      <button class="nav-item" data-view="leads"><svg aria-hidden="true"><use href="#i-leads"/></svg><span>Leads</span></button>
-      <button class="nav-item" data-view="inventory"><svg aria-hidden="true"><use href="#i-inventory"/></svg><span>Inventory</span></button>
+      <div class="nav-group"><p class="nav-label">Sales</p><button class="nav-item" data-view="orders"><svg aria-hidden="true"><use href="#i-orders"/></svg><span>Orders</span><b id="orderBadge" title="Orders to ship">0</b></button></div>
+      <div class="nav-group"><p class="nav-label">Products</p><button class="nav-item" data-view="products"><svg aria-hidden="true"><use href="#i-products"/></svg><span>Products</span></button><button class="nav-item" data-view="inventory"><svg aria-hidden="true"><use href="#i-inventory"/></svg><span>Inventory</span></button></div>
+      <div class="nav-group"><p class="nav-label">Marketing</p><button class="nav-item" data-view="customers"><svg aria-hidden="true"><use href="#i-customers"/></svg><span>Customers</span></button><button class="nav-item" data-view="leads"><svg aria-hidden="true"><use href="#i-leads"/></svg><span>Leads</span></button></div>
+      <div class="nav-group"><p class="nav-label">Settings</p></div>
     </nav>
     <a class="view-store" href="/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-store"/></svg><span>View store</span></a>
   </aside>
@@ -34,7 +32,8 @@
       <div class="user">
         <button class="icon-btn" id="alertsBtn" aria-label="Needs attention"><svg aria-hidden="true"><use href="#i-bell"/></svg><b id="alertCount" hidden>0</b></button>
         <div class="avatar" id="avatar" aria-hidden="true">EA</div>
-        <div class="user-name"><b id="userName">Admin</b><small>Store admin</small></div>
+        <div class="user-name"><b id="userName">Admin</b><small id="userRole">Store Admin</small></div>
+        <label class="role-switch">View as<select id="userSwitch"></select></label>
         <button class="icon-btn" id="changePassword" aria-label="Change password" title="Change password"><svg aria-hidden="true"><use href="#i-key"/></svg></button>
         <button class="icon-btn" id="signOut" aria-label="Sign out" title="Sign out"><svg aria-hidden="true"><use href="#i-out"/></svg></button>
       </div>

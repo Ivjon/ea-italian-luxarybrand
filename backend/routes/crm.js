@@ -4,8 +4,9 @@ const validate = require('../lib/validate');
 const { HttpError } = require('../lib/http');
 const { saveUpload } = require('../lib/uploads');
 
-const ORDER_STATUSES = ['Processing', 'Shipped', 'Delivered'];
+const ORDER_STATUSES = ['Awaiting Payment', 'Processing', 'Shipped', 'Delivered'];
 const LEAD_STAGES = ['New', 'Warm', 'Qualified', 'Won', 'Lost'];
+const ROLES = ['admin', 'superadmin'];
 const GENDERS = ['Women', 'Men', 'Unisex', 'Kids']; // saved as the product's `category`
 const SIZE_TYPES = ['clothing', 'shoes', 'kids-clothing', 'kids-shoes']; // size charts, see frontend/catalog.js
 const NUMBER_SIZE_TYPES = ['shoes', 'kids-shoes']; // shoe charts take number sizes only (38, 38.5)
@@ -171,7 +172,7 @@ function createOrder({ body }) {
   return order;
 }
 
-// Status changes from the CRM: an order moves Processing -> Shipped -> Delivered, a lead through its stages.
+// Status changes from the CRM: an order moves between the board columns, a lead through its stages.
 function updateOrder({ body }) {
   const orders = store.read('orders');
   const order = orders.find(o => o.id === String(body.id || ''));
@@ -190,6 +191,48 @@ function updateLead({ body }) {
   return lead;
 }
 
+function userFields(body, users, ignoreId) {
+  const name = validate.text(body.name, 'Name', { required: true });
+  const email = validate.email(body.email);
+  const role = validate.oneOf(body.role, 'Role', ROLES, '');
+  if (!ROLES.includes(role)) throw new HttpError(400, 'Choose a role.');
+  if (users.some(u => u.email === email && u.id !== ignoreId)) throw new HttpError(409, 'A user with this email already exists.');
+  return { name, email, role };
+}
+
+function createUser({ body }) {
+  const users = store.read('users');
+  const user = { id: store.nextId(users, 'U', 1001), ...userFields(body, users) };
+  users.push(user);
+  store.write('users', users);
+  return user;
+}
+
+function updateUser({ body }) {
+  const users = store.read('users');
+  const index = users.findIndex(u => u.id === body.id);
+  if (index < 0) throw new HttpError(404, 'User not found.');
+  const next = { ...users[index], ...userFields(body, users, users[index].id) };
+  if (users[index].role === 'superadmin' && next.role !== 'superadmin' && users.filter(u => u.role === 'superadmin').length === 1) {
+    throw new HttpError(400, 'Keep at least one Super Admin.');
+  }
+  users[index] = next;
+  store.write('users', users);
+  return next;
+}
+
+function deleteUser({ body }) {
+  const users = store.read('users');
+  const index = users.findIndex(u => u.id === body.id);
+  if (index < 0) throw new HttpError(404, 'User not found.');
+  if (users[index].role === 'superadmin' && users.filter(u => u.role === 'superadmin').length === 1) {
+    throw new HttpError(400, 'Keep at least one Super Admin.');
+  }
+  const [removed] = users.splice(index, 1);
+  store.write('users', users);
+  return { ok: true, id: removed.id };
+}
+
 const created = handler => Object.assign(ctx => {
   ctx.status = 201;
   return handler(ctx);
@@ -199,6 +242,10 @@ module.exports = {
   'GET /api/crm/orders': () => store.read('orders'),
   'GET /api/crm/customers': () => store.read('customers'),
   'GET /api/crm/leads': () => store.read('leads'),
+  'GET /api/crm/users': () => store.read('users'),
+  'POST /api/crm/users': created(createUser),
+  'PUT /api/crm/users': updateUser,
+  'DELETE /api/crm/users': deleteUser,
   'POST /api/crm/orders': created(createOrder),
   'PUT /api/crm/orders': updateOrder,
   'PUT /api/crm/leads': updateLead,

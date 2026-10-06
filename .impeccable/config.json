@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-10-05T22:07:04.772Z",
         "reason": "Claude, measured: hero/mobile-nav/pdp-bar/drawer-head content sits 9-36px inside its boundary; only the full-bleed hero photo touches the edges (critique Assessment B, 2026-10-05)"
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "frontend/index.html"
+        ],
+        "createdAt": "2026-10-06T15:56:05.260Z",
+        "reason": "Claude: story-band imgs use data-src and app.js sets src when the band nears the viewport (lazy load for a viewport-pinned layer, mirroring Subashi Metal ParallaxBand); alt is empty and aria-hidden, so no broken box renders"
       }
     ]
   }

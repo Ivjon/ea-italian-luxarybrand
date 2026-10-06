@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="description" content="EA Luxury Italian Brand — curated luxury fashion." />
   <title>EA Luxury Italian Brand</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -58,7 +58,9 @@
     </section>
 
     <section class="story-band" id="story">
-      <div><p class="kicker light">EA LUXURY</p><h2>Italian character.<br>Quiet confidence.</h2></div>
+      <!-- Same mechanism as the Subashi Metal parallax band: the photo row clips a layer pinned to the viewport, so the page scrolls over still photos. -->
+      <div class="story-bg" aria-hidden="true"><div class="story-layer"><img data-src="/assets/editorial/store-ea.jpg" alt="" width="1422" height="1176" decoding="async"><img data-src="/assets/editorial/store-plein.jpg" alt="" width="1036" height="980" decoding="async"></div></div>
+      <h2>Italian character.<br>Quiet confidence.</h2>
       <p>A focused selection of established fashion houses, presented through a calm and editorial shopping experience.</p>
     </section>
 
@@ -66,9 +68,21 @@
       <p class="kicker">PRIVATE ACCESS</p><h2>Join our world</h2><p>New arrivals, private edits and selected releases.</p>
       <form id="newsletterForm"><input type="email" name="email" placeholder="Email address" required><button>Subscribe</button></form><div id="newsletterMessage"></div>
     </section>
+
+    <section class="visit" id="visit" aria-labelledby="visitTitle">
+      <div class="visit-info">
+        <h2 id="visitTitle">Visit the boutique</h2>
+        <dl>
+          <div><dt>Address</dt><dd><address>Toptani Shopping Center, 3rd floor<br>Rruga Abdi Toptani 1001<br>Tiranë, Albania</address></dd></div>
+          <div><dt>Telephone</dt><dd><a href="tel:+35544540999">044 540 999</a></dd></div>
+        </dl>
+        <a class="visit-link" href="https://www.google.com/maps/search/?api=1&amp;query=Luxury%20Italian%20Brands%2C%20Rruga%20Abdi%20Toptani%201001%2C%20Tiran%C3%AB" target="_blank" rel="noopener">Get directions</a>
+      </div>
+      <div class="visit-map"><iframe title="Map showing Luxury Italian Brands, Toptani Shopping Center, Tiranë" src="https://www.google.com/maps?q=Luxury%20Italian%20Brands%2C%20Rruga%20Abdi%20Toptani%201001%2C%20Tiran%C3%AB&amp;z=17&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </section>
   </main>
 
-  <footer><div class="footer-mark"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></div><nav aria-label="Footer"><a href="#shop">Collection</a><a href="#brands-live">Brands</a><a href="#story">About</a></nav><small>© 2026 EA Luxury Italian Brand.</small></footer>
+  <footer><div class="footer-mark"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></div><nav aria-label="Footer"><a href="#shop">Collection</a><a href="#brands-live">Brands</a><a href="#story">About</a><a href="#visit">Visit</a></nav><small>© 2026 EA Luxury Italian Brand.</small></footer>
 
   <section class="collection" id="collection" aria-labelledby="collectionTitle" hidden>
     <div class="collection-head"><div><p class="kicker">THE COLLECTION</p><h2 id="collectionTitle"></h2><span id="collectionCount"></span></div><button class="collection-close" id="collectionClose" aria-label="Close collection">×</button></div>

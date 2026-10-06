@@ -17,7 +17,7 @@ $('#loginForm').addEventListener('submit', async e => {
   const username = form.username.value.trim(), password = form.password.value;
   error.textContent = '';
   if (!username || !password) {
-    error.textContent = `Enter your ${!username ? 'username' : 'password'}.`;
+    error.textContent = `Enter your ${!username ? 'username or email' : 'password'}.`;
     (!username ? form.username : form.password).focus();
     return;
   }

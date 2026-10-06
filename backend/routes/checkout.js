@@ -118,7 +118,8 @@ function placeOrder({ req, body }) {
     payment: payment.label,
     address,
     ...(note && { note }),
-    status: 'Processing',
+    // Bank transfers wait in the CRM's Awaiting Payment column until the money arrives; the rest can ship.
+    status: payment.key === 'transfer' ? 'Awaiting Payment' : 'Processing',
     date: today(),
     source: 'Website',
     ...(account && { account: account.email }),

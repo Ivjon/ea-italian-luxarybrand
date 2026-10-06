@@ -1,5 +1,6 @@
-// CRM / admin API. Every /api/crm/* route needs the signed-in admin (checked in server.js, see lib/auth.js).
+// CRM / admin API. Every /api/crm/* route needs a signed-in CRM user (checked in server.js, see lib/auth.js).
 const store = require('../lib/store');
+const auth = require('../lib/auth');
 const validate = require('../lib/validate');
 const { HttpError } = require('../lib/http');
 const { saveUpload } = require('../lib/uploads');
@@ -191,6 +192,7 @@ function updateLead({ body }) {
   return lead;
 }
 
+// CRM users (Super Admins only, see server.js). The main admin account is listed first and cannot be changed here.
 function userFields(body, users, ignoreId) {
   const name = validate.text(body.name, 'Name', { required: true });
   const email = validate.email(body.email);
@@ -200,52 +202,61 @@ function userFields(body, users, ignoreId) {
   return { name, email, role };
 }
 
+const listUsers = () => [auth.userFor(auth.OWNER), ...auth.readUsers()].filter(Boolean).map(auth.publicUser);
+
+function findUser(users, id) {
+  if (id === auth.OWNER) throw new HttpError(400, 'The main admin account is changed with Change password, not here.');
+  const index = users.findIndex(u => u.id === id);
+  if (index < 0) throw new HttpError(404, 'User not found.');
+  return index;
+}
+
+// A new user needs a password to sign in with (their email is the username).
 function createUser({ body }) {
-  const users = store.read('users');
-  const user = { id: store.nextId(users, 'U', 1001), ...userFields(body, users) };
+  const users = auth.readUsers();
+  const user = { id: store.nextId(users, 'U', 1001), ...userFields(body, users), ...auth.hashPassword(auth.newPassword(body.password)) };
   users.push(user);
-  store.write('users', users);
-  return user;
+  auth.writeUsers(users);
+  return auth.publicUser(user);
 }
 
-function updateUser({ body }) {
-  const users = store.read('users');
-  const index = users.findIndex(u => u.id === body.id);
-  if (index < 0) throw new HttpError(404, 'User not found.');
-  const next = { ...users[index], ...userFields(body, users, users[index].id) };
-  if (users[index].role === 'superadmin' && next.role !== 'superadmin' && users.filter(u => u.role === 'superadmin').length === 1) {
-    throw new HttpError(400, 'Keep at least one Super Admin.');
-  }
-  users[index] = next;
-  store.write('users', users);
-  return next;
+// Leaving the password empty keeps it; a new password signs the user out everywhere.
+function updateUser({ body, user: me }) {
+  const users = auth.readUsers();
+  const index = findUser(users, body.id);
+  const fields = userFields(body, users, users[index].id);
+  if (users[index].id === me.id && fields.role !== users[index].role) throw new HttpError(400, 'You cannot change your own role.');
+  const password = String(body.password || '');
+  users[index] = { ...users[index], ...fields, ...(password && auth.hashPassword(auth.newPassword(password))) };
+  auth.writeUsers(users);
+  if (password && users[index].id !== me.id) auth.endSessions(users[index].id);
+  return auth.publicUser(users[index]);
 }
 
-function deleteUser({ body }) {
-  const users = store.read('users');
-  const index = users.findIndex(u => u.id === body.id);
-  if (index < 0) throw new HttpError(404, 'User not found.');
-  if (users[index].role === 'superadmin' && users.filter(u => u.role === 'superadmin').length === 1) {
-    throw new HttpError(400, 'Keep at least one Super Admin.');
-  }
+function deleteUser({ body, user: me }) {
+  const users = auth.readUsers();
+  const index = findUser(users, body.id);
+  if (users[index].id === me.id) throw new HttpError(400, 'You cannot remove your own account.');
   const [removed] = users.splice(index, 1);
-  store.write('users', users);
+  auth.writeUsers(users);
+  auth.endSessions(removed.id);
   return { ok: true, id: removed.id };
 }
 
 const created = handler => Object.assign(ctx => {
   ctx.status = 201;
   return handler(ctx);
-}, { raw: handler.raw });
+}, { raw: handler.raw, superOnly: handler.superOnly });
+const superOnly = handler => Object.assign(handler, { superOnly: true });
 
 module.exports = {
   'GET /api/crm/orders': () => store.read('orders'),
   'GET /api/crm/customers': () => store.read('customers'),
   'GET /api/crm/leads': () => store.read('leads'),
-  'GET /api/crm/users': () => store.read('users'),
-  'POST /api/crm/users': created(createUser),
-  'PUT /api/crm/users': updateUser,
-  'DELETE /api/crm/users': deleteUser,
+  'GET /api/crm/users': superOnly(listUsers),
+  'POST /api/crm/users': created(superOnly(createUser)),
+  'PUT /api/crm/users': superOnly(updateUser),
+  'DELETE /api/crm/users': superOnly(deleteUser),
   'POST /api/crm/orders': created(createOrder),
   'PUT /api/crm/orders': updateOrder,
   'PUT /api/crm/leads': updateLead,

@@ -23,11 +23,13 @@ async function handleApi(req, res, url) {
     const pathExists = Object.keys(routes).some(key => key.split(' ')[1] === url.pathname);
     throw pathExists ? new HttpError(405, 'Method not allowed.') : new HttpError(404, 'Not found.');
   }
-  // The CRM API is for the signed-in admin only (checked before any body is read, so uploads are refused early).
-  if (url.pathname.startsWith('/api/crm/')) auth.requireAdmin(req);
+  // The CRM API is for signed-in CRM users only, and routes marked `superOnly` (user management) for Super Admins.
+  // Checked before any body is read, so uploads are refused early.
+  const user = url.pathname.startsWith('/api/crm/') ? auth.requireAdmin(req) : null;
+  if (handler.superOnly && user.role !== 'superadmin') throw new HttpError(403, 'Only a Super Admin can do this.');
   // Handlers marked `raw` (file uploads) read the request stream themselves.
   const hasJsonBody = ['POST', 'PUT', 'DELETE'].includes(req.method) && !handler.raw;
-  const ctx = { req, url, status: 200, headers: {}, body: hasJsonBody ? await readJson(req) : {} };
+  const ctx = { req, url, user, status: 200, headers: {}, body: hasJsonBody ? await readJson(req) : {} };
   const data = await handler(ctx);
   sendJson(res, ctx.status, data, ctx.headers);
 }

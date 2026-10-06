@@ -3,6 +3,7 @@
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>EA Luxury CRM</title><link rel="stylesheet" href="/admin/admin.css"><link rel="icon" href="/assets/brand/ea-icon.png"></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.5 11 12 3.5l8.5 7.5M6 9v11.5h4.5v-6h3v6H18V9"/></symbol>
   <symbol id="i-dashboard" viewBox="0 0 24 24"><path d="M3.5 3.5h7v8h-7zM13.5 3.5h7v5h-7zM13.5 11.5h7v9h-7zM3.5 14.5h7v6h-7z"/></symbol>
   <symbol id="i-orders" viewBox="0 0 24 24"><path d="M5 7.5h14l-1 13H6zM9 7.5V6a3 3 0 0 1 6 0v1.5"/></symbol>
   <symbol id="i-products" viewBox="0 0 24 24"><path d="M8.5 3.5 4 6.5l2 4 2-1v11h8v-11l2 1 2-4-4.5-3c-.6 1.6-2 2.5-3.5 2.5S9.1 5.1 8.5 3.5z"/></symbol>
@@ -17,14 +18,14 @@
 </svg>
 <div class="app-shell">
   <aside class="sidebar">
-    <button class="brand" type="button" data-view="home"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand"></button>
+    <button class="brand" type="button" data-view="dashboard" title="Start page"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand"></button>
     <nav aria-label="CRM">
-      <div class="nav-group"><p class="nav-label">Sales</p><button class="nav-item" data-view="orders"><svg aria-hidden="true"><use href="#i-orders"/></svg><span>Orders</span><b id="orderBadge" title="Orders to ship">0</b></button></div>
-      <div class="nav-group"><p class="nav-label">Products</p><button class="nav-item" data-view="products"><svg aria-hidden="true"><use href="#i-products"/></svg><span>Products</span></button><button class="nav-item" data-view="inventory"><svg aria-hidden="true"><use href="#i-inventory"/></svg><span>Inventory</span></button></div>
-      <div class="nav-group"><p class="nav-label">Marketing</p><button class="nav-item" data-view="customers"><svg aria-hidden="true"><use href="#i-customers"/></svg><span>Customers</span></button><button class="nav-item" data-view="leads"><svg aria-hidden="true"><use href="#i-leads"/></svg><span>Leads</span></button></div>
-      <div class="nav-group"><p class="nav-label">Settings</p></div>
+      <div class="nav-group"><p class="nav-label">Overview</p><button class="nav-item" data-view="home" title="Home" hidden><svg aria-hidden="true"><use href="#i-home"/></svg><span>Home</span></button><button class="nav-item" data-view="dashboard" title="Dashboard"><svg aria-hidden="true"><use href="#i-dashboard"/></svg><span>Dashboard</span></button></div>
+      <div class="nav-group"><p class="nav-label">Sales</p><button class="nav-item" data-view="orders" title="Orders"><svg aria-hidden="true"><use href="#i-orders"/></svg><span>Orders</span><b id="orderBadge" title="Orders to ship">0</b></button></div>
+      <div class="nav-group"><p class="nav-label">Products</p><button class="nav-item" data-view="products" title="Products"><svg aria-hidden="true"><use href="#i-products"/></svg><span>Products</span></button><button class="nav-item" data-view="inventory" title="Inventory"><svg aria-hidden="true"><use href="#i-inventory"/></svg><span>Inventory</span></button></div>
+      <div class="nav-group"><p class="nav-label">Marketing</p><button class="nav-item" data-view="customers" title="Customers"><svg aria-hidden="true"><use href="#i-customers"/></svg><span>Customers</span></button><button class="nav-item" data-view="leads" title="Leads"><svg aria-hidden="true"><use href="#i-leads"/></svg><span>Leads</span></button></div>
     </nav>
-    <a class="view-store" href="/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-store"/></svg><span>View store</span></a>
+    <a class="view-store" href="/" target="_blank" rel="noopener" title="View store"><svg aria-hidden="true"><use href="#i-store"/></svg><span>View store</span></a>
   </aside>
   <main class="main">
     <header class="topbar">
@@ -32,8 +33,7 @@
       <div class="user">
         <button class="icon-btn" id="alertsBtn" aria-label="Needs attention"><svg aria-hidden="true"><use href="#i-bell"/></svg><b id="alertCount" hidden>0</b></button>
         <div class="avatar" id="avatar" aria-hidden="true">EA</div>
-        <div class="user-name"><b id="userName">Admin</b><small id="userRole">Store Admin</small></div>
-        <label class="role-switch">View as<select id="userSwitch"></select></label>
+        <div class="user-name"><b id="userName">Admin</b><small id="userRole"></small></div>
         <button class="icon-btn" id="changePassword" aria-label="Change password" title="Change password"><svg aria-hidden="true"><use href="#i-key"/></svg></button>
         <button class="icon-btn" id="signOut" aria-label="Sign out" title="Sign out"><svg aria-hidden="true"><use href="#i-out"/></svg></button>
       </div>

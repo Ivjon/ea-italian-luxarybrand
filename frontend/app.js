@@ -31,8 +31,8 @@ const sameSize=(a,b)=>{const x=sizeNum(a),y=sizeNum(b);return Number.isNaN(x)||N
 const priceOf=p=>p.discount?Math.round(p.price*(100-p.discount)/100):p.price;
 const priceHtml=p=>p.discount?`<s class="price-was">${money(p.price)}</s> <span class="price-now">${money(priceOf(p))}</span> <span class="price-off">−${p.discount}%</span>`:money(p.price);
 // New arrivals (home page section and /new-arrivals): pieces ticked "New arrival" in the CRM, newest first, topped up
-// with the latest other pieces to at least 8. Only ticked pieces get the "New arrival" label.
-const newArrivals=()=>{const newest=state.products.slice().reverse(),ticked=newest.filter(p=>p.isNew);return ticked.length>=8?ticked:[...ticked,...newest.filter(p=>!p.isNew).slice(0,8-ticked.length)]};
+// with the latest other pieces to at least min (8 on /new-arrivals). Only ticked pieces get the "New arrival" label.
+const newArrivals=(min=8)=>{const newest=state.products.slice().reverse(),ticked=newest.filter(p=>p.isNew);return ticked.length>=min?ticked:[...ticked,...newest.filter(p=>!p.isNew).slice(0,min-ticked.length)]};
 const newBadge=p=>p.isNew?`<span class="badge-new">${tr('New arrival')}</span>`:'';
 // Brand logo (assets/brands/<brand>.png). All logo files share one canvas height, so a single CSS height sizes them
 // while keeping their relative sizes; a brand without a logo file falls back to its name. ?v= busts old cached cuts.
@@ -43,8 +43,10 @@ async function json(url,opts={}){const r=await fetch(url,{...opts,headers:{...op
 async function init(){try{const[products,brands]=await Promise.all([json('/api/products'),json('/api/brands')]);state.products=products;state.brands=brands;$('#brandRow').innerHTML=brands.map(b=>`<a class="brand-pill" href="/brand/${slug(b)}">${brandLogo(b)}</a>`).join('');renderMenu(brands)}catch(err){$('#productGrid').innerHTML=`<div class="empty">${esc(tr('The collection could not be loaded. Is the backend running? ({msg})',{msg:err.message}))}</div>`;document.documentElement.classList.remove('opening');return}renderProducts();renderCart();await loadAccount();const h=$('.site-header'),cover=document.documentElement.classList.contains('opening');if(cover)h.classList.add('no-anim');route();document.documentElement.classList.remove('opening');if(cover)requestAnimationFrame(()=>requestAnimationFrame(()=>h.classList.remove('no-anim')))} // the page is showing: drop the cover (index.html); opened at a store page, the header takes its size without animating
 const productCard=p=>`<article class="product-card"><a class="product-image" href="/product/${esc(p.id)}"><img src="${esc(p.image)}" alt="${esc(p.brand)} ${esc(p.name)}">${newBadge(p)}</a><div class="product-meta"><div class="product-brand">${esc(p.brand)}</div><h3 class="product-name"><a href="/product/${esc(p.id)}">${esc(p.name)}</a></h3><div class="product-row"><span class="product-price">${priceHtml(p)}</span>${productSizes(p).length?`<a class="add-btn" href="/product/${esc(p.id)}">${inStockSizes(p).length?tr('Select size'):tr('Sold out')}</a>`:`<button class="add-btn" data-add="${esc(p.id)}" data-color="${esc(productColors(p)[0]?.name)}">${tr('Add to bag')}</button>`}</div></div></article>`;
 // Home grid: the New Arrivals (search has its own panel and collection view).
-// Home page New Arrivals: the 8 newest (CSS shows 6 on tablets so both rows stay full); See more opens /new-arrivals.
-function renderProducts(){const rows=newArrivals().filter(p=>state.category==='All'||inCategory(p,state.category)).slice(0,8);$('#productGrid').innerHTML=rows.length?rows.map(productCard).join(''):`<div class="empty">${tr('No pieces found.')}</div>`}
+// Home page New Arrivals: the 12 newest; CSS shows the full rows and fades one more row out above See more (/new-arrivals).
+function renderProducts(){const rows=newArrivals(12).filter(p=>state.category==='All'||inCategory(p,state.category)).slice(0,12);$('#productGrid').innerHTML=rows.length?rows.map(productCard).join(''):`<div class="empty">${tr('No pieces found.')}</div>`}
+// The faded row's cards carry a fade layer (styles.css); a click on it opens See more's page, the same as the button.
+$('#productGrid').addEventListener('click',e=>{const card=e.target.closest('.product-card');if(card&&e.target===card&&getComputedStyle(card,'::after').content!=='none')$('.see-more').click()});
 // Sort "New arrivals": pieces ticked "New arrival" first, each group newest first (the product added last in products.json).
 // "On sale": discounted pieces first, the biggest discount first, then the rest as new arrivals.
 const sizeFamily=p=>sizeKind(p).endsWith('shoes')?'shoes':'clothing';

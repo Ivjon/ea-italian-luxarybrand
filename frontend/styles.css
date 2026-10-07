@@ -235,16 +235,22 @@ body.with-header .site-header{position:fixed;top:0;left:0;right:0;z-index:48}
 .lang-title{margin:0 20px 8px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#6f6961}
 .lang-menu button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 20px;border:0;background:none;color:#111;font:500 18px/1.2 var(--display);letter-spacing:.03em;text-align:left;cursor:pointer;transition:background .2s}
 .lang-menu button:hover,.lang-menu button:focus-visible{background:#f1ede5;outline:none}
-.lang-menu button small{margin-left:auto;font:400 10px/1 Arial,Helvetica,sans-serif;letter-spacing:.2em;color:#8a8379}
+.lang-menu .lang-icon{flex:none;display:block;margin-left:auto}
+.lang-menu .lang-eagle{width:19px;height:20px}
+.lang-menu .lang-jack{width:24px;height:12px}
 .lang-menu button[aria-current]:after{content:"";width:12px;height:7px;margin-left:4px;border:solid #111;border-width:0 0 1.5px 1.5px;transform:translateY(-2px) rotate(-45deg)}
 @keyframes lang-in{from{opacity:0;transform:translateY(-4px)}}
 @media(prefers-reduced-motion:reduce){.lang-menu{animation:none}}
 /* ☰ menu: language, two buttons side by side, the current one filled. */
 .side-lang{display:flex;gap:8px;margin:0 0 44px}
-.side-lang button{flex:1;padding:12px 10px;border:1px solid var(--line);background:none;color:var(--ink);font:500 18px/1.2 var(--display);letter-spacing:.04em;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.side-lang button{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 10px;border:1px solid var(--line);background:none;color:var(--ink);font:500 18px/1.2 var(--display);letter-spacing:.04em;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
 .side-lang button:hover{border-color:#111}
 .side-lang button[aria-pressed="true"]{border-color:#111;background:#111;color:#fff;cursor:default}
 .side-lang button:focus-visible{outline:1px solid #111;outline-offset:3px}
+/* Line-drawn marks beside each name: the Albanian eagle (no flag behind it) and an outlined Union Jack. currentColor, so they turn white on the chosen button. */
+.side-lang .lang-icon{flex:none;display:block}
+.side-lang .lang-eagle{width:21px;height:22px}
+.side-lang .lang-jack{width:26px;height:13px}
 /* Checkout: "Edit bag" stays on one line next to the heading. Fields carry the store's tips (positioned on the label). */
 .co-sum-head h2{flex:1;min-width:0}
 .co-link{flex:none;white-space:nowrap}

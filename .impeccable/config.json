@@ -20,6 +20,15 @@
         ],
         "createdAt": "2026-10-06T15:56:05.260Z",
         "reason": "Claude: story-band imgs use data-src and app.js sets src when the band nears the viewport (lazy load for a viewport-pinned layer, mirroring Subashi Metal ParallaxBand); alt is empty and aria-hidden, so no broken box renders"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "frontend/styles.css"
+        ],
+        "createdAt": "2026-10-07T12:13:44.861Z",
+        "reason": "Claude triage: styles.css L185 .map-pin:after is a CSS border triangle (pin tip), not an accent border on a rounded card"
       }
     ]
   }

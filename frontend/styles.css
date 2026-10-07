@@ -219,9 +219,8 @@ body.with-header .site-header{position:fixed;top:0;left:0;right:0;z-index:48}
 .ucp-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
 .ucp-actions .pdp-btn{margin:0}
 @media(max-width:560px){.ucp-main{padding:70px 20px 90px}.ucp-actions .pdp-btn{width:100%}}
-/* Home New Arrivals: 4 pieces, one row (3 on tablets, 2 on phones), then See more across the section. */
-@media(max-width:900px){#productGrid>.product-card:nth-child(n+4){display:none}}
-@media(max-width:560px){#productGrid>.product-card:nth-child(n+3){display:none}}
+/* Home New Arrivals: 8 pieces in two rows (6 on tablets, 8 in four rows on phones), then See more across the section. */
+@media(max-width:900px) and (min-width:561px){#productGrid>.product-card:nth-child(n+7){display:none}}
 .see-more{margin-top:44px;text-align:center}
 @media(max-width:560px){.see-more{margin-top:30px}}
 /* Albanian visitors: hidden for the moment it takes i18n.js to translate the page (index.html sets .lang-pending). */

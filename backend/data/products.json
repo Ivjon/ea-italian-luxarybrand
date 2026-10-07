@@ -4,7 +4,7 @@
     "brand": "Armani",
     "name": "Tailored Wool Blazer",
     "category": "Kids",
-    "type": "Clothing",
+    "type": "Jackets",
     "price": 520,
     "stock": 5,
     "sizes": [
@@ -29,7 +29,7 @@
         "qty": 1
       }
     ],
-    "sizeType": "clothing",
+    "sizeType": "kids-clothing",
     "image": "/assets/products/blazer-ivory.jpg",
     "media": [
       {
@@ -64,7 +64,7 @@
     "brand": "Versace",
     "name": "Sculpted Leather Sandal",
     "category": "Women",
-    "type": "Sandals",
+    "type": "Boots",
     "price": 590,
     "stock": 10,
     "sizes": [
@@ -117,6 +117,7 @@
         "qty": 0
       }
     ],
+    "sizeType": "shoes",
     "image": "/assets/products/sandal-black.jpg",
     "media": [
       {
@@ -159,7 +160,7 @@
     "brand": "Philipp Plein",
     "name": "Monochrome Evening Jacket",
     "category": "Men",
-    "type": "Clothing",
+    "type": "Jackets",
     "price": 880,
     "stock": 6,
     "image": "/assets/products/jacket-black.jpg",
@@ -184,16 +185,34 @@
     "type": "Clothing",
     "price": 1250,
     "stock": 4,
-    "image": "/assets/products/trench-coat.jpg"
+    "image": "/assets/products/trench-coat.jpg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/trench-coat.jpg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Emerald",
+        "hex": "#1f7a5a"
+      }
+    ]
   },
   {
     "id": "p8",
     "brand": "Moschino",
     "name": "Structured Black Tote",
     "category": "Women",
-    "type": "Bags",
+    "type": "Sandals",
     "price": 760,
     "stock": 9,
-    "image": "/assets/products/hobo-bag-black.jpg"
+    "image": "/assets/products/hobo-bag-black.jpg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/hobo-bag-black.jpg"
+      }
+    ]
   }
 ]

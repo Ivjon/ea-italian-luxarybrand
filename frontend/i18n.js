@@ -113,6 +113,7 @@
     'Price: Low to High': 'Çmimi: nga më i ulëti',
     'Price: High to Low': 'Çmimi: nga më i larti',
     'Category': 'Kategoria',
+    'Gender': 'Gjinia',
     'Colour': 'Ngjyra',
     'Clothing sizes': 'Masat e veshjeve',
     'Shoe sizes': 'Masat e këpucëve',

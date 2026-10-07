@@ -1,9 +1,11 @@
 const MAX_BODY_BYTES = 1e6;
 
+// `field` (optional) names the form field the error is about, so the page can show it there.
 class HttpError extends Error {
-  constructor(status, message) {
+  constructor(status, message, field) {
     super(message);
     this.status = status;
+    if (field) this.field = field;
   }
 }
 

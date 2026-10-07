@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400&display=swap" />
   <link rel="preload" as="image" href="/assets/editorial/hero-desktop-1536.webp" media="(min-width: 901px)" imagesrcset="/assets/editorial/hero-desktop-1024.webp 1024w, /assets/editorial/hero-desktop-1536.webp 1536w" imagesizes="100vw" />
   <link rel="stylesheet" href="/styles.css" />
+  <!-- Opened at a store page (/men, /product/…): the brand loader covers the home page until app.js shows that page, so
+       the home page doesn't flash underneath at its restored scroll position (.opening in styles.css). -->
+  <script>if (location.pathname !== '/') document.documentElement.classList.add('opening');</script>
+  <!-- Albanian: the page stays hidden until i18n.js has translated it, so English never flashes (at most 3 s). -->
+  <script>try { var l = localStorage.getItem('ea-lang') || (/^sq/i.test(navigator.language || '') ? 'sq' : 'en'); if (l === 'sq') { document.documentElement.classList.add('lang-pending'); setTimeout(function () { document.documentElement.classList.remove('lang-pending'); }, 3000); } } catch (e) {}</script>
   <link rel="icon" href="/assets/brand/ea-icon.png" />
   <link rel="apple-touch-icon" href="/assets/brand/ea-icon.png" />
 </head>
@@ -17,11 +22,17 @@
   <!-- One header for every width: over the hero photo on desktop, a plain bar at 900px and below. -->
   <header class="site-header">
     <button class="hdr-btn hdr-menu" id="menuOpen" aria-label="Open menu" aria-controls="sideMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6.5h20M2 12h20M2 17.5h20" /></svg></button>
-    <a class="hdr-logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" width="105" height="84" /></a>
-    <nav class="hdr-nav" aria-label="Primary"><a href="#men">Men</a><a href="#women">Women</a><a href="#brands-live">Brands</a><a href="#story">About</a></nav>
+    <a class="hdr-logo" href="/"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" width="105" height="84" /></a>
+    <!-- Men, Women and Kids share one drop-down panel listing their product groups (renderShopMenus and openDrop in app.js). -->
+    <nav class="hdr-nav" aria-label="Primary"><a href="/new-arrivals">New Arrivals</a><a href="/sale">On Sale</a><div class="hdr-item" data-group="men"><a href="/men" aria-expanded="false" aria-controls="hdrDrop">Men</a></div><div class="hdr-item" data-group="women"><a href="/women" aria-expanded="false" aria-controls="hdrDrop">Women</a></div><div class="hdr-item" data-group="kids"><a href="/kids" aria-expanded="false" aria-controls="hdrDrop">Kids</a></div><a href="#story">About</a></nav>
     <div class="hdr-end">
+      <!-- Language: Shqip / English (i18n.js; the menu is wired in app.js). Each name is written in its own language. -->
+      <div class="lang-wrap">
+        <button class="hdr-btn hdr-lang" id="langOpen" type="button" aria-label="Language" title="Language" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9s-1.2 6.4-3.6 9c-2.4-2.6-3.6-5.6-3.6-9S9.6 5.6 12 3z" /></svg></button>
+        <div class="lang-menu" id="langMenu" hidden><p class="lang-title">Language</p><button type="button" data-lang="sq" lang="sq"><span>Shqip</span><small>SQ</small></button><button type="button" data-lang="en" lang="en"><span>English</span><small>EN</small></button></div>
+      </div>
       <button class="hdr-btn" id="searchOpen" aria-label="Search" aria-controls="searchPanel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.3 15.3 21 21" /></svg></button>
-      <a class="hdr-btn hdr-account" id="accountLink" href="#account" aria-label="Sign in or create an account" title="My account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4.5 20.5c.8-4 3.8-6 7.5-6s6.7 2 7.5 6" /></svg></a>
+      <a class="hdr-btn hdr-account" id="accountLink" href="/account" aria-label="Sign in or create an account" title="My account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4.5 20.5c.8-4 3.8-6 7.5-6s6.7 2 7.5 6" /></svg></a>
       <button class="hdr-btn hdr-bag" id="bagOpen" aria-label="Bag, 0 items" data-count="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8.5h14l-1.2 12.5H6.2z" /><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5" /></svg><span class="hdr-bag-label" aria-hidden="true">Bag</span> <b class="bag-count" aria-hidden="true">0</b></button>
     </div>
   </header>
@@ -35,7 +46,7 @@
       </picture>
       <div class="hero-copy">
         <p class="hero-kicker">A selection of icons</p>
-        <h1 id="heroTitle">Italian<br /> excellence</h1>
+        <h1 id="heroTitle" data-i18n-html="hero-title">Italian<br /> excellence</h1>
         <p class="hero-sub">Timeless style. A curated selection of the world’s most iconic luxury brands.</p>
         <a class="hero-cta" href="#shop">Discover the collection</a>
       </div>
@@ -47,14 +58,16 @@
       <div id="brandRow" class="brand-row"></div>
     </section>
 
+    <!-- Each card is one link: a click anywhere on it opens the collection. -->
     <section class="edit-grid">
-      <article><img src="/assets/editorial/women.jpg" alt="Women's collection" loading="lazy"><div><span>EA EDIT</span><h3>Women</h3><a href="#women">Discover</a></div></article>
-      <article><img src="/assets/editorial/men.jpg" alt="Men's collection" loading="lazy"><div><span>THE CLASSICS</span><h3>Men</h3><a href="#men">Discover</a></div></article>
+      <article><a class="edit-card" href="/women"><img src="/assets/editorial/women.jpg" alt="" loading="lazy"><div><span>EA EDIT</span><h3>Women</h3><span class="edit-cta">Discover</span></div></a></article>
+      <article><a class="edit-card" href="/men"><img src="/assets/editorial/men.jpg" alt="" loading="lazy"><div><span>THE CLASSICS</span><h3>Men</h3><span class="edit-cta">Discover</span></div></a></article>
     </section>
 
     <section class="shop" id="shop">
       <div class="shop-head"><div><p class="kicker">CURATED COLLECTION</p><h2>New Arrivals</h2></div><div class="filters"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Women">Women</button><button class="filter" data-filter="Men">Men</button></div></div>
       <div class="product-grid" id="productGrid"></div>
+      <a class="pdp-btn see-more" href="/new-arrivals">See more</a>
     </section>
 
     <section class="story-band" id="story">
@@ -66,7 +79,13 @@
 
     <section class="newsletter">
       <p class="kicker">PRIVATE ACCESS</p><h2>Join our world</h2><p>New arrivals, private edits and selected releases.</p>
-      <form id="newsletterForm"><input type="email" name="email" placeholder="Email address" required><button>Subscribe</button></form><div id="newsletterMessage"></div>
+      <!-- Every field is required; a field with a problem shows a tip under it (same checks as the account forms, app.js). -->
+      <form id="newsletterForm" class="nl-form" novalidate>
+        <div class="acct-field"><label class="vh" for="nlName">Full name</label><input id="nlName" name="name" placeholder="Full name" required aria-describedby="nlNameTip" autocomplete="name" maxlength="120" /><p class="acct-tip" id="nlNameTip" hidden></p></div>
+        <div class="acct-field"><label class="vh" for="nlEmail">Email address</label><input id="nlEmail" name="email" placeholder="Email address" required aria-describedby="nlEmailTip" type="email" autocomplete="email" maxlength="254" spellcheck="false" /><p class="acct-tip" id="nlEmailTip" hidden></p></div>
+        <div class="acct-field"><label class="vh" for="nlPhone">Phone number</label><input id="nlPhone" name="phone" placeholder="Phone number" required aria-describedby="nlPhoneTip" type="tel" autocomplete="tel" maxlength="30" /><p class="acct-tip" id="nlPhoneTip" hidden></p></div>
+        <button type="submit">Subscribe</button>
+      </form><div id="newsletterMessage" class="nl-message" role="status"></div>
     </section>
 
     <section class="visit" id="visit" aria-labelledby="visitTitle">
@@ -78,22 +97,31 @@
         </dl>
         <a class="visit-link" href="https://www.google.com/maps/search/?api=1&amp;query=Luxury%20Italian%20Brands%2C%20Rruga%20Abdi%20Toptani%201001%2C%20Tiran%C3%AB" target="_blank" rel="noopener">Get directions</a>
       </div>
-      <div class="visit-map"><iframe title="Map showing Luxury Italian Brands, Toptani Shopping Center, Tiranë" src="https://www.google.com/maps?q=Luxury%20Italian%20Brands%2C%20Rruga%20Abdi%20Toptani%201001%2C%20Tiran%C3%AB&amp;z=17&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      <!-- Map: Google's embed in the site's colours, with our card over Google's place card and an EA pin on the spot; the
+           whole map opens Google Maps (styles.css .visit-map). Google's attribution at the bottom stays visible. -->
+      <div class="visit-map">
+        <iframe title="Map showing Luxury Italian Brands, Toptani Shopping Center, Tiranë" src="https://www.google.com/maps?q=Luxury%20Italian%20Brands%2C%20Rruga%20Abdi%20Toptani%201001%2C%20Tiran%C3%AB&amp;z=17&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" tabindex="-1" aria-hidden="true"></iframe>
+        <span class="map-pin" aria-hidden="true"><img src="/assets/brand/ea-mark.svg" alt="" /></span>
+        <div class="map-card"><p class="map-card-k">The boutique · 3rd floor</p><p class="map-card-t">Toptani Shopping Center</p><a class="map-open" href="https://www.google.com/maps/search/?api=1&amp;query=Luxury%20Italian%20Brands%2C%20Rruga%20Abdi%20Toptani%201001%2C%20Tiran%C3%AB" target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">↗</span></a></div>
+      </div>
     </section>
   </main>
 
-  <footer><div class="footer-mark"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></div><nav aria-label="Footer"><a href="#shop">Collection</a><a href="#brands-live">Brands</a><a href="#story">About</a><a href="#visit">Visit</a></nav><small>© 2026 EA Luxury Italian Brand.</small></footer>
+  <!-- Footer: also copied to the bottom of every page panel (app.js). Contact us has no action yet. -->
+  <footer><div class="footer-mark"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></div><nav aria-label="Footer"><a href="#story">About</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Luxury%20Italian%20Brands%2C%20Rruga%20Abdi%20Toptani%201001%2C%20Tiran%C3%AB" target="_blank" rel="noopener">Visit</a><a href="/terms">Terms of Service</a><button type="button" class="footer-contact">Contact us</button></nav><small>© 2026 EA Luxury Italian Brand.</small></footer>
 
-  <section class="collection" id="collection" aria-labelledby="collectionTitle" hidden>
+  <!-- Every page panel has data-site-header: the site header and ☰ menu stay on top of it (see syncLock in app.js). -->
+  <section class="collection" id="collection" aria-labelledby="collectionTitle" data-site-header hidden>
     <div class="collection-head"><div><p class="kicker">THE COLLECTION</p><h2 id="collectionTitle"></h2><span id="collectionCount"></span></div><button class="collection-close" id="collectionClose" aria-label="Close collection">×</button></div>
     <div class="collection-tools">
-      <select id="collectionBrand" aria-label="Brand"></select>
+      <div class="af-wrap"><div class="active-filters" id="activeFilters" role="group" aria-label="Applied filters"></div></div>
       <button class="filter-open" id="filterOpen" aria-controls="filterDrawer">Filter<span id="filterCount"></span></button>
     </div>
+    <div class="grid-loading" id="gridLoading" hidden><div class="loader-mark"><img src="/assets/brand/ea-mark.svg" alt="" /><img class="loader-fill" src="/assets/brand/ea-mark.svg" alt="" /></div></div>
     <div class="product-grid" id="collectionGrid"></div>
   </section>
-  <section class="pdp" id="product" aria-labelledby="pdpName" hidden>
-    <div class="pdp-bar"><button class="pdp-back" id="pdpClose"><span aria-hidden="true">‹</span> Back</button><a class="pdp-logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><button class="pdp-bag" data-open-cart>BAG <b class="bag-count">0</b></button></div>
+  <section class="pdp" id="product" aria-labelledby="pdpName" data-site-header hidden>
+    <div class="panel-back"><button class="pdp-back" id="pdpClose"><span aria-hidden="true">‹</span> Back</button></div>
     <div class="pdp-main">
       <div class="pdp-info">
         <p class="pdp-brand" id="pdpBrand"></p>
@@ -114,26 +142,27 @@
       </div>
     </div>
   </section>
-  <section class="co" id="checkout" aria-labelledby="coTitle" hidden>
-    <div class="pdp-bar"><button class="pdp-back" id="coClose"><span aria-hidden="true">‹</span> Back</button><a class="pdp-logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><span></span></div>
+  <section class="co" id="checkout" aria-labelledby="coTitle" data-site-header hidden>
+    <div class="panel-back"><button class="pdp-back" id="coClose"><span aria-hidden="true">‹</span> Back</button></div>
     <div class="co-main" id="coMain">
       <header class="co-head"><p class="kicker">Checkout</p><h1 id="coTitle">Your details</h1></header>
-      <form class="co-form" id="coForm">
+      <!-- novalidate: empty or wrong fields show the store's own tips (app.js checkForm), not the browser's bubble. -->
+      <form class="co-form" id="coForm" novalidate>
         <fieldset class="co-sec"><legend><span>01</span>Contact</legend>
           <div class="co-grid">
-            <label>Email<input name="email" type="email" required maxlength="254" autocomplete="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]+" spellcheck="false" /></label>
-            <label>Phone<input name="phone" type="tel" required maxlength="30" autocomplete="tel" pattern="(?=(?:[^0-9]*[0-9]){6})[+0-9 \(\)\/.\-]+" /></label>
+            <label>Email<input id="coEmail" name="email" type="email" required maxlength="254" autocomplete="email" spellcheck="false" aria-describedby="coEmailTip" /><p class="acct-tip" id="coEmailTip" hidden></p></label>
+            <label>Phone<input id="coPhone" name="phone" type="tel" required maxlength="30" autocomplete="tel" aria-describedby="coPhoneTip" /><p class="acct-tip" id="coPhoneTip" hidden></p></label>
           </div>
         </fieldset>
         <fieldset class="co-sec"><legend><span>02</span>Delivery address</legend>
           <div class="co-grid">
-            <label>First name<input name="firstName" required maxlength="60" autocomplete="given-name" /></label>
-            <label>Last name<input name="lastName" required maxlength="60" autocomplete="family-name" /></label>
-            <label class="full">Address<input name="line1" required maxlength="120" autocomplete="address-line1" /></label>
+            <label>First name<input id="coFirst" name="firstName" required maxlength="60" autocomplete="given-name" aria-describedby="coFirstTip" /><p class="acct-tip" id="coFirstTip" hidden></p></label>
+            <label>Last name<input id="coLast" name="lastName" required maxlength="60" autocomplete="family-name" aria-describedby="coLastTip" /><p class="acct-tip" id="coLastTip" hidden></p></label>
+            <label class="full">Address<span class="co-addr"><input id="coLine1" name="line1" required maxlength="120" autocomplete="address-line1" aria-describedby="coLine1Tip" /><button type="button" class="co-map-btn" id="coMapBtn" aria-label="Choose on the map" title="Choose on the map" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" /><circle cx="12" cy="10" r="2.4" /></svg></button></span><p class="acct-tip" id="coLine1Tip" hidden></p></label>
             <label class="full"><span>Apartment, suite, floor <small>optional</small></span><input name="line2" maxlength="120" autocomplete="address-line2" /></label>
-            <label>Postal code<input name="postalCode" required maxlength="20" autocomplete="postal-code" /></label>
-            <label>City<input name="city" required maxlength="80" autocomplete="address-level2" /></label>
-            <label class="full">Country<input name="country" required maxlength="60" autocomplete="country-name" /></label>
+            <label>Postal code<input id="coPostal" name="postalCode" required maxlength="20" autocomplete="postal-code" aria-describedby="coPostalTip" /><p class="acct-tip" id="coPostalTip" hidden></p></label>
+            <label>City<input id="coCity" name="city" required maxlength="80" autocomplete="address-level2" aria-describedby="coCityTip" /><p class="acct-tip" id="coCityTip" hidden></p></label>
+            <label class="full">Country<input id="coCountry" name="country" required maxlength="60" autocomplete="country-name" aria-describedby="coCountryTip" /><p class="acct-tip" id="coCountryTip" hidden></p></label>
           </div>
         </fieldset>
         <fieldset class="co-sec"><legend><span>03</span>Delivery</legend><div class="co-options" id="coDelivery"><p class="co-wait">Loading…</p></div></fieldset>
@@ -143,27 +172,34 @@
         <button class="pdp-btn solid co-place" id="coPlace">Place order</button>
       </form>
       <aside class="co-summary" aria-labelledby="coSumTitle">
-        <div class="co-sum-head"><h2 id="coSumTitle">Your order</h2><button type="button" class="co-link" data-open-cart>Edit bag</button></div>
+        <div class="co-sum-head"><h2 id="coSumTitle">Your order</h2><button type="button" class="co-link" id="coEdit" aria-pressed="false" aria-controls="coLines">Edit bag</button></div>
         <button type="button" class="co-sum-toggle" id="coSumToggle" aria-expanded="false" aria-controls="coSumBody"><span class="vh">Order details: </span><span class="co-sum-count" id="coSumCount"></span><b class="co-sum-total" id="coSumTotal"></b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6" /></svg></button>
         <div class="co-sum-body" id="coSumBody"><div class="co-lines" id="coLines"></div><dl class="co-totals" id="coTotals"></dl></div>
       </aside>
     </div>
     <div class="co-done" id="coDone" hidden></div>
   </section>
-  <section class="co acct" id="account" aria-labelledby="acctTitle" hidden>
-    <div class="pdp-bar"><button class="pdp-back" id="acctClose"><span aria-hidden="true">‹</span> Back</button><a class="pdp-logo" href="#top"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></a><span></span></div>
+  <!-- Pages still being built: the My Account links and Terms of Service (PAGES and openPage in app.js). -->
+  <section class="co ucp" id="page" aria-labelledby="pageTitle" data-site-header hidden>
+    <div class="ucp-main"><img class="ucp-mark" src="/assets/brand/ea-mark.svg" alt="" /><p class="kicker" id="pageKicker"></p><h1 id="pageTitle"></h1><p class="ucp-lead">This page is being prepared and will be ready soon. Thank you for your patience.</p><div class="ucp-actions"><a class="pdp-btn solid co-continue" id="pageBack" href="/"></a><a class="pdp-btn co-continue" href="/new-arrivals">Discover new arrivals</a></div></div>
+  </section>
+  <section class="co acct" id="account" aria-labelledby="acctTitle" data-site-header hidden>
     <div class="acct-main" id="acctMain"></div>
   </section>
   <aside class="filter-drawer" id="filterDrawer" aria-labelledby="filterTitle">
     <div class="filter-head"><h2 id="filterTitle">Filter</h2><button class="filter-clear" id="filterClear">Clear all</button><button class="filter-close" id="filterClose" aria-label="Close filters">×</button></div>
+    <!-- Sections are filled by renderFilters in app.js; which ones a page shows is set by filterSections. -->
     <div class="filter-body">
-      <section class="filter-sec"><h3>Sort by</h3><div class="filter-opts" id="fSort"><button data-sort="price-asc">Price: low to high</button><button data-sort="price-desc">Price: high to low</button><button data-sort="new">New arrivals</button></div></section>
-      <section class="filter-sec" id="fSizeSec"><h3>Size</h3><div class="size-filters" id="fSizes"></div></section>
-      <section class="filter-sec" id="fPriceSec"><h3>Price</h3><div><div class="range"><div class="range-track"><span class="range-fill" id="fFill"></span></div><input type="range" id="fMax" min="0" step="1" aria-label="Maximum price"></div><p class="range-values" id="fValues"></p></div></section>
-      <section class="filter-sec" id="fColorSec"><h3>Colour</h3><div class="filter-opts" id="fColors"></div></section>
-      <section class="filter-sec" id="fSaleSec" hidden><h3>Offers</h3><div class="filter-opts"><button id="fSale">On sale</button></div></section>
+      <section class="filter-sec" data-sec="search"><h3><label for="fSearch">Search</label></h3><div class="f-search"><input id="fSearch" type="search" placeholder="Search products…" autocomplete="off" maxlength="80" enterkeyhint="search" /><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.3 15.3 21 21" /></svg></div></section>
+      <section class="filter-sec" data-sec="price"><h3>Price</h3><div><div class="range"><div class="range-track"><span class="range-fill" id="fFill"></span></div><input type="range" id="fMin" min="0" step="1" aria-label="Lowest price"><input type="range" id="fMax" min="0" step="1" aria-label="Highest price"></div><p class="range-values" id="fValues"></p></div></section>
+      <section class="filter-sec" data-sec="sort"><h3>Sort by</h3><div class="filter-opts f-list" id="fSort"><button type="button" data-sort="new">New Arrivals</button><button type="button" data-sort="sale">On Sale</button><button type="button" data-sort="price-asc">Price: Low to High</button><button type="button" data-sort="price-desc">Price: High to Low</button></div></section>
+      <section class="filter-sec" data-sec="category"><h3>Category</h3><div class="f-list" id="fCats"></div></section>
+      <section class="filter-sec" data-sec="brand"><h3>Brands</h3><div class="f-list" id="fBrands"></div></section>
+      <section class="filter-sec" data-sec="colour"><h3>Colour</h3><div class="filter-opts f-list f-colors" id="fColors"></div></section>
+      <section class="filter-sec" data-sec="size-clothing"><h3>Clothing sizes</h3><div class="f-list f-sizes" data-size-family="clothing"></div></section>
+      <section class="filter-sec" data-sec="size-shoes"><h3>Shoe sizes</h3><div class="f-list f-sizes" data-size-family="shoes"></div></section>
     </div>
-    <button class="filter-apply" id="filterApply">View results</button>
+    <button class="filter-apply" id="filterApply">Apply</button>
   </aside>
   <aside class="info-drawer" id="infoDrawer" aria-labelledby="infoTitle"><div class="info-head"><h2 id="infoTitle"></h2><button class="info-close" id="infoClose" aria-label="Close">×</button></div><div class="info-body" id="infoBody"></div></aside>
   <div class="loader" id="loader" hidden><div class="loader-mark"><img src="/assets/brand/ea-mark.svg" alt="" /><img class="loader-fill" src="/assets/brand/ea-mark.svg" alt="" /></div></div>
@@ -171,28 +207,48 @@
   <aside class="drawer" id="cartDrawer"><div class="drawer-head"><h2>Your bag</h2><button id="closeCart" aria-label="Close bag">×</button></div><div id="cartItems"></div><div class="drawer-foot"><span>Total</span><strong id="cartTotal">€0</strong><button class="checkout" id="checkoutBtn">Proceed to checkout</button></div></aside><div class="overlay" id="overlay"></div>
   <aside class="side-menu" id="sideMenu" aria-label="Menu">
     <div class="side-head"><button class="side-close" id="sideClose" aria-label="Close menu">×</button></div>
-    <nav class="side-panel" data-panel="main">
+    <nav class="side-panel">
       <p class="side-label">Brands</p>
       <ul class="side-list side-brands" id="sideBrands"></ul>
       <p class="side-label">Shop</p>
       <ul class="side-list">
-        <li><a href="#all">All products</a></li>
-        <li><a href="#women">Women</a></li>
-        <li><a href="#men">Men</a></li>
-        <li><a href="#kids">Kids</a></li>
-        <li><a href="#watches">Watches</a></li>
-        <li><button data-sub="jewellery">Jewellery<span class="chev" aria-hidden="true">›</span></button></li>
-        <li><button data-sub="shoes">Shoes<span class="chev" aria-hidden="true">›</span></button></li>
+        <!-- Same as the header links (without About); Men, Women and Kids open a sub-menu (renderShopMenus in app.js). -->
+        <li><a href="/new-arrivals">New Arrivals</a></li>
+        <li><a href="/sale">On Sale</a></li>
+        <li><button type="button" data-sub="men" aria-controls="side-men" aria-expanded="false">Men<span class="chev" aria-hidden="true">›</span></button></li>
+        <li><button type="button" data-sub="women" aria-controls="side-women" aria-expanded="false">Women<span class="chev" aria-hidden="true">›</span></button></li>
+        <li><button type="button" data-sub="kids" aria-controls="side-kids" aria-expanded="false">Kids<span class="chev" aria-hidden="true">›</span></button></li>
       </ul>
+      <p class="side-label">My Account</p>
+      <!-- My Account opens the account page; the others are still being built (PAGES in app.js) and need a sign-in. -->
+      <ul class="side-list">
+        <li><a href="/account/track-orders">Track Orders</a></li>
+        <li><a href="/account/wishlist">Wishlist</a></li>
+        <li><a href="/account">My Account</a></li>
+        <li><a href="/account/order-history">Order History</a></li>
+        <li><a href="/account/returns">Returns</a></li>
+      </ul>
+      <p class="side-label">Language</p>
+      <!-- Same choice as the globe in the header (app.js); each name in its own language. -->
+      <div class="side-lang" role="group" aria-label="Language"><button type="button" data-lang="sq" lang="sq" aria-pressed="false">Shqip</button><button type="button" data-lang="en" lang="en" aria-pressed="false">English</button></div>
     </nav>
-    <nav class="side-panel" data-panel="jewellery" hidden><button class="side-back" data-back><span aria-hidden="true">‹</span> Jewellery</button><ul class="side-list" id="side-jewellery"></ul></nav>
-    <nav class="side-panel" data-panel="shoes" hidden><button class="side-back" data-back><span aria-hidden="true">‹</span> Shoes</button><ul class="side-list" id="side-shoes"></ul></nav>
   </aside>
   <div class="search-panel" id="searchPanel" role="dialog" aria-label="Search the collection">
     <form class="search-form" id="searchForm" role="search"><label class="vh" for="searchInput">Search brands, pieces and categories</label><input id="searchInput" type="search" placeholder="Search collection" autocomplete="off" enterkeyhint="search" maxlength="80" /><button type="button" class="search-close" id="searchClose" aria-label="Close search">×</button></form>
     <p class="vh" id="searchStatus" role="status"></p>
     <div class="search-results" id="searchResults"></div>
   </div>
+  <!-- Checkout: find the delivery address on a map. A tap drops a pin; "Use this address" fills the address fields
+       (app.js openMapPicker; OpenStreetMap, loaded the first time it opens). -->
+  <div class="map-modal" id="mapModal" hidden>
+    <div class="map-dialog" role="dialog" aria-modal="true" aria-labelledby="mapTitle">
+      <div class="map-head"><div><p class="kicker">Delivery address</p><h2 id="mapTitle">Find your address on the map</h2></div><button type="button" class="map-close" id="mapClose" aria-label="Close">×</button></div>
+      <p class="map-hint">Tap the map where we should deliver. You can drag the pin to adjust it.</p>
+      <div class="map-canvas" id="mapCanvas"></div>
+      <div class="map-foot"><p class="map-found" id="mapFound" role="status"></p><div class="map-actions"><button type="button" class="pdp-btn" id="mapLocate">Use my location</button><button type="button" class="pdp-btn solid" id="mapUse" disabled>Use this address</button></div></div>
+    </div>
+  </div>
+  <script src="/i18n.js" defer></script>
   <script src="/catalog.js" defer></script>
   <script src="/app.js" defer></script>
 </body>

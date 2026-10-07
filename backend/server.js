@@ -4,6 +4,7 @@ const { PORT, FRONTEND_DIR, DATA_DIR } = require('./config');
 const { HttpError, sendJson, readJson } = require('./lib/http');
 const { serveStatic } = require('./lib/static');
 const auth = require('./lib/auth');
+const i18n = require('./lib/i18n');
 
 const routes = {
   ...require('./routes/shop'),
@@ -13,9 +14,8 @@ const routes = {
   ...require('./lib/accounts').routes,
 };
 
-// CRM files anyone may load: the sign-in page and the stylesheet it shares with the CRM.
-const PUBLIC_ADMIN_FILES = ['/admin/login.html', '/admin/login.js', '/admin/admin.css'];
-const isAdminPage = pathname => /^\/admin(\/|$)/.test(pathname) && !PUBLIC_ADMIN_FILES.includes(pathname);
+// The CRM's pages and files are for signed-in CRM users only; staff sign in on the store's sign-in (/account).
+const isAdminPage = pathname => /^\/admin(\/|$)/.test(pathname);
 
 async function handleApi(req, res, url) {
   const handler = routes[`${req.method} ${url.pathname}`];
@@ -29,17 +29,19 @@ async function handleApi(req, res, url) {
   if (handler.superOnly && user.role !== 'superadmin') throw new HttpError(403, 'Only a Super Admin can do this.');
   // Handlers marked `raw` (file uploads) read the request stream themselves.
   const hasJsonBody = ['POST', 'PUT', 'DELETE'].includes(req.method) && !handler.raw;
-  const ctx = { req, url, user, status: 200, headers: {}, body: hasJsonBody ? await readJson(req) : {} };
+  // lang: the store page's language (X-Lang), so messages for customers come back in it (lib/i18n.js).
+  const ctx = { req, url, user, lang: i18n.langOf(req), status: 200, headers: {}, body: hasJsonBody ? await readJson(req) : {} };
   const data = await handler(ctx);
+  if (data && typeof data.message === 'string') data.message = i18n.tr(ctx.lang, data.message);
   sendJson(res, ctx.status, data, ctx.headers);
 }
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   if (!url.pathname.startsWith('/api/')) {
-    // Signed-out visits to the CRM go to the sign-in page.
+    // Signed-out visits to the CRM go to the sign-in.
     if (isAdminPage(url.pathname) && !auth.sessionUser(req)) {
-      res.writeHead(302, { Location: '/admin/login.html', 'Cache-Control': 'no-store' });
+      res.writeHead(302, { Location: '/account', 'Cache-Control': 'no-store' });
       return res.end();
     }
     return serveStatic(req, res, url.pathname);
@@ -50,7 +52,7 @@ const server = http.createServer(async (req, res) => {
   } catch (err) {
     const status = err instanceof HttpError ? err.status : 500;
     if (status === 500) console.error(err);
-    sendJson(res, status, { ok: false, message: status === 500 ? 'Something went wrong on the server.' : err.message });
+    sendJson(res, status, { ok: false, message: i18n.tr(i18n.langOf(req), status === 500 ? 'Something went wrong on the server.' : err.message), ...(err.field && { field: err.field }) });
   }
 });
 
@@ -62,6 +64,7 @@ server.on('error', err => {
   throw err;
 });
 
+require('./lib/users').migrate(); // older installs: move admin.json and accounts.json into users.json
 const created = auth.ensureAccount();
 server.listen(PORT, () => {
   console.log(`EA Luxury store: http://localhost:${PORT}`);

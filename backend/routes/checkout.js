@@ -1,6 +1,7 @@
 // Store checkout: the bag becomes an order in the CRM. Prices and stock always come from products.json, never the browser.
 const store = require('../lib/store');
 const validate = require('../lib/validate');
+const { tr, trParts } = require('../lib/i18n');
 const { HttpError } = require('../lib/http');
 const { sessionAccount } = require('../lib/accounts');
 
@@ -24,19 +25,20 @@ const colorNames = p => (p.colors || (p.color ? [{ name: p.color }] : [])).map(c
 function contactFields(body) {
   const c = body.contact || {};
   const a = body.address || {};
-  const phone = validate.text(c.phone, 'Phone', { required: true, max: 30 });
-  if (!/^[+0-9 ()./-]+$/.test(phone) || phone.replace(/\D/g, '').length < 6) throw new HttpError(400, 'Please enter a valid phone number.');
+  // Each check names its field (the form field's name), so the page shows the message on that field.
+  const { field } = validate;
+  const phone = field('phone', () => validate.phone(c.phone));
   return {
-    firstName: validate.text(c.firstName, 'First name', { required: true, max: 60 }),
-    lastName: validate.text(c.lastName, 'Last name', { required: true, max: 60 }),
-    email: validate.email(c.email),
+    firstName: field('firstName', () => validate.text(c.firstName, 'First name', { required: true, max: 60 })),
+    lastName: field('lastName', () => validate.text(c.lastName, 'Last name', { required: true, max: 60 })),
+    email: field('email', () => validate.email(c.email)),
     phone,
     address: {
-      line1: validate.text(a.line1, 'Address', { required: true }),
-      line2: validate.text(a.line2, 'Apartment, suite, floor'),
-      postalCode: validate.text(a.postalCode, 'Postal code', { required: true, max: 20 }),
-      city: validate.text(a.city, 'City', { required: true, max: 80 }),
-      country: validate.text(a.country, 'Country', { required: true, max: 60 }),
+      line1: field('line1', () => validate.text(a.line1, 'Address', { required: true })),
+      line2: field('line2', () => validate.text(a.line2, 'Apartment, suite, floor')),
+      postalCode: field('postalCode', () => validate.text(a.postalCode, 'Postal code', { required: true, max: 20 })),
+      city: field('city', () => validate.text(a.city, 'City', { required: true, max: 80 })),
+      country: field('country', () => validate.text(a.country, 'Country', { required: true, max: 60 })),
     },
   };
 }
@@ -144,9 +146,14 @@ function placeOrder({ req, body }) {
 }
 
 module.exports = {
-  'GET /api/checkout': () => ({ delivery: DELIVERY, payment: PAYMENT }),
+  // Options and the confirmation in the store page's language; the order itself is saved in English for the CRM.
+  'GET /api/checkout': ({ lang }) => {
+    const local = o => ({ ...o, label: tr(lang, o.label), note: tr(lang, o.note) });
+    return { delivery: DELIVERY.map(local), payment: PAYMENT.map(local) };
+  },
   'POST /api/checkout': ctx => {
     ctx.status = 201;
-    return placeOrder(ctx);
+    const { order, ...rest } = placeOrder(ctx);
+    return { ...rest, order: { ...order, delivery: trParts(ctx.lang, order.delivery), payment: tr(ctx.lang, order.payment) }, paymentNote: tr(ctx.lang, rest.paymentNote) };
   },
 };

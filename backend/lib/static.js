@@ -53,8 +53,14 @@ function serveStatic(req, res, pathname) {
       filePath = path.join(filePath, 'index.html');
       return fs.stat(filePath, (indexErr, indexStat) => (indexErr ? sendText(res, 404, 'Not found') : sendFile(req, res, filePath, indexStat.size)));
     }
-    if (statErr || !stat.isFile()) return sendText(res, 404, 'Not found');
-    sendFile(req, res, filePath, stat.size);
+    if (!statErr && stat.isFile()) return sendFile(req, res, filePath, stat.size);
+    // Store pages (/men, /product/P1001, /checkout, …) are addresses, not files: they get the store page, which
+    // shows the right one (see route() in app.js). Anything that looks like a file (has an extension) stays a 404.
+    if (root === FRONTEND_DIR && !normalized.startsWith('/assets/') && !path.posix.extname(normalized)) {
+      const index = path.join(FRONTEND_DIR, 'index.html');
+      return fs.stat(index, (indexErr, indexStat) => (indexErr ? sendText(res, 404, 'Not found') : sendFile(req, res, index, indexStat.size)));
+    }
+    sendText(res, 404, 'Not found');
   });
 }
 

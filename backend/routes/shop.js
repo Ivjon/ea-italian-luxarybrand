@@ -8,9 +8,18 @@ module.exports = {
 
   'GET /api/brands': () => [...new Set(store.read('products').filter(p => !p.hidden).map(p => p.brand))],
 
+  // Newsletter sign-up (full name, email, phone): saved as a CRM lead with source "Newsletter"; signing up again with
+  // the same email updates that lead instead of adding another.
   'POST /api/newsletter': ({ body }) => {
-    validate.email(body.email);
-    return { ok: true, message: 'Welcome to EA Luxury.' };
+    const name = validate.field('name', () => validate.text(body.name, 'Full name', { required: true, max: 120 }));
+    const email = validate.field('email', () => validate.email(body.email));
+    const phone = validate.field('phone', () => validate.phone(body.phone));
+    const leads = store.read('leads');
+    const lead = leads.find(l => l.source === 'Newsletter' && String(l.email || '').toLowerCase() === email);
+    if (lead) Object.assign(lead, { name, phone });
+    else leads.push({ id: store.nextId(leads, 'L', 1), name, email, phone, source: 'Newsletter', stage: 'New' });
+    store.write('leads', leads);
+    return { ok: true, message: lead ? 'You are already on our list; your details are updated.' : 'Welcome to EA Luxury. You will hear from us soon.' };
   },
 
   'POST /api/contact': () => ({ ok: true, message: 'Your message has been received.' }),

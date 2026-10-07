@@ -1,13 +1,14 @@
 // CRM / admin API. Every /api/crm/* route needs a signed-in CRM user (checked in server.js, see lib/auth.js).
 const store = require('../lib/store');
 const auth = require('../lib/auth');
+const users = require('../lib/users');
 const validate = require('../lib/validate');
 const { HttpError } = require('../lib/http');
 const { saveUpload } = require('../lib/uploads');
 
 const ORDER_STATUSES = ['Awaiting Payment', 'Processing', 'Shipped', 'Delivered'];
 const LEAD_STAGES = ['New', 'Warm', 'Qualified', 'Won', 'Lost'];
-const ROLES = ['admin', 'superadmin'];
+const ROLES = users.STAFF_ROLES;
 const GENDERS = ['Women', 'Men', 'Unisex', 'Kids']; // saved as the product's `category`
 const SIZE_TYPES = ['clothing', 'shoes', 'kids-clothing', 'kids-shoes']; // size charts, see frontend/catalog.js
 const NUMBER_SIZE_TYPES = ['shoes', 'kids-shoes']; // shoe charts take number sizes only (38, 38.5)
@@ -192,53 +193,56 @@ function updateLead({ body }) {
   return lead;
 }
 
-// CRM users (Super Admins only, see server.js). The main admin account is listed first and cannot be changed here.
-function userFields(body, users, ignoreId) {
+// CRM users (Super Admins only, see server.js): the superadmin and admin rows of users.json. Customer rows in the same
+// file are not listed or changed here. The main admin account is listed first and cannot be changed here.
+// The email is the sign-in name, so it is required unless the user already signs in with a username.
+function userFields(body, rows, ignoreId) {
+  const existing = rows.find(u => u.id === ignoreId);
   const name = validate.text(body.name, 'Name', { required: true });
-  const email = validate.email(body.email);
+  const email = validate.email(body.email, { required: !(existing && existing.username) }) || null;
   const role = validate.oneOf(body.role, 'Role', ROLES, '');
   if (!ROLES.includes(role)) throw new HttpError(400, 'Choose a role.');
-  if (users.some(u => u.email === email && u.id !== ignoreId)) throw new HttpError(409, 'A user with this email already exists.');
+  if (email && users.emailTaken(rows, email, ignoreId)) throw new HttpError(409, 'A user with this email already exists.');
   return { name, email, role };
 }
 
-const listUsers = () => [auth.userFor(auth.OWNER), ...auth.readUsers()].filter(Boolean).map(auth.publicUser);
+const listUsers = () => users.read().filter(users.isStaff).map(auth.publicUser);
 
-function findUser(users, id) {
-  if (id === auth.OWNER) throw new HttpError(400, 'The main admin account is changed with Change password, not here.');
-  const index = users.findIndex(u => u.id === id);
+function findUser(rows, id) {
+  const index = rows.findIndex(u => u.id === id && users.isStaff(u));
   if (index < 0) throw new HttpError(404, 'User not found.');
+  if (rows[index].main) throw new HttpError(400, 'The main admin account is changed with Change password, not here.');
   return index;
 }
 
 // A new user needs a password to sign in with (their email is the username).
 function createUser({ body }) {
-  const users = auth.readUsers();
-  const user = { id: store.nextId(users, 'U', 1001), ...userFields(body, users), ...auth.hashPassword(auth.newPassword(body.password)) };
-  users.push(user);
-  auth.writeUsers(users);
+  const rows = users.read();
+  const user = { id: users.nextId(rows), ...userFields(body, rows), ...auth.hashPassword(auth.newPassword(body.password)), created: new Date().toISOString() };
+  rows.push(user);
+  users.write(rows);
   return auth.publicUser(user);
 }
 
 // Leaving the password empty keeps it; a new password signs the user out everywhere.
 function updateUser({ body, user: me }) {
-  const users = auth.readUsers();
-  const index = findUser(users, body.id);
-  const fields = userFields(body, users, users[index].id);
-  if (users[index].id === me.id && fields.role !== users[index].role) throw new HttpError(400, 'You cannot change your own role.');
+  const rows = users.read();
+  const index = findUser(rows, body.id);
+  const fields = userFields(body, rows, rows[index].id);
+  if (rows[index].id === me.id && fields.role !== rows[index].role) throw new HttpError(400, 'You cannot change your own role.');
   const password = String(body.password || '');
-  users[index] = { ...users[index], ...fields, ...(password && auth.hashPassword(auth.newPassword(password))) };
-  auth.writeUsers(users);
-  if (password && users[index].id !== me.id) auth.endSessions(users[index].id);
-  return auth.publicUser(users[index]);
+  rows[index] = { ...rows[index], ...fields, ...(password && auth.hashPassword(auth.newPassword(password))) };
+  users.write(rows);
+  if (password && rows[index].id !== me.id) auth.endSessions(rows[index].id);
+  return auth.publicUser(rows[index]);
 }
 
 function deleteUser({ body, user: me }) {
-  const users = auth.readUsers();
-  const index = findUser(users, body.id);
-  if (users[index].id === me.id) throw new HttpError(400, 'You cannot remove your own account.');
-  const [removed] = users.splice(index, 1);
-  auth.writeUsers(users);
+  const rows = users.read();
+  const index = findUser(rows, body.id);
+  if (rows[index].id === me.id) throw new HttpError(400, 'You cannot remove your own account.');
+  const [removed] = rows.splice(index, 1);
+  users.write(rows);
   auth.endSessions(removed.id);
   return { ok: true, id: removed.id };
 }

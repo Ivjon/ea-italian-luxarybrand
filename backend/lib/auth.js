@@ -1,68 +1,46 @@
-// CRM sign-in. The main admin account is always a Super Admin; its password comes from ADMIN_PASSWORD, or from
-// backend/data/admin.json, which is created with a random password on first start (printed once in the terminal).
-// The other CRM users (backend/data/users.json, managed by Super Admins) sign in with their email and the password
-// a Super Admin set for them. Passwords are scrypt-hashed; sessions are in memory (sign in again after a restart).
-// A session only holds the user's id: the role is looked up on every request, so a changed role or a removed user
-// takes effect straight away.
+// CRM sessions. CRM users are the superadmin and admin rows of backend/data/users.json (see users.js). The main admin
+// (always a Super Admin) is created with a random password on first start (printed once in the terminal), or takes
+// its password from ADMIN_PASSWORD. There is no separate CRM sign-in: staff use the store's sign-in form with their
+// username or email and the password a Super Admin set for them (accounts.js), which starts a session here.
+// Passwords are scrypt-hashed; sessions are in memory (sign in again after a restart). A session only holds the
+// user's id: the role is looked up on every request, so a changed role or a removed user takes effect straight away.
 const crypto = require('crypto');
-const fs = require('fs');
-const path = require('path');
-const { DATA_DIR } = require('../config');
 const { HttpError } = require('./http');
-const store = require('./store');
+const users = require('./users');
 
-const ACCOUNT_FILE = path.join(DATA_DIR, 'admin.json');
 const COOKIE = 'ea_admin';
 const SESSION_MS = 12 * 60 * 60 * 1000; // 12 hours
 const MAX_FAILS = 8; // failed sign-ins per address…
 const FAIL_WINDOW_MS = 15 * 60 * 1000; // …within 15 minutes, before sign-in is paused for that address
 
-const OWNER = 'owner'; // session id of the main admin account
 const MIN_PASSWORD = 10;
 
 const sessions = new Map(); // token -> { id, expires }
 
 const hashPassword = (password, salt = crypto.randomBytes(16).toString('hex')) => ({ salt, hash: crypto.scryptSync(password, salt, 64).toString('hex') });
 
-// The account, or null when none exists yet. ADMIN_USER / ADMIN_PASSWORD override the file.
-function loadAccount() {
-  if (process.env.ADMIN_PASSWORD) return { username: process.env.ADMIN_USER || 'admin', ...hashPassword(process.env.ADMIN_PASSWORD) };
-  try {
-    const a = JSON.parse(fs.readFileSync(ACCOUNT_FILE, 'utf8'));
-    return a && a.username && a.salt && a.hash ? a : null;
-  } catch {
-    return null;
-  }
-}
-let account = loadAccount();
-
-function saveAccount(username, password) {
-  account = { username, ...hashPassword(password) };
-  if (!process.env.ADMIN_PASSWORD) fs.writeFileSync(ACCOUNT_FILE, JSON.stringify(account, null, 2) + '\n', { mode: 0o600 });
-}
-
-// Called at startup: creates the account on first run and returns the generated password to print, else null.
+// Called at startup: makes sure the main admin exists. On the first run it is created with a random password, which
+// is returned to print once (else null). With ADMIN_PASSWORD (and optionally ADMIN_USER) set, those are applied to it.
 function ensureAccount() {
-  if (account) return null;
-  const password = crypto.randomBytes(9).toString('base64url');
-  saveAccount(process.env.ADMIN_USER || 'admin', password);
-  return { username: account.username, password };
-}
-
-const checkPassword = password => passwordMatches(password, account);
-
-// CRM users from users.json (an empty list when the file does not exist yet).
-function readUsers() {
-  try {
-    return store.read('users');
-  } catch {
-    return [];
+  const { ADMIN_USER, ADMIN_PASSWORD } = process.env;
+  const rows = users.read();
+  let main = rows.find(u => u.main);
+  if (main && (!ADMIN_PASSWORD || (passwordMatches(ADMIN_PASSWORD, main) && (!ADMIN_USER || main.username === ADMIN_USER)))) return null;
+  const username = ADMIN_USER || (main && main.username) || 'admin';
+  const password = ADMIN_PASSWORD || crypto.randomBytes(9).toString('base64url');
+  if (!main) {
+    main = { id: users.nextId(rows), role: 'superadmin', name: username, main: true, created: new Date().toISOString() };
+    rows.push(main);
   }
+  Object.assign(main, { username, ...hashPassword(password) });
+  users.write(rows);
+  return ADMIN_PASSWORD ? null : { username, password };
 }
-const writeUsers = users => store.write('users', users);
-const userFor = id => (id === OWNER ? account && { id: OWNER, name: account.username, role: 'superadmin', main: true } : readUsers().find(u => u.id === id) || null);
+
+// The CRM user with this id (a superadmin or admin row), or null.
+const userFor = id => users.read().find(u => u.id === id && users.isStaff(u)) || null;
 // What the CRM may see of a user (never the password hash).
-const publicUser = u => ({ id: u.id, name: u.name, email: u.email || '', role: u.role, ...(u.main ? { main: true } : { canSignIn: !!u.hash }) });
+const publicUser = u => ({ id: u.id, name: u.name, email: u.email || '', username: u.username || '', role: u.role, ...(u.main ? { main: true } : { canSignIn: !!u.hash }) });
 
 // Signs out every session of a user, except `keep` (the token of the request making the change).
 function endSessions(id, keep) {
@@ -86,7 +64,6 @@ function attemptLimiter(max = MAX_FAILS, windowMs = FAIL_WINDOW_MS) {
     clear(req) { seen.delete(ipOf(req)); },
   };
 }
-const adminAttempts = attemptLimiter();
 
 // The signed-in CRM user for this request ({ id, name, email, role }), or null.
 function sessionUser(req) {
@@ -107,28 +84,11 @@ function requireAdmin(req) {
   return user;
 }
 
-function login(ctx) {
-  adminAttempts.check(ctx.req);
-
-  // The main admin signs in with its username, every other user with their email.
-  const name = String(ctx.body.username || '').trim().toLowerCase();
-  const { password } = ctx.body;
-  let id = null;
-  if (account && name === account.username.toLowerCase()) {
-    if (checkPassword(password)) id = OWNER;
-  } else {
-    const user = readUsers().find(u => u.email === name && u.hash);
-    if (user && passwordMatches(password, user)) id = user.id;
-  }
-  if (!id) {
-    adminAttempts.fail(ctx.req);
-    throw new HttpError(401, 'The username or password is not correct.');
-  }
-  adminAttempts.clear(ctx.req);
+// Starts a CRM session for a staff user whose password was just checked (by the store's sign-in, see accounts.js).
+function startSession(ctx, user) {
   const token = crypto.randomBytes(32).toString('hex');
-  sessions.set(token, { id, expires: Date.now() + SESSION_MS });
+  sessions.set(token, { id: user.id, expires: Date.now() + SESSION_MS });
   ctx.headers = { 'Set-Cookie': cookieHeader(ctx.req, token, SESSION_MS / 1000) };
-  return { ok: true, user: publicUser(userFor(id)) };
 }
 
 function logout(ctx) {
@@ -155,17 +115,12 @@ function newPassword(value) {
 function changePassword(ctx) {
   const user = requireAdmin(ctx.req);
   const { current, next } = ctx.body;
-  if (user.id === OWNER) {
-    if (process.env.ADMIN_PASSWORD) throw new HttpError(400, 'The password is set by ADMIN_PASSWORD on the server; change it there.');
-    if (!checkPassword(current)) throw new HttpError(400, 'The current password is not correct.');
-    saveAccount(account.username, newPassword(next));
-  } else {
-    if (!passwordMatches(current, user)) throw new HttpError(400, 'The current password is not correct.');
-    const pw = newPassword(next);
-    const users = readUsers();
-    Object.assign(users.find(u => u.id === user.id), hashPassword(pw));
-    writeUsers(users);
-  }
+  if (user.main && process.env.ADMIN_PASSWORD) throw new HttpError(400, 'The password is set by ADMIN_PASSWORD on the server; change it there.');
+  if (!passwordMatches(current, user)) throw new HttpError(400, 'The current password is not correct.');
+  const pw = newPassword(next);
+  const rows = users.read();
+  Object.assign(rows.find(u => u.id === user.id), hashPassword(pw));
+  users.write(rows);
   endSessions(user.id, cookies(ctx.req)[COOKIE]);
   return { ok: true };
 }
@@ -179,16 +134,13 @@ module.exports = {
   ensureAccount,
   sessionUser,
   requireAdmin,
-  readUsers,
-  writeUsers,
+  startSession,
   publicUser,
   userFor,
   newPassword,
   endSessions,
-  OWNER,
   sessionToken: req => cookies(req)[COOKIE],
   routes: {
-    'POST /api/auth/login': login,
     'POST /api/auth/logout': logout,
     'GET /api/auth/me': me,
     'POST /api/auth/password': changePassword,

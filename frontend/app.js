@@ -4,8 +4,8 @@ const state={products:[],cart:loadCart(),category:'All'};
 // Collection panel: a full-screen product list for the current address (/men, /brand/armani…; see viewFor). fromPage: the address was set by navigating inside the site, so closing can go back.
 // Filter panel (all optional, combined): q: search words; min / max: price range (null = no limit; top: the view's
 // highest price); sort: new | sale | price-asc | price-desc; types: chosen product types (Category); brands; colors;
-// sizes: chosen clothing and shoe sizes. open: Category groups whose types are shown (their + button).
-const coll={key:null,view:null,q:'',min:null,max:null,top:0,sort:'new',genders:[],types:[],brands:[],colors:[],sizes:{clothing:[],shoes:[]},open:[],fromPage:false};
+// sizes: chosen clothing and shoe sizes. inView: the view's pieces. open: Category groups whose types are shown (their + button).
+const coll={key:null,view:null,inView:[],q:'',min:null,max:null,top:0,sort:'new',genders:[],types:[],brands:[],colors:[],sizes:{clothing:[],shoes:[]},open:[],fromPage:false};
 const clearFilters=()=>Object.assign(coll,{q:'',min:null,max:null,genders:[],types:[],brands:[],colors:[],sizes:{clothing:[],shoes:[]}});
 // The panel edits a draft (the fields above); the grid shows coll.applied, which Apply or a click outside the panel copy
 // from the draft. Opening the panel starts the draft from what is applied, so closing it with × or Escape drops changes.
@@ -57,12 +57,14 @@ const GENDERS=['Women','Men','Kids'],gendersOf=p=>p.category==='Unisex'?['Women'
 // leaves those Sort options out: New Arrivals and On Sale offer only the price sorts (newest first until one is picked;
 // clicking the picked one again goes back to that).
 const filterSections=view=>['search','price','sort','gender','category','brand','colour','size-clothing','size-shoes'].filter(s=>!(s==='brand'&&view.brand)&&!(s==='gender'&&!view.gender));
-function renderCollection(){const inView=state.products.filter(coll.view.test),top=coll.top=inView.length?Math.max(...inView.map(priceOf)):0;
+// A piece passes filters f (the applied ones, or the panel's draft) on everything but size.
+const passes=(f,top)=>{const lo=f.min??0,hi=f.max??top,q=f.q.trim();return p=>(!q||matchesSearch(p,q))&&priceOf(p)>=lo&&priceOf(p)<=hi&&(!f.genders.length||gendersOf(p).some(g=>f.genders.includes(g)))&&(!f.types.length||f.types.includes(p.type||'Other'))&&(!f.brands.length||f.brands.includes(p.brand))&&(!f.colors.length||productColors(p).some(c=>f.colors.includes(c.name)))};
+function renderCollection(){const inView=coll.inView=state.products.filter(coll.view.test),top=coll.top=inView.length?Math.max(...inView.map(priceOf)):0;
 // what this view offers: product types per group, colours (with their swatch), in-stock sizes per size family
 const opts={genders:new Set(),types:{},colors:new Map(),sizes:{clothing:new Set(),shoes:new Set()}};for(const p of inView){for(const x of gendersOf(p))opts.genders.add(x);const g=EA_CATALOG.typeGroup(p.type)||'Other';(opts.types[g]||=new Set()).add(p.type||'Other');for(const c of productColors(p))if(!opts.colors.get(c.name))opts.colors.set(c.name,c.hex||'');for(const sz of inStockSizes(p))opts.sizes[sizeFamily(p)].add(sz)}
 coll.opts=opts;for(const f of [coll,coll.applied]){f.genders=f.genders.filter(g=>opts.genders.has(g));f.types=f.types.filter(t=>inView.some(p=>(p.type||'Other')===t));f.colors=f.colors.filter(c=>opts.colors.has(c));for(const k in f.sizes)f.sizes[k]=f.sizes[k].filter(v=>opts.sizes[k].has(v));if(f.max!==null&&f.max>=top)f.max=null;if(f.min!==null&&f.min>(f.max??top))f.min=null}
-const a=coll.applied,lo=a.min??0,hi=a.max??top,q=a.q.trim(),picked=Object.entries(a.sizes).filter(([,v])=>v.length),sizeOk=p=>!picked.length||picked.some(([f,v])=>sizeFamily(p)===f&&inStockSizes(p).some(x=>v.some(y=>sameSize(x,y))));
-const rows=inView.filter(p=>(!q||matchesSearch(p,q))&&priceOf(p)>=lo&&priceOf(p)<=hi&&(!a.genders.length||gendersOf(p).some(g=>a.genders.includes(g)))&&(!a.types.length||a.types.includes(p.type||'Other'))&&(!a.brands.length||a.brands.includes(p.brand))&&(!a.colors.length||productColors(p).some(c=>a.colors.includes(c.name)))&&sizeOk(p));
+const a=coll.applied,picked=Object.entries(a.sizes).filter(([,v])=>v.length),sizeOk=p=>!picked.length||picked.some(([f,v])=>sizeFamily(p)===f&&inStockSizes(p).some(x=>v.some(y=>sameSize(x,y))));
+const rows=inView.filter(passes(a,top)).filter(sizeOk);
 if(a.sort==='new'||a.sort==='sale'){rows.reverse();rows.sort((x,y)=>(y.isNew?1:0)-(x.isNew?1:0));if(a.sort==='sale')rows.sort((x,y)=>(y.discount||0)-(x.discount||0))}else rows.sort((x,y)=>a.sort==='price-asc'?priceOf(x)-priceOf(y):priceOf(y)-priceOf(x));
 $('#collectionCount').textContent=tr(rows.length===1?'{n} piece':'{n} pieces',{n:rows.length});$('#collectionGrid').innerHTML=rows.length?rows.map(productCard).join(''):`<div class="empty">${tr(inView.length?'No pieces match these filters.':coll.view.search?'Nothing matches this search. Try a brand name, or a piece such as “blazer” or “sandal”.':'New pieces are arriving soon.')}</div>`;renderChips();renderFilters()}
 // Filter panel. Lists are only rebuilt when their options change, never while a customer drags or types; their
@@ -93,8 +95,10 @@ rebuild($('#fBrands'),state.brands.join('|'),state.brands.map(b=>tick('data-bran
 const colors=[...opts.colors.keys()].sort((a,b)=>a.localeCompare(b));if(!colors.length)sec('colour').hidden=true;
 rebuild($('#fColors'),colors.join('|'),colors.map(c=>{const hex=opts.colors.get(c);return `<button type="button" data-filter-color="${esc(c)}"><span class="sq${hex?'':' none'}"${hex?` style="background:${esc(hex)}"`:''}></span>${esc(c)}</button>`}).join(''));
 $('#fColors').querySelectorAll('[data-filter-color]').forEach(b=>b.setAttribute('aria-pressed',coll.colors.includes(b.dataset.filterColor)));
-// Sizes: clothing and shoes apart, each the sizes in stock in this view.
-for(const f of ['clothing','shoes']){const sizes=EA_CATALOG.sortSizes([...opts.sizes[f]]),box=$(`#filterDrawer [data-size-family="${f}"]`);if(!sizes.length)sec(`size-${f}`).hidden=true;
+// Sizes: clothing and shoes apart, each the sizes in stock among the pieces the rest of the panel leaves (so ticking
+// Bags hides both, ticking Shoes keeps only Shoe sizes). A picked size the panel no longer offers is let go.
+const pool={clothing:new Set(),shoes:new Set()};for(const p of coll.inView.filter(passes(coll,top)))for(const sz of inStockSizes(p))pool[sizeFamily(p)].add(sz);
+for(const f of ['clothing','shoes']){coll.sizes[f]=coll.sizes[f].filter(v=>pool[f].has(v));const sizes=EA_CATALOG.sortSizes([...pool[f]]),box=$(`#filterDrawer [data-size-family="${f}"]`);if(!sizes.length)sec(`size-${f}`).hidden=true;
 rebuild(box,sizes.join('|'),sizes.map(v=>`<button type="button" data-size-v="${esc(v)}">${esc(v)}</button>`).join(''));box.querySelectorAll('[data-size-v]').forEach(b=>b.setAttribute('aria-pressed',coll.sizes[f].includes(b.dataset.sizeV)))}
 $('#filterClear').hidden=!activeCount(coll)&&coll.sort==='new';
 document.querySelectorAll('#filterDrawer .f-list').forEach(markMore)}

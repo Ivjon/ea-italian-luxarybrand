@@ -2,217 +2,5359 @@
   {
     "id": "p1",
     "brand": "Armani",
-    "name": "Tailored Wool Blazer",
-    "category": "Kids",
+    "name": "Leather Biker Jacket",
+    "category": "Men",
     "type": "Jackets",
-    "price": 520,
-    "stock": 5,
+    "price": 1450,
+    "stock": 25,
     "sizes": [
       {
-        "size": "XS",
-        "qty": 1
-      },
-      {
         "size": "S",
-        "qty": 1
+        "qty": 5
       },
       {
         "size": "M",
-        "qty": 1
+        "qty": 5
       },
       {
         "size": "L",
-        "qty": 1
+        "qty": 2
       },
       {
         "size": "XL",
-        "qty": 1
+        "qty": 3
+      },
+      {
+        "size": "XXL",
+        "qty": 5
+      },
+      {
+        "size": "XXXL",
+        "qty": 5
       }
     ],
-    "sizeType": "kids-clothing",
-    "image": "/assets/products/blazer-ivory.jpg",
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/armani-leather-biker-jacket.svg",
     "media": [
       {
         "type": "image",
-        "src": "/assets/products/blazer-ivory.jpg"
+        "src": "/assets/products/placeholders/armani-leather-biker-jacket.svg"
       }
     ],
-    "composition": "100% cotton",
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Cognac",
+        "hex": "#9a4f1f"
+      },
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      }
+    ],
+    "code": "EA-AR-1001",
+    "description": "Leather Biker Jacket from Armani, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% lambskin leather; lining 100% cupro",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
     "care": [
-      "wash-30"
+      "do-not-wash",
+      "do-not-bleach",
+      "do-not-iron",
+      "do-not-tumble-dry",
+      "dry-clean-f-mild"
     ]
   },
   {
     "id": "p2",
     "brand": "Moschino",
-    "name": "Leather Top Handle Bag",
-    "category": "Women",
-    "type": "Bags",
-    "price": 690,
-    "stock": 5,
-    "isNew": true,
-    "image": "/assets/products/handbag-black.jpg",
+    "name": "Quilted Puffer Jacket",
+    "category": "Kids",
+    "type": "Jackets",
+    "price": 340,
+    "stock": 36,
+    "sizes": [
+      {
+        "size": "2Y",
+        "qty": 2
+      },
+      {
+        "size": "4Y",
+        "qty": 8
+      },
+      {
+        "size": "6Y",
+        "qty": 6
+      },
+      {
+        "size": "8Y",
+        "qty": 4
+      },
+      {
+        "size": "10Y",
+        "qty": 3
+      },
+      {
+        "size": "12Y",
+        "qty": 7
+      },
+      {
+        "size": "14Y",
+        "qty": 6
+      }
+    ],
+    "sizeType": "kids-clothing",
+    "image": "/assets/products/placeholders/moschino-quilted-puffer-jacket.svg",
     "media": [
       {
         "type": "image",
-        "src": "/assets/products/handbag-black.jpg"
+        "src": "/assets/products/placeholders/moschino-quilted-puffer-jacket.svg"
       }
+    ],
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Red",
+        "hex": "#b3261e"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      }
+    ],
+    "code": "EA-MO-1002",
+    "description": "Quilted Puffer Jacket from Moschino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% polyamide; padding 100% polyester",
+    "details": [
+      "Made in Italy",
+      "Regular fit"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
     ]
   },
   {
     "id": "p3",
     "brand": "Versace",
-    "name": "Sculpted Leather Sandal",
+    "name": "Double-Faced Wool Coat",
     "category": "Women",
-    "type": "Boots",
-    "price": 590,
-    "stock": 10,
+    "type": "Coats",
+    "price": 1890,
+    "stock": 19,
     "sizes": [
       {
-        "size": "35",
-        "qty": 10
+        "size": "XS",
+        "qty": 2
       },
       {
-        "size": "36",
-        "qty": 0
+        "size": "S",
+        "qty": 5
       },
       {
-        "size": "37",
-        "qty": 0
+        "size": "M",
+        "qty": 3
       },
       {
-        "size": "38",
-        "qty": 0
+        "size": "L",
+        "qty": 6
       },
       {
-        "size": "39",
-        "qty": 0
-      },
-      {
-        "size": "40",
-        "qty": 0
-      },
-      {
-        "size": "41",
-        "qty": 0
-      },
-      {
-        "size": "42",
-        "qty": 0
-      },
-      {
-        "size": "43",
-        "qty": 0
-      },
-      {
-        "size": "44",
-        "qty": 0
-      },
-      {
-        "size": "45",
-        "qty": 0
-      },
-      {
-        "size": "46",
-        "qty": 0
+        "size": "XL",
+        "qty": 3
       }
     ],
-    "sizeType": "shoes",
-    "image": "/assets/products/sandal-black.jpg",
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/versace-double-faced-wool-coat.svg",
     "media": [
       {
         "type": "image",
-        "src": "/assets/products/sandal-black.jpg"
+        "src": "/assets/products/placeholders/versace-double-faced-wool-coat.svg"
       }
     ],
     "colors": [
       {
+        "name": "Camel",
+        "hex": "#b58a5a"
+      },
+      {
         "name": "Black",
         "hex": "#111111"
+      },
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
       }
     ],
+    "code": "EA-VE-1003",
+    "description": "Double-Faced Wool Coat from Versace, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "90% virgin wool, 10% cashmere",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
     "care": [
-      "wash-30"
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
     ]
   },
   {
     "id": "p4",
     "brand": "Valentino",
-    "name": "Fine Knit Cashmere",
-    "category": "Women",
-    "type": "Clothing",
-    "price": 480,
-    "stock": 3,
-    "image": "/assets/products/knit-cashmere.jpg"
+    "name": "Cashmere Overcoat",
+    "category": "Men",
+    "type": "Coats",
+    "price": 2350,
+    "stock": 31,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 5
+      },
+      {
+        "size": "M",
+        "qty": 5
+      },
+      {
+        "size": "L",
+        "qty": 3
+      },
+      {
+        "size": "XL",
+        "qty": 2
+      },
+      {
+        "size": "XXL",
+        "qty": 8
+      },
+      {
+        "size": "XXXL",
+        "qty": 8
+      }
+    ],
+    "sizeType": "clothing",
+    "discount": 30,
+    "image": "/assets/products/placeholders/valentino-cashmere-overcoat.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-cashmere-overcoat.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Charcoal",
+        "hex": "#3a3a3a"
+      },
+      {
+        "name": "Camel",
+        "hex": "#b58a5a"
+      }
+    ],
+    "code": "EA-VA-1004",
+    "description": "Cashmere Overcoat from Valentino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cashmere; lining 100% cupro",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
+    ]
   },
   {
     "id": "p5",
     "brand": "Dolce & Gabbana",
-    "name": "Signature Sunglasses",
+    "name": "Single-Breasted Crepe Blazer",
     "category": "Women",
-    "type": "Sunglasses",
-    "price": 310,
-    "stock": 16,
-    "image": "/assets/products/sunglasses-black.jpg"
-  },
-  {
-    "id": "p6",
-    "brand": "Philipp Plein",
-    "name": "Monochrome Evening Jacket",
-    "category": "Men",
-    "type": "Jackets",
-    "price": 880,
-    "stock": 6,
-    "image": "/assets/products/jacket-black.jpg",
+    "type": "Blazers",
+    "price": 980,
+    "stock": 22,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 2
+      },
+      {
+        "size": "S",
+        "qty": 5
+      },
+      {
+        "size": "M",
+        "qty": 8
+      },
+      {
+        "size": "L",
+        "qty": 3
+      },
+      {
+        "size": "XL",
+        "qty": 4
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/dolce-gabbana-single-breasted-crepe-blazer.svg",
     "media": [
       {
         "type": "image",
-        "src": "/assets/products/jacket-black.jpg"
+        "src": "/assets/products/placeholders/dolce-gabbana-single-breasted-crepe-blazer.svg"
       }
     ],
     "colors": [
       {
         "name": "Black",
         "hex": "#111111"
+      },
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      },
+      {
+        "name": "Blush",
+        "hex": "#f0c8c4"
       }
+    ],
+    "code": "EA-DG-1005",
+    "description": "Single-Breasted Crepe Blazer from Dolce & Gabbana, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "97% viscose, 3% elastane; lining 100% cupro",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
+    ]
+  },
+  {
+    "id": "p6",
+    "brand": "Philipp Plein",
+    "name": "Wool Hopsack Blazer",
+    "category": "Men",
+    "type": "Blazers",
+    "price": 1150,
+    "stock": 30,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 5
+      },
+      {
+        "size": "M",
+        "qty": 6
+      },
+      {
+        "size": "L",
+        "qty": 3
+      },
+      {
+        "size": "XL",
+        "qty": 3
+      },
+      {
+        "size": "XXL",
+        "qty": 8
+      },
+      {
+        "size": "XXXL",
+        "qty": 5
+      }
+    ],
+    "sizeType": "clothing",
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-wool-hopsack-blazer.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-wool-hopsack-blazer.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      },
+      {
+        "name": "Olive",
+        "hex": "#6b6b3a"
+      }
+    ],
+    "code": "EA-PP-1006",
+    "description": "Wool Hopsack Blazer from Philipp Plein, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% virgin wool; lining 100% cupro",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
     ]
   },
   {
     "id": "p7",
     "brand": "Armani",
-    "name": "Italian Wool Overcoat",
+    "name": "Two-Piece Wool Suit",
     "category": "Men",
-    "type": "Clothing",
-    "price": 1250,
-    "stock": 4,
-    "image": "/assets/products/trench-coat.jpg",
+    "type": "Suits",
+    "price": 2400,
+    "stock": 26,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 3
+      },
+      {
+        "size": "M",
+        "qty": 5
+      },
+      {
+        "size": "L",
+        "qty": 4
+      },
+      {
+        "size": "XL",
+        "qty": 3
+      },
+      {
+        "size": "XXL",
+        "qty": 7
+      },
+      {
+        "size": "XXXL",
+        "qty": 4
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/armani-two-piece-wool-suit.svg",
     "media": [
       {
         "type": "image",
-        "src": "/assets/products/trench-coat.jpg"
+        "src": "/assets/products/placeholders/armani-two-piece-wool-suit.svg"
       }
     ],
     "colors": [
       {
-        "name": "Emerald",
-        "hex": "#1f7a5a"
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Charcoal",
+        "hex": "#3a3a3a"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
       }
+    ],
+    "code": "EA-AR-1007",
+    "description": "Two-Piece Wool Suit from Armani, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% virgin wool; lining 100% cupro",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
     ]
   },
   {
     "id": "p8",
     "brand": "Moschino",
-    "name": "Structured Black Tote",
+    "name": "Pinstripe Trouser Suit",
     "category": "Women",
-    "type": "Sandals",
-    "price": 760,
-    "stock": 9,
-    "image": "/assets/products/hobo-bag-black.jpg",
+    "type": "Suits",
+    "price": 2100,
+    "stock": 25,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 4
+      },
+      {
+        "size": "S",
+        "qty": 2
+      },
+      {
+        "size": "M",
+        "qty": 8
+      },
+      {
+        "size": "L",
+        "qty": 3
+      },
+      {
+        "size": "XL",
+        "qty": 8
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/moschino-pinstripe-trouser-suit.svg",
     "media": [
       {
         "type": "image",
-        "src": "/assets/products/hobo-bag-black.jpg"
+        "src": "/assets/products/placeholders/moschino-pinstripe-trouser-suit.svg"
       }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      },
+      {
+        "name": "Beige",
+        "hex": "#d9c7a7"
+      }
+    ],
+    "code": "EA-MO-1008",
+    "description": "Pinstripe Trouser Suit from Moschino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "98% virgin wool, 2% elastane",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
     ]
+  },
+  {
+    "id": "p9",
+    "brand": "Versace",
+    "name": "Wool-Silk Waistcoat",
+    "category": "Men",
+    "type": "Waistcoats",
+    "price": 420,
+    "stock": 31,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 5
+      },
+      {
+        "size": "M",
+        "qty": 3
+      },
+      {
+        "size": "L",
+        "qty": 6
+      },
+      {
+        "size": "XL",
+        "qty": 4
+      },
+      {
+        "size": "XXL",
+        "qty": 7
+      },
+      {
+        "size": "XXXL",
+        "qty": 6
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/versace-wool-silk-waistcoat.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-wool-silk-waistcoat.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      }
+    ],
+    "code": "EA-VE-1009",
+    "description": "Wool-Silk Waistcoat from Versace, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "80% virgin wool, 20% silk",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
+    ]
+  },
+  {
+    "id": "p10",
+    "brand": "Valentino",
+    "name": "Tailored Satin Waistcoat",
+    "category": "Women",
+    "type": "Waistcoats",
+    "price": 460,
+    "stock": 14,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 2
+      },
+      {
+        "size": "S",
+        "qty": 3
+      },
+      {
+        "size": "M",
+        "qty": 5
+      },
+      {
+        "size": "L",
+        "qty": 2
+      },
+      {
+        "size": "XL",
+        "qty": 2
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/valentino-tailored-satin-waistcoat.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-tailored-satin-waistcoat.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#6d1a2a"
+      }
+    ],
+    "code": "EA-VA-1010",
+    "description": "Tailored Satin Waistcoat from Valentino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% viscose satin",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
+    ]
+  },
+  {
+    "id": "p11",
+    "brand": "Dolce & Gabbana",
+    "name": "Poplin Cotton Shirt",
+    "category": "Men",
+    "type": "Shirts",
+    "price": 360,
+    "stock": 33,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 4
+      },
+      {
+        "size": "M",
+        "qty": 6
+      },
+      {
+        "size": "L",
+        "qty": 6
+      },
+      {
+        "size": "XL",
+        "qty": 8
+      },
+      {
+        "size": "XXL",
+        "qty": 4
+      },
+      {
+        "size": "XXXL",
+        "qty": 5
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/dolce-gabbana-poplin-cotton-shirt.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-poplin-cotton-shirt.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Light Blue",
+        "hex": "#a9c8e8"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Pink",
+        "hex": "#e8a0b0"
+      }
+    ],
+    "code": "EA-DG-1011",
+    "description": "Poplin Cotton Shirt from Dolce & Gabbana, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p12",
+    "brand": "Philipp Plein",
+    "name": "Silk Crêpe de Chine Shirt",
+    "category": "Women",
+    "type": "Shirts",
+    "price": 690,
+    "stock": 27,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 5
+      },
+      {
+        "size": "S",
+        "qty": 5
+      },
+      {
+        "size": "M",
+        "qty": 7
+      },
+      {
+        "size": "L",
+        "qty": 5
+      },
+      {
+        "size": "XL",
+        "qty": 5
+      }
+    ],
+    "sizeType": "clothing",
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-silk-crepe-de-chine-shirt.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-silk-crepe-de-chine-shirt.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Emerald",
+        "hex": "#1f7a5a"
+      },
+      {
+        "name": "Blush",
+        "hex": "#f0c8c4"
+      }
+    ],
+    "code": "EA-PP-1012",
+    "description": "Silk Crêpe de Chine Shirt from Philipp Plein, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% silk",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
+    ]
+  },
+  {
+    "id": "p13",
+    "brand": "Armani",
+    "name": "Piqué Logo Polo",
+    "category": "Men",
+    "type": "Polo shirts",
+    "price": 290,
+    "stock": 25,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 3
+      },
+      {
+        "size": "M",
+        "qty": 3
+      },
+      {
+        "size": "L",
+        "qty": 7
+      },
+      {
+        "size": "XL",
+        "qty": 2
+      },
+      {
+        "size": "XXL",
+        "qty": 3
+      },
+      {
+        "size": "XXXL",
+        "qty": 7
+      }
+    ],
+    "sizeType": "clothing",
+    "discount": 30,
+    "image": "/assets/products/placeholders/armani-pique-logo-polo.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-pique-logo-polo.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Green",
+        "hex": "#2f6b3a"
+      }
+    ],
+    "code": "EA-AR-1013",
+    "description": "Piqué Logo Polo from Armani, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p14",
+    "brand": "Moschino",
+    "name": "Cotton Piqué Polo",
+    "category": "Kids",
+    "type": "Polo shirts",
+    "price": 150,
+    "stock": 50,
+    "sizes": [
+      {
+        "size": "2Y",
+        "qty": 8
+      },
+      {
+        "size": "4Y",
+        "qty": 8
+      },
+      {
+        "size": "6Y",
+        "qty": 8
+      },
+      {
+        "size": "8Y",
+        "qty": 8
+      },
+      {
+        "size": "10Y",
+        "qty": 7
+      },
+      {
+        "size": "12Y",
+        "qty": 6
+      },
+      {
+        "size": "14Y",
+        "qty": 5
+      }
+    ],
+    "sizeType": "kids-clothing",
+    "image": "/assets/products/placeholders/moschino-cotton-pique-polo.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-cotton-pique-polo.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Light Blue",
+        "hex": "#a9c8e8"
+      },
+      {
+        "name": "Red",
+        "hex": "#b3261e"
+      }
+    ],
+    "code": "EA-MO-1014",
+    "description": "Cotton Piqué Polo from Moschino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p15",
+    "brand": "Versace",
+    "name": "Logo Cotton T-shirt",
+    "category": "Women",
+    "type": "T-shirts",
+    "price": 250,
+    "stock": 17,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 2
+      },
+      {
+        "size": "S",
+        "qty": 4
+      },
+      {
+        "size": "M",
+        "qty": 4
+      },
+      {
+        "size": "L",
+        "qty": 3
+      },
+      {
+        "size": "XL",
+        "qty": 4
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/versace-logo-cotton-t-shirt.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-logo-cotton-t-shirt.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Pink",
+        "hex": "#e8a0b0"
+      }
+    ],
+    "code": "EA-VE-1015",
+    "description": "Logo Cotton T-shirt from Versace, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p16",
+    "brand": "Valentino",
+    "name": "Graphic Print T-shirt",
+    "category": "Kids",
+    "type": "T-shirts",
+    "price": 120,
+    "stock": 36,
+    "sizes": [
+      {
+        "size": "2Y",
+        "qty": 6
+      },
+      {
+        "size": "4Y",
+        "qty": 7
+      },
+      {
+        "size": "6Y",
+        "qty": 3
+      },
+      {
+        "size": "8Y",
+        "qty": 8
+      },
+      {
+        "size": "10Y",
+        "qty": 2
+      },
+      {
+        "size": "12Y",
+        "qty": 4
+      },
+      {
+        "size": "14Y",
+        "qty": 6
+      }
+    ],
+    "sizeType": "kids-clothing",
+    "image": "/assets/products/placeholders/valentino-graphic-print-t-shirt.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-graphic-print-t-shirt.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Yellow",
+        "hex": "#e8c547"
+      },
+      {
+        "name": "Light Blue",
+        "hex": "#a9c8e8"
+      }
+    ],
+    "code": "EA-VA-1016",
+    "description": "Graphic Print T-shirt from Valentino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p17",
+    "brand": "Dolce & Gabbana",
+    "name": "Cashmere Crewneck Sweater",
+    "category": "Women",
+    "type": "Knitwear",
+    "price": 780,
+    "stock": 28,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 5
+      },
+      {
+        "size": "S",
+        "qty": 2
+      },
+      {
+        "size": "M",
+        "qty": 8
+      },
+      {
+        "size": "L",
+        "qty": 5
+      },
+      {
+        "size": "XL",
+        "qty": 8
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/dolce-gabbana-cashmere-crewneck-sweater.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-cashmere-crewneck-sweater.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Camel",
+        "hex": "#b58a5a"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      },
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#6d1a2a"
+      }
+    ],
+    "code": "EA-DG-1017",
+    "description": "Cashmere Crewneck Sweater from Dolce & Gabbana, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cashmere",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
+    ]
+  },
+  {
+    "id": "p18",
+    "brand": "Philipp Plein",
+    "name": "Merino Rollneck Sweater",
+    "category": "Men",
+    "type": "Knitwear",
+    "price": 560,
+    "stock": 31,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 6
+      },
+      {
+        "size": "M",
+        "qty": 5
+      },
+      {
+        "size": "L",
+        "qty": 2
+      },
+      {
+        "size": "XL",
+        "qty": 7
+      },
+      {
+        "size": "XXL",
+        "qty": 8
+      },
+      {
+        "size": "XXXL",
+        "qty": 3
+      }
+    ],
+    "sizeType": "clothing",
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-merino-rollneck-sweater.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-merino-rollneck-sweater.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Chocolate",
+        "hex": "#4a2c1d"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      }
+    ],
+    "code": "EA-PP-1018",
+    "description": "Merino Rollneck Sweater from Philipp Plein, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% merino wool",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
+    ]
+  },
+  {
+    "id": "p19",
+    "brand": "Armani",
+    "name": "Embroidered Logo Sweatshirt",
+    "category": "Men",
+    "type": "Sweatshirts",
+    "price": 520,
+    "stock": 31,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 2
+      },
+      {
+        "size": "M",
+        "qty": 3
+      },
+      {
+        "size": "L",
+        "qty": 6
+      },
+      {
+        "size": "XL",
+        "qty": 6
+      },
+      {
+        "size": "XXL",
+        "qty": 6
+      },
+      {
+        "size": "XXXL",
+        "qty": 8
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/armani-embroidered-logo-sweatshirt.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-embroidered-logo-sweatshirt.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      }
+    ],
+    "code": "EA-AR-1019",
+    "description": "Embroidered Logo Sweatshirt from Armani, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p20",
+    "brand": "Moschino",
+    "name": "Teddy Logo Sweatshirt",
+    "category": "Kids",
+    "type": "Sweatshirts",
+    "price": 210,
+    "stock": 24,
+    "sizes": [
+      {
+        "size": "2Y",
+        "qty": 3
+      },
+      {
+        "size": "4Y",
+        "qty": 7
+      },
+      {
+        "size": "6Y",
+        "qty": 3
+      },
+      {
+        "size": "8Y",
+        "qty": 2
+      },
+      {
+        "size": "10Y",
+        "qty": 2
+      },
+      {
+        "size": "12Y",
+        "qty": 2
+      },
+      {
+        "size": "14Y",
+        "qty": 5
+      }
+    ],
+    "sizeType": "kids-clothing",
+    "image": "/assets/products/placeholders/moschino-teddy-logo-sweatshirt.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-teddy-logo-sweatshirt.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Pink",
+        "hex": "#e8a0b0"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Mint",
+        "hex": "#a8d8c0"
+      }
+    ],
+    "code": "EA-MO-1020",
+    "description": "Teddy Logo Sweatshirt from Moschino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p21",
+    "brand": "Versace",
+    "name": "Zip-Up Logo Hoodie",
+    "category": "Men",
+    "type": "Hoodies",
+    "price": 590,
+    "stock": 27,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 7
+      },
+      {
+        "size": "M",
+        "qty": 7
+      },
+      {
+        "size": "L",
+        "qty": 3
+      },
+      {
+        "size": "XL",
+        "qty": 5
+      },
+      {
+        "size": "XXL",
+        "qty": 2
+      },
+      {
+        "size": "XXXL",
+        "qty": 3
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/versace-zip-up-logo-hoodie.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-zip-up-logo-hoodie.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      },
+      {
+        "name": "Olive",
+        "hex": "#6b6b3a"
+      }
+    ],
+    "code": "EA-VE-1021",
+    "description": "Zip-Up Logo Hoodie from Versace, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p22",
+    "brand": "Valentino",
+    "name": "Cotton Fleece Hoodie",
+    "category": "Kids",
+    "type": "Hoodies",
+    "price": 230,
+    "stock": 27,
+    "sizes": [
+      {
+        "size": "2Y",
+        "qty": 5
+      },
+      {
+        "size": "4Y",
+        "qty": 2
+      },
+      {
+        "size": "6Y",
+        "qty": 4
+      },
+      {
+        "size": "8Y",
+        "qty": 3
+      },
+      {
+        "size": "10Y",
+        "qty": 4
+      },
+      {
+        "size": "12Y",
+        "qty": 7
+      },
+      {
+        "size": "14Y",
+        "qty": 2
+      }
+    ],
+    "sizeType": "kids-clothing",
+    "discount": 30,
+    "image": "/assets/products/placeholders/valentino-cotton-fleece-hoodie.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-cotton-fleece-hoodie.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Red",
+        "hex": "#b3261e"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      }
+    ],
+    "code": "EA-VA-1022",
+    "description": "Cotton Fleece Hoodie from Valentino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p23",
+    "brand": "Dolce & Gabbana",
+    "name": "Wide-Leg Wool Trousers",
+    "category": "Women",
+    "type": "Pants",
+    "price": 650,
+    "stock": 17,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 3
+      },
+      {
+        "size": "S",
+        "qty": 2
+      },
+      {
+        "size": "M",
+        "qty": 6
+      },
+      {
+        "size": "L",
+        "qty": 2
+      },
+      {
+        "size": "XL",
+        "qty": 4
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/dolce-gabbana-wide-leg-wool-trousers.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-wide-leg-wool-trousers.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Camel",
+        "hex": "#b58a5a"
+      },
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      }
+    ],
+    "code": "EA-DG-1023",
+    "description": "Wide-Leg Wool Trousers from Dolce & Gabbana, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% virgin wool",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
+    ]
+  },
+  {
+    "id": "p24",
+    "brand": "Philipp Plein",
+    "name": "Pleated Wool Trousers",
+    "category": "Men",
+    "type": "Pants",
+    "price": 590,
+    "stock": 25,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 2
+      },
+      {
+        "size": "M",
+        "qty": 5
+      },
+      {
+        "size": "L",
+        "qty": 4
+      },
+      {
+        "size": "XL",
+        "qty": 2
+      },
+      {
+        "size": "XXL",
+        "qty": 7
+      },
+      {
+        "size": "XXXL",
+        "qty": 5
+      }
+    ],
+    "sizeType": "clothing",
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-pleated-wool-trousers.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-pleated-wool-trousers.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Charcoal",
+        "hex": "#3a3a3a"
+      },
+      {
+        "name": "Beige",
+        "hex": "#d9c7a7"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      }
+    ],
+    "code": "EA-PP-1024",
+    "description": "Pleated Wool Trousers from Philipp Plein, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% virgin wool",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
+    ]
+  },
+  {
+    "id": "p25",
+    "brand": "Armani",
+    "name": "Slim-Fit Stretch Jeans",
+    "category": "Men",
+    "type": "Jeans",
+    "price": 450,
+    "stock": 35,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 7
+      },
+      {
+        "size": "M",
+        "qty": 4
+      },
+      {
+        "size": "L",
+        "qty": 8
+      },
+      {
+        "size": "XL",
+        "qty": 7
+      },
+      {
+        "size": "XXL",
+        "qty": 6
+      },
+      {
+        "size": "XXXL",
+        "qty": 3
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/armani-slim-fit-stretch-jeans.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-slim-fit-stretch-jeans.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Blue",
+        "hex": "#2c5aa0"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Light Blue",
+        "hex": "#a9c8e8"
+      }
+    ],
+    "code": "EA-AR-1025",
+    "description": "Slim-Fit Stretch Jeans from Armani, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "98% cotton, 2% elastane",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p26",
+    "brand": "Moschino",
+    "name": "Five-Pocket Denim Jeans",
+    "category": "Kids",
+    "type": "Jeans",
+    "price": 180,
+    "stock": 25,
+    "sizes": [
+      {
+        "size": "2Y",
+        "qty": 4
+      },
+      {
+        "size": "4Y",
+        "qty": 2
+      },
+      {
+        "size": "6Y",
+        "qty": 8
+      },
+      {
+        "size": "8Y",
+        "qty": 2
+      },
+      {
+        "size": "10Y",
+        "qty": 2
+      },
+      {
+        "size": "12Y",
+        "qty": 3
+      },
+      {
+        "size": "14Y",
+        "qty": 4
+      }
+    ],
+    "sizeType": "kids-clothing",
+    "image": "/assets/products/placeholders/moschino-five-pocket-denim-jeans.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-five-pocket-denim-jeans.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Blue",
+        "hex": "#2c5aa0"
+      },
+      {
+        "name": "Light Blue",
+        "hex": "#a9c8e8"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      }
+    ],
+    "code": "EA-MO-1026",
+    "description": "Five-Pocket Denim Jeans from Moschino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "98% cotton, 2% elastane",
+    "details": [
+      "Made in Italy",
+      "Regular fit"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p27",
+    "brand": "Versace",
+    "name": "Linen Bermuda Shorts",
+    "category": "Men",
+    "type": "Shorts",
+    "price": 380,
+    "stock": 30,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 2
+      },
+      {
+        "size": "M",
+        "qty": 6
+      },
+      {
+        "size": "L",
+        "qty": 5
+      },
+      {
+        "size": "XL",
+        "qty": 4
+      },
+      {
+        "size": "XXL",
+        "qty": 5
+      },
+      {
+        "size": "XXXL",
+        "qty": 8
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/versace-linen-bermuda-shorts.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-linen-bermuda-shorts.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Beige",
+        "hex": "#d9c7a7"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      }
+    ],
+    "code": "EA-VE-1027",
+    "description": "Linen Bermuda Shorts from Versace, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% linen",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "hand-wash",
+      "do-not-bleach",
+      "line-dry",
+      "iron-medium",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p28",
+    "brand": "Valentino",
+    "name": "Cotton Twill Shorts",
+    "category": "Kids",
+    "type": "Shorts",
+    "price": 140,
+    "stock": 38,
+    "sizes": [
+      {
+        "size": "2Y",
+        "qty": 5
+      },
+      {
+        "size": "4Y",
+        "qty": 4
+      },
+      {
+        "size": "6Y",
+        "qty": 2
+      },
+      {
+        "size": "8Y",
+        "qty": 8
+      },
+      {
+        "size": "10Y",
+        "qty": 6
+      },
+      {
+        "size": "12Y",
+        "qty": 5
+      },
+      {
+        "size": "14Y",
+        "qty": 8
+      }
+    ],
+    "sizeType": "kids-clothing",
+    "image": "/assets/products/placeholders/valentino-cotton-twill-shorts.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-cotton-twill-shorts.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Khaki",
+        "hex": "#b5a77c"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Red",
+        "hex": "#b3261e"
+      }
+    ],
+    "code": "EA-VA-1028",
+    "description": "Cotton Twill Shorts from Valentino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p29",
+    "brand": "Dolce & Gabbana",
+    "name": "Technical Jersey Tracksuit",
+    "category": "Men",
+    "type": "Tracksuits",
+    "price": 890,
+    "stock": 36,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 6
+      },
+      {
+        "size": "M",
+        "qty": 5
+      },
+      {
+        "size": "L",
+        "qty": 8
+      },
+      {
+        "size": "XL",
+        "qty": 8
+      },
+      {
+        "size": "XXL",
+        "qty": 4
+      },
+      {
+        "size": "XXXL",
+        "qty": 5
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/dolce-gabbana-technical-jersey-tracksuit.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-technical-jersey-tracksuit.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      }
+    ],
+    "code": "EA-DG-1029",
+    "description": "Technical Jersey Tracksuit from Dolce & Gabbana, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "88% polyester, 12% elastane",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p30",
+    "brand": "Philipp Plein",
+    "name": "Velour Tracksuit",
+    "category": "Women",
+    "type": "Tracksuits",
+    "price": 820,
+    "stock": 34,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 6
+      },
+      {
+        "size": "S",
+        "qty": 7
+      },
+      {
+        "size": "M",
+        "qty": 8
+      },
+      {
+        "size": "L",
+        "qty": 5
+      },
+      {
+        "size": "XL",
+        "qty": 8
+      }
+    ],
+    "sizeType": "clothing",
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-velour-tracksuit.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-velour-tracksuit.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Lilac",
+        "hex": "#c8a8d8"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#6d1a2a"
+      }
+    ],
+    "code": "EA-PP-1030",
+    "description": "Velour Tracksuit from Philipp Plein, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "80% cotton, 20% polyester",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p31",
+    "brand": "Armani",
+    "name": "Logo Swim Shorts",
+    "category": "Men",
+    "type": "Swimwear",
+    "price": 260,
+    "stock": 33,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 6
+      },
+      {
+        "size": "M",
+        "qty": 7
+      },
+      {
+        "size": "L",
+        "qty": 5
+      },
+      {
+        "size": "XL",
+        "qty": 2
+      },
+      {
+        "size": "XXL",
+        "qty": 8
+      },
+      {
+        "size": "XXXL",
+        "qty": 5
+      }
+    ],
+    "sizeType": "clothing",
+    "discount": 30,
+    "image": "/assets/products/placeholders/armani-logo-swim-shorts.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-logo-swim-shorts.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Coral",
+        "hex": "#f07c6c"
+      },
+      {
+        "name": "Teal",
+        "hex": "#2a7a7a"
+      }
+    ],
+    "code": "EA-AR-1031",
+    "description": "Logo Swim Shorts from Armani, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% polyester",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p32",
+    "brand": "Moschino",
+    "name": "Gold-Trim One-Piece Swimsuit",
+    "category": "Women",
+    "type": "Swimwear",
+    "price": 420,
+    "stock": 29,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 6
+      },
+      {
+        "size": "S",
+        "qty": 4
+      },
+      {
+        "size": "M",
+        "qty": 7
+      },
+      {
+        "size": "L",
+        "qty": 7
+      },
+      {
+        "size": "XL",
+        "qty": 5
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/moschino-gold-trim-one-piece-swimsuit.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-gold-trim-one-piece-swimsuit.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Red",
+        "hex": "#b3261e"
+      },
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      }
+    ],
+    "code": "EA-MO-1032",
+    "description": "Gold-Trim One-Piece Swimsuit from Moschino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "82% polyamide, 18% elastane",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p33",
+    "brand": "Versace",
+    "name": "Stretch Cotton Boxer Briefs",
+    "category": "Men",
+    "type": "Underwear",
+    "price": 110,
+    "stock": 31,
+    "sizes": [
+      {
+        "size": "S",
+        "qty": 5
+      },
+      {
+        "size": "M",
+        "qty": 8
+      },
+      {
+        "size": "L",
+        "qty": 7
+      },
+      {
+        "size": "XL",
+        "qty": 2
+      },
+      {
+        "size": "XXL",
+        "qty": 4
+      },
+      {
+        "size": "XXXL",
+        "qty": 5
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/versace-stretch-cotton-boxer-briefs.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-stretch-cotton-boxer-briefs.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      }
+    ],
+    "code": "EA-VE-1033",
+    "description": "Stretch Cotton Boxer Briefs from Versace, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "95% cotton, 5% elastane",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p34",
+    "brand": "Valentino",
+    "name": "Lace Triangle Bra",
+    "category": "Women",
+    "type": "Underwear",
+    "price": 190,
+    "stock": 26,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 8
+      },
+      {
+        "size": "S",
+        "qty": 6
+      },
+      {
+        "size": "M",
+        "qty": 3
+      },
+      {
+        "size": "L",
+        "qty": 6
+      },
+      {
+        "size": "XL",
+        "qty": 3
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/valentino-lace-triangle-bra.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-lace-triangle-bra.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      },
+      {
+        "name": "Blush",
+        "hex": "#f0c8c4"
+      }
+    ],
+    "code": "EA-VA-1034",
+    "description": "Lace Triangle Bra from Valentino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "90% polyamide, 10% elastane",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p35",
+    "brand": "Dolce & Gabbana",
+    "name": "Silk Midi Slip Dress",
+    "category": "Women",
+    "type": "Dresses",
+    "price": 1350,
+    "stock": 22,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 3
+      },
+      {
+        "size": "S",
+        "qty": 5
+      },
+      {
+        "size": "M",
+        "qty": 4
+      },
+      {
+        "size": "L",
+        "qty": 2
+      },
+      {
+        "size": "XL",
+        "qty": 8
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/dolce-gabbana-silk-midi-slip-dress.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-silk-midi-slip-dress.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Emerald",
+        "hex": "#1f7a5a"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Blush",
+        "hex": "#f0c8c4"
+      }
+    ],
+    "code": "EA-DG-1035",
+    "description": "Silk Midi Slip Dress from Dolce & Gabbana, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% silk",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "iron-low",
+      "do-not-tumble-dry",
+      "dry-clean-p-mild"
+    ]
+  },
+  {
+    "id": "p36",
+    "brand": "Philipp Plein",
+    "name": "Tulle Party Dress",
+    "category": "Kids",
+    "type": "Dresses",
+    "price": 390,
+    "stock": 30,
+    "sizes": [
+      {
+        "size": "2Y",
+        "qty": 5
+      },
+      {
+        "size": "4Y",
+        "qty": 2
+      },
+      {
+        "size": "6Y",
+        "qty": 4
+      },
+      {
+        "size": "8Y",
+        "qty": 3
+      },
+      {
+        "size": "10Y",
+        "qty": 6
+      },
+      {
+        "size": "12Y",
+        "qty": 3
+      },
+      {
+        "size": "14Y",
+        "qty": 7
+      }
+    ],
+    "sizeType": "kids-clothing",
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-tulle-party-dress.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-tulle-party-dress.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Pink",
+        "hex": "#e8a0b0"
+      },
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Lilac",
+        "hex": "#c8a8d8"
+      }
+    ],
+    "code": "EA-PP-1036",
+    "description": "Tulle Party Dress from Philipp Plein, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% polyamide; lining 100% cotton",
+    "details": [
+      "Made in Italy",
+      "Regular fit"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p37",
+    "brand": "Armani",
+    "name": "Pleated Midi Skirt",
+    "category": "Women",
+    "type": "Skirts",
+    "price": 720,
+    "stock": 29,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 4
+      },
+      {
+        "size": "S",
+        "qty": 8
+      },
+      {
+        "size": "M",
+        "qty": 6
+      },
+      {
+        "size": "L",
+        "qty": 4
+      },
+      {
+        "size": "XL",
+        "qty": 7
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/armani-pleated-midi-skirt.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-pleated-midi-skirt.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Camel",
+        "hex": "#b58a5a"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      }
+    ],
+    "code": "EA-AR-1037",
+    "description": "Pleated Midi Skirt from Armani, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% polyester",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "wash-30-gentle",
+      "do-not-bleach",
+      "do-not-tumble-dry",
+      "iron-low",
+      "dry-clean-p"
+    ]
+  },
+  {
+    "id": "p38",
+    "brand": "Moschino",
+    "name": "Leather Pencil Skirt",
+    "category": "Women",
+    "type": "Skirts",
+    "price": 990,
+    "stock": 24,
+    "sizes": [
+      {
+        "size": "XS",
+        "qty": 3
+      },
+      {
+        "size": "S",
+        "qty": 4
+      },
+      {
+        "size": "M",
+        "qty": 4
+      },
+      {
+        "size": "L",
+        "qty": 8
+      },
+      {
+        "size": "XL",
+        "qty": 5
+      }
+    ],
+    "sizeType": "clothing",
+    "image": "/assets/products/placeholders/moschino-leather-pencil-skirt.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-leather-pencil-skirt.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#6d1a2a"
+      },
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      }
+    ],
+    "code": "EA-MO-1038",
+    "description": "Leather Pencil Skirt from Moschino, cut in Italy with a precise, modern fit. A considered piece designed to be worn season after season.",
+    "composition": "100% lambskin leather",
+    "details": [
+      "Made in Italy",
+      "Regular fit",
+      "Model wears a size M"
+    ],
+    "care": [
+      "do-not-wash",
+      "do-not-bleach",
+      "do-not-iron",
+      "do-not-tumble-dry",
+      "dry-clean-f-mild"
+    ]
+  },
+  {
+    "id": "p39",
+    "brand": "Versace",
+    "name": "Patent Leather Pumps",
+    "category": "Women",
+    "type": "Heels",
+    "price": 750,
+    "stock": 47,
+    "sizes": [
+      {
+        "size": "35",
+        "qty": 2
+      },
+      {
+        "size": "36",
+        "qty": 3
+      },
+      {
+        "size": "37",
+        "qty": 5
+      },
+      {
+        "size": "38",
+        "qty": 3
+      },
+      {
+        "size": "39",
+        "qty": 4
+      },
+      {
+        "size": "40",
+        "qty": 5
+      },
+      {
+        "size": "41",
+        "qty": 4
+      },
+      {
+        "size": "42",
+        "qty": 2
+      },
+      {
+        "size": "43",
+        "qty": 2
+      },
+      {
+        "size": "44",
+        "qty": 7
+      },
+      {
+        "size": "45",
+        "qty": 5
+      },
+      {
+        "size": "46",
+        "qty": 5
+      }
+    ],
+    "sizeType": "shoes",
+    "image": "/assets/products/placeholders/versace-patent-leather-pumps.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-patent-leather-pumps.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Red",
+        "hex": "#b3261e"
+      },
+      {
+        "name": "Beige",
+        "hex": "#d9c7a7"
+      }
+    ],
+    "code": "EA-VE-1039",
+    "description": "Patent Leather Pumps from Versace, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Patent calfskin upper; leather sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p40",
+    "brand": "Valentino",
+    "name": "Crystal Slingback Heels",
+    "category": "Women",
+    "type": "Heels",
+    "price": 1050,
+    "stock": 49,
+    "sizes": [
+      {
+        "size": "35",
+        "qty": 8
+      },
+      {
+        "size": "36",
+        "qty": 2
+      },
+      {
+        "size": "37",
+        "qty": 4
+      },
+      {
+        "size": "38",
+        "qty": 3
+      },
+      {
+        "size": "39",
+        "qty": 4
+      },
+      {
+        "size": "40",
+        "qty": 2
+      },
+      {
+        "size": "41",
+        "qty": 2
+      },
+      {
+        "size": "42",
+        "qty": 7
+      },
+      {
+        "size": "43",
+        "qty": 7
+      },
+      {
+        "size": "44",
+        "qty": 2
+      },
+      {
+        "size": "45",
+        "qty": 5
+      },
+      {
+        "size": "46",
+        "qty": 3
+      }
+    ],
+    "sizeType": "shoes",
+    "discount": 30,
+    "image": "/assets/products/placeholders/valentino-crystal-slingback-heels.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-crystal-slingback-heels.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      }
+    ],
+    "code": "EA-VA-1040",
+    "description": "Crystal Slingback Heels from Valentino, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Satin upper with crystals; leather sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p41",
+    "brand": "Dolce & Gabbana",
+    "name": "Sculpted Leather Sandals",
+    "category": "Women",
+    "type": "Sandals",
+    "price": 590,
+    "stock": 67,
+    "sizes": [
+      {
+        "size": "35",
+        "qty": 4
+      },
+      {
+        "size": "36",
+        "qty": 3
+      },
+      {
+        "size": "37",
+        "qty": 7
+      },
+      {
+        "size": "38",
+        "qty": 5
+      },
+      {
+        "size": "39",
+        "qty": 3
+      },
+      {
+        "size": "40",
+        "qty": 6
+      },
+      {
+        "size": "41",
+        "qty": 8
+      },
+      {
+        "size": "42",
+        "qty": 8
+      },
+      {
+        "size": "43",
+        "qty": 4
+      },
+      {
+        "size": "44",
+        "qty": 8
+      },
+      {
+        "size": "45",
+        "qty": 7
+      },
+      {
+        "size": "46",
+        "qty": 4
+      }
+    ],
+    "sizeType": "shoes",
+    "image": "/assets/products/placeholders/dolce-gabbana-sculpted-leather-sandals.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-sculpted-leather-sandals.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Tan",
+        "hex": "#c09a6b"
+      },
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      }
+    ],
+    "code": "EA-DG-1041",
+    "description": "Sculpted Leather Sandals from Dolce & Gabbana, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Calfskin upper; leather sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p42",
+    "brand": "Philipp Plein",
+    "name": "Leather Strap Sandals",
+    "category": "Kids",
+    "type": "Sandals",
+    "price": 190,
+    "stock": 78,
+    "sizes": [
+      {
+        "size": "20",
+        "qty": 2
+      },
+      {
+        "size": "21",
+        "qty": 3
+      },
+      {
+        "size": "22",
+        "qty": 2
+      },
+      {
+        "size": "23",
+        "qty": 7
+      },
+      {
+        "size": "24",
+        "qty": 6
+      },
+      {
+        "size": "25",
+        "qty": 8
+      },
+      {
+        "size": "26",
+        "qty": 3
+      },
+      {
+        "size": "27",
+        "qty": 4
+      },
+      {
+        "size": "28",
+        "qty": 4
+      },
+      {
+        "size": "29",
+        "qty": 3
+      },
+      {
+        "size": "30",
+        "qty": 8
+      },
+      {
+        "size": "31",
+        "qty": 6
+      },
+      {
+        "size": "32",
+        "qty": 7
+      },
+      {
+        "size": "33",
+        "qty": 6
+      },
+      {
+        "size": "34",
+        "qty": 3
+      },
+      {
+        "size": "35",
+        "qty": 6
+      }
+    ],
+    "sizeType": "kids-shoes",
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-leather-strap-sandals.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-leather-strap-sandals.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Tan",
+        "hex": "#c09a6b"
+      },
+      {
+        "name": "Pink",
+        "hex": "#e8a0b0"
+      },
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      }
+    ],
+    "code": "EA-PP-1042",
+    "description": "Leather Strap Sandals from Philipp Plein, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Leather upper; rubber sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p43",
+    "brand": "Armani",
+    "name": "Leather Low-Top Sneakers",
+    "category": "Men",
+    "type": "Sneakers",
+    "price": 620,
+    "stock": 42,
+    "sizes": [
+      {
+        "size": "39",
+        "qty": 2
+      },
+      {
+        "size": "40",
+        "qty": 6
+      },
+      {
+        "size": "41",
+        "qty": 8
+      },
+      {
+        "size": "42",
+        "qty": 6
+      },
+      {
+        "size": "43",
+        "qty": 4
+      },
+      {
+        "size": "44",
+        "qty": 4
+      },
+      {
+        "size": "45",
+        "qty": 5
+      },
+      {
+        "size": "46",
+        "qty": 5
+      },
+      {
+        "size": "47",
+        "qty": 2
+      }
+    ],
+    "sizeType": "shoes",
+    "image": "/assets/products/placeholders/armani-leather-low-top-sneakers.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-leather-low-top-sneakers.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      }
+    ],
+    "code": "EA-AR-1043",
+    "description": "Leather Low-Top Sneakers from Armani, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Calfskin upper; rubber sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p44",
+    "brand": "Moschino",
+    "name": "Logo Light-Up Sneakers",
+    "category": "Kids",
+    "type": "Sneakers",
+    "price": 250,
+    "stock": 87,
+    "sizes": [
+      {
+        "size": "20",
+        "qty": 4
+      },
+      {
+        "size": "21",
+        "qty": 7
+      },
+      {
+        "size": "22",
+        "qty": 7
+      },
+      {
+        "size": "23",
+        "qty": 5
+      },
+      {
+        "size": "24",
+        "qty": 5
+      },
+      {
+        "size": "25",
+        "qty": 6
+      },
+      {
+        "size": "26",
+        "qty": 4
+      },
+      {
+        "size": "27",
+        "qty": 2
+      },
+      {
+        "size": "28",
+        "qty": 2
+      },
+      {
+        "size": "29",
+        "qty": 4
+      },
+      {
+        "size": "30",
+        "qty": 8
+      },
+      {
+        "size": "31",
+        "qty": 7
+      },
+      {
+        "size": "32",
+        "qty": 8
+      },
+      {
+        "size": "33",
+        "qty": 5
+      },
+      {
+        "size": "34",
+        "qty": 8
+      },
+      {
+        "size": "35",
+        "qty": 5
+      }
+    ],
+    "sizeType": "kids-shoes",
+    "image": "/assets/products/placeholders/moschino-logo-light-up-sneakers.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-logo-light-up-sneakers.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Pink",
+        "hex": "#e8a0b0"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      }
+    ],
+    "code": "EA-MO-1044",
+    "description": "Logo Light-Up Sneakers from Moschino, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Leather upper; rubber sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p45",
+    "brand": "Versace",
+    "name": "Leather Knee-High Boots",
+    "category": "Women",
+    "type": "Boots",
+    "price": 1450,
+    "stock": 56,
+    "sizes": [
+      {
+        "size": "35",
+        "qty": 2
+      },
+      {
+        "size": "36",
+        "qty": 8
+      },
+      {
+        "size": "37",
+        "qty": 4
+      },
+      {
+        "size": "38",
+        "qty": 3
+      },
+      {
+        "size": "39",
+        "qty": 3
+      },
+      {
+        "size": "40",
+        "qty": 2
+      },
+      {
+        "size": "41",
+        "qty": 4
+      },
+      {
+        "size": "42",
+        "qty": 4
+      },
+      {
+        "size": "43",
+        "qty": 8
+      },
+      {
+        "size": "44",
+        "qty": 7
+      },
+      {
+        "size": "45",
+        "qty": 6
+      },
+      {
+        "size": "46",
+        "qty": 5
+      }
+    ],
+    "sizeType": "shoes",
+    "image": "/assets/products/placeholders/versace-leather-knee-high-boots.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-leather-knee-high-boots.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Cognac",
+        "hex": "#9a4f1f"
+      },
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      }
+    ],
+    "code": "EA-VE-1045",
+    "description": "Leather Knee-High Boots from Versace, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Calfskin upper; leather sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p46",
+    "brand": "Valentino",
+    "name": "Suede Chelsea Boots",
+    "category": "Men",
+    "type": "Boots",
+    "price": 790,
+    "stock": 35,
+    "sizes": [
+      {
+        "size": "39",
+        "qty": 2
+      },
+      {
+        "size": "40",
+        "qty": 5
+      },
+      {
+        "size": "41",
+        "qty": 3
+      },
+      {
+        "size": "42",
+        "qty": 5
+      },
+      {
+        "size": "43",
+        "qty": 4
+      },
+      {
+        "size": "44",
+        "qty": 3
+      },
+      {
+        "size": "45",
+        "qty": 5
+      },
+      {
+        "size": "46",
+        "qty": 5
+      },
+      {
+        "size": "47",
+        "qty": 3
+      }
+    ],
+    "sizeType": "shoes",
+    "image": "/assets/products/placeholders/valentino-suede-chelsea-boots.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-suede-chelsea-boots.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Taupe",
+        "hex": "#8b7d6b"
+      }
+    ],
+    "code": "EA-VA-1046",
+    "description": "Suede Chelsea Boots from Valentino, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Suede upper; rubber sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p47",
+    "brand": "Dolce & Gabbana",
+    "name": "Horsebit Leather Loafers",
+    "category": "Men",
+    "type": "Loafers",
+    "price": 750,
+    "stock": 39,
+    "sizes": [
+      {
+        "size": "39",
+        "qty": 6
+      },
+      {
+        "size": "40",
+        "qty": 6
+      },
+      {
+        "size": "41",
+        "qty": 5
+      },
+      {
+        "size": "42",
+        "qty": 2
+      },
+      {
+        "size": "43",
+        "qty": 2
+      },
+      {
+        "size": "44",
+        "qty": 5
+      },
+      {
+        "size": "45",
+        "qty": 5
+      },
+      {
+        "size": "46",
+        "qty": 2
+      },
+      {
+        "size": "47",
+        "qty": 6
+      }
+    ],
+    "sizeType": "shoes",
+    "image": "/assets/products/placeholders/dolce-gabbana-horsebit-leather-loafers.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-horsebit-leather-loafers.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#6d1a2a"
+      }
+    ],
+    "code": "EA-DG-1047",
+    "description": "Horsebit Leather Loafers from Dolce & Gabbana, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Calfskin upper; leather sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p48",
+    "brand": "Philipp Plein",
+    "name": "Chain Detail Loafers",
+    "category": "Women",
+    "type": "Loafers",
+    "price": 720,
+    "stock": 62,
+    "sizes": [
+      {
+        "size": "35",
+        "qty": 2
+      },
+      {
+        "size": "36",
+        "qty": 2
+      },
+      {
+        "size": "37",
+        "qty": 4
+      },
+      {
+        "size": "38",
+        "qty": 5
+      },
+      {
+        "size": "39",
+        "qty": 6
+      },
+      {
+        "size": "40",
+        "qty": 8
+      },
+      {
+        "size": "41",
+        "qty": 8
+      },
+      {
+        "size": "42",
+        "qty": 3
+      },
+      {
+        "size": "43",
+        "qty": 2
+      },
+      {
+        "size": "44",
+        "qty": 7
+      },
+      {
+        "size": "45",
+        "qty": 8
+      },
+      {
+        "size": "46",
+        "qty": 7
+      }
+    ],
+    "sizeType": "shoes",
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-chain-detail-loafers.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-chain-detail-loafers.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#6d1a2a"
+      }
+    ],
+    "code": "EA-PP-1048",
+    "description": "Chain Detail Loafers from Philipp Plein, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Calfskin upper; leather sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p49",
+    "brand": "Armani",
+    "name": "Calfskin Oxford Shoes",
+    "category": "Men",
+    "type": "Lace-ups",
+    "price": 820,
+    "stock": 44,
+    "sizes": [
+      {
+        "size": "39",
+        "qty": 7
+      },
+      {
+        "size": "40",
+        "qty": 5
+      },
+      {
+        "size": "41",
+        "qty": 8
+      },
+      {
+        "size": "42",
+        "qty": 2
+      },
+      {
+        "size": "43",
+        "qty": 4
+      },
+      {
+        "size": "44",
+        "qty": 6
+      },
+      {
+        "size": "45",
+        "qty": 2
+      },
+      {
+        "size": "46",
+        "qty": 6
+      },
+      {
+        "size": "47",
+        "qty": 4
+      }
+    ],
+    "sizeType": "shoes",
+    "discount": 30,
+    "image": "/assets/products/placeholders/armani-calfskin-oxford-shoes.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-calfskin-oxford-shoes.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      },
+      {
+        "name": "Cognac",
+        "hex": "#9a4f1f"
+      }
+    ],
+    "code": "EA-AR-1049",
+    "description": "Calfskin Oxford Shoes from Armani, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Calfskin upper; leather sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p50",
+    "brand": "Moschino",
+    "name": "Brogue Derby Shoes",
+    "category": "Men",
+    "type": "Lace-ups",
+    "price": 760,
+    "stock": 40,
+    "sizes": [
+      {
+        "size": "39",
+        "qty": 4
+      },
+      {
+        "size": "40",
+        "qty": 8
+      },
+      {
+        "size": "41",
+        "qty": 6
+      },
+      {
+        "size": "42",
+        "qty": 3
+      },
+      {
+        "size": "43",
+        "qty": 6
+      },
+      {
+        "size": "44",
+        "qty": 6
+      },
+      {
+        "size": "45",
+        "qty": 2
+      },
+      {
+        "size": "46",
+        "qty": 3
+      },
+      {
+        "size": "47",
+        "qty": 2
+      }
+    ],
+    "sizeType": "shoes",
+    "image": "/assets/products/placeholders/moschino-brogue-derby-shoes.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-brogue-derby-shoes.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Tan",
+        "hex": "#c09a6b"
+      }
+    ],
+    "code": "EA-MO-1050",
+    "description": "Brogue Derby Shoes from Moschino, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Calfskin upper; leather sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p51",
+    "brand": "Versace",
+    "name": "Suede Driving Moccasins",
+    "category": "Men",
+    "type": "Moccasins",
+    "price": 540,
+    "stock": 38,
+    "sizes": [
+      {
+        "size": "39",
+        "qty": 4
+      },
+      {
+        "size": "40",
+        "qty": 2
+      },
+      {
+        "size": "41",
+        "qty": 3
+      },
+      {
+        "size": "42",
+        "qty": 5
+      },
+      {
+        "size": "43",
+        "qty": 5
+      },
+      {
+        "size": "44",
+        "qty": 5
+      },
+      {
+        "size": "45",
+        "qty": 8
+      },
+      {
+        "size": "46",
+        "qty": 2
+      },
+      {
+        "size": "47",
+        "qty": 4
+      }
+    ],
+    "sizeType": "shoes",
+    "image": "/assets/products/placeholders/versace-suede-driving-moccasins.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-suede-driving-moccasins.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Tan",
+        "hex": "#c09a6b"
+      },
+      {
+        "name": "Olive",
+        "hex": "#6b6b3a"
+      }
+    ],
+    "code": "EA-VE-1051",
+    "description": "Suede Driving Moccasins from Versace, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Suede upper; rubber pebble sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p52",
+    "brand": "Valentino",
+    "name": "Soft Leather Moccasins",
+    "category": "Women",
+    "type": "Moccasins",
+    "price": 520,
+    "stock": 45,
+    "sizes": [
+      {
+        "size": "35",
+        "qty": 2
+      },
+      {
+        "size": "36",
+        "qty": 3
+      },
+      {
+        "size": "37",
+        "qty": 3
+      },
+      {
+        "size": "38",
+        "qty": 4
+      },
+      {
+        "size": "39",
+        "qty": 2
+      },
+      {
+        "size": "40",
+        "qty": 4
+      },
+      {
+        "size": "41",
+        "qty": 2
+      },
+      {
+        "size": "42",
+        "qty": 4
+      },
+      {
+        "size": "43",
+        "qty": 4
+      },
+      {
+        "size": "44",
+        "qty": 7
+      },
+      {
+        "size": "45",
+        "qty": 5
+      },
+      {
+        "size": "46",
+        "qty": 5
+      }
+    ],
+    "sizeType": "shoes",
+    "image": "/assets/products/placeholders/valentino-soft-leather-moccasins.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-soft-leather-moccasins.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Camel",
+        "hex": "#b58a5a"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Blush",
+        "hex": "#f0c8c4"
+      }
+    ],
+    "code": "EA-VA-1052",
+    "description": "Soft Leather Moccasins from Valentino, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Nappa leather upper; rubber sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p53",
+    "brand": "Dolce & Gabbana",
+    "name": "Logo Rubber Slides",
+    "category": "Men",
+    "type": "Slides",
+    "price": 230,
+    "stock": 49,
+    "sizes": [
+      {
+        "size": "39",
+        "qty": 8
+      },
+      {
+        "size": "40",
+        "qty": 6
+      },
+      {
+        "size": "41",
+        "qty": 4
+      },
+      {
+        "size": "42",
+        "qty": 7
+      },
+      {
+        "size": "43",
+        "qty": 5
+      },
+      {
+        "size": "44",
+        "qty": 3
+      },
+      {
+        "size": "45",
+        "qty": 7
+      },
+      {
+        "size": "46",
+        "qty": 3
+      },
+      {
+        "size": "47",
+        "qty": 6
+      }
+    ],
+    "sizeType": "shoes",
+    "image": "/assets/products/placeholders/dolce-gabbana-logo-rubber-slides.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-logo-rubber-slides.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      }
+    ],
+    "code": "EA-DG-1053",
+    "description": "Logo Rubber Slides from Dolce & Gabbana, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "100% rubber",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p54",
+    "brand": "Philipp Plein",
+    "name": "Padded Leather Slides",
+    "category": "Women",
+    "type": "Slides",
+    "price": 480,
+    "stock": 57,
+    "sizes": [
+      {
+        "size": "35",
+        "qty": 5
+      },
+      {
+        "size": "36",
+        "qty": 5
+      },
+      {
+        "size": "37",
+        "qty": 8
+      },
+      {
+        "size": "38",
+        "qty": 2
+      },
+      {
+        "size": "39",
+        "qty": 5
+      },
+      {
+        "size": "40",
+        "qty": 4
+      },
+      {
+        "size": "41",
+        "qty": 3
+      },
+      {
+        "size": "42",
+        "qty": 7
+      },
+      {
+        "size": "43",
+        "qty": 6
+      },
+      {
+        "size": "44",
+        "qty": 3
+      },
+      {
+        "size": "45",
+        "qty": 7
+      },
+      {
+        "size": "46",
+        "qty": 2
+      }
+    ],
+    "sizeType": "shoes",
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-padded-leather-slides.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-padded-leather-slides.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      },
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      }
+    ],
+    "code": "EA-PP-1054",
+    "description": "Padded Leather Slides from Philipp Plein, crafted in Italy and finished by hand. Balanced for comfort from morning to evening.",
+    "composition": "Nappa leather upper; leather sole",
+    "details": [
+      "Made in Italy",
+      "True to size",
+      "Dust bag included"
+    ],
+    "careNote": "Wipe with a soft dry cloth and store in the dust bag provided, stuffed with tissue to keep the shape."
+  },
+  {
+    "id": "p55",
+    "brand": "Armani",
+    "name": "Leather Top Handle Bag",
+    "category": "Women",
+    "type": "Bags",
+    "price": 1890,
+    "stock": 9,
+    "image": "/assets/products/placeholders/armani-leather-top-handle-bag.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-leather-top-handle-bag.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Red",
+        "hex": "#b3261e"
+      },
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      },
+      {
+        "name": "Camel",
+        "hex": "#b58a5a"
+      }
+    ],
+    "code": "EA-AR-1055",
+    "description": "Leather Top Handle Bag from Armani, made in Italy with a structured shape and polished hardware. Room for every essential.",
+    "composition": "Calfskin leather; gold-tone hardware",
+    "details": [
+      "Made in Italy",
+      "Interior zip pocket",
+      "Dust bag included"
+    ],
+    "careNote": "Keep away from rain and direct sunlight. Store stuffed with tissue in the dust bag provided."
+  },
+  {
+    "id": "p56",
+    "brand": "Moschino",
+    "name": "Quilted Chain Shoulder Bag",
+    "category": "Women",
+    "type": "Bags",
+    "price": 1650,
+    "stock": 13,
+    "image": "/assets/products/placeholders/moschino-quilted-chain-shoulder-bag.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-quilted-chain-shoulder-bag.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Blush",
+        "hex": "#f0c8c4"
+      },
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      }
+    ],
+    "code": "EA-MO-1056",
+    "description": "Quilted Chain Shoulder Bag from Moschino, made in Italy with a structured shape and polished hardware. Room for every essential.",
+    "composition": "Nappa leather; gold-tone chain",
+    "details": [
+      "Made in Italy",
+      "Interior zip pocket",
+      "Dust bag included"
+    ],
+    "careNote": "Keep away from rain and direct sunlight. Store stuffed with tissue in the dust bag provided."
+  },
+  {
+    "id": "p57",
+    "brand": "Versace",
+    "name": "Nylon Logo Backpack",
+    "category": "Men",
+    "type": "Backpacks",
+    "price": 890,
+    "stock": 4,
+    "image": "/assets/products/placeholders/versace-nylon-logo-backpack.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-nylon-logo-backpack.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      }
+    ],
+    "code": "EA-VE-1057",
+    "description": "Nylon Logo Backpack from Versace, made in Italy with a structured shape and polished hardware. Room for every essential.",
+    "composition": "Recycled nylon; leather trims",
+    "details": [
+      "Made in Italy",
+      "Interior zip pocket",
+      "Dust bag included"
+    ],
+    "careNote": "Keep away from rain and direct sunlight. Store stuffed with tissue in the dust bag provided."
+  },
+  {
+    "id": "p58",
+    "brand": "Valentino",
+    "name": "Mini Logo Backpack",
+    "category": "Kids",
+    "type": "Backpacks",
+    "price": 290,
+    "stock": 8,
+    "discount": 30,
+    "image": "/assets/products/placeholders/valentino-mini-logo-backpack.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-mini-logo-backpack.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Pink",
+        "hex": "#e8a0b0"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      }
+    ],
+    "code": "EA-VA-1058",
+    "description": "Mini Logo Backpack from Valentino, made in Italy with a structured shape and polished hardware. Room for every essential.",
+    "composition": "100% polyamide",
+    "details": [
+      "Made in Italy",
+      "Interior zip pocket",
+      "Dust bag included"
+    ],
+    "careNote": "Keep away from rain and direct sunlight. Store stuffed with tissue in the dust bag provided."
+  },
+  {
+    "id": "p59",
+    "brand": "Dolce & Gabbana",
+    "name": "Grained Leather Briefcase",
+    "category": "Men",
+    "type": "Briefcases",
+    "price": 1750,
+    "stock": 7,
+    "image": "/assets/products/placeholders/dolce-gabbana-grained-leather-briefcase.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-grained-leather-briefcase.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      }
+    ],
+    "code": "EA-DG-1059",
+    "description": "Grained Leather Briefcase from Dolce & Gabbana, made in Italy with a structured shape and polished hardware. Room for every essential.",
+    "composition": "Grained calfskin; palladium hardware",
+    "details": [
+      "Made in Italy",
+      "Interior zip pocket",
+      "Dust bag included"
+    ],
+    "careNote": "Keep away from rain and direct sunlight. Store stuffed with tissue in the dust bag provided."
+  },
+  {
+    "id": "p60",
+    "brand": "Philipp Plein",
+    "name": "Slim Document Holder",
+    "category": "Men",
+    "type": "Briefcases",
+    "price": 980,
+    "stock": 4,
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-slim-document-holder.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-slim-document-holder.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Cognac",
+        "hex": "#9a4f1f"
+      }
+    ],
+    "code": "EA-PP-1060",
+    "description": "Slim Document Holder from Philipp Plein, made in Italy with a structured shape and polished hardware. Room for every essential.",
+    "composition": "Smooth calfskin",
+    "details": [
+      "Made in Italy",
+      "Interior zip pocket",
+      "Dust bag included"
+    ],
+    "careNote": "Keep away from rain and direct sunlight. Store stuffed with tissue in the dust bag provided."
+  },
+  {
+    "id": "p61",
+    "brand": "Armani",
+    "name": "Medallion Pendant Necklace",
+    "category": "Women",
+    "type": "Necklaces",
+    "price": 590,
+    "stock": 9,
+    "image": "/assets/products/placeholders/armani-medallion-pendant-necklace.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-medallion-pendant-necklace.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      },
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      }
+    ],
+    "code": "EA-AR-1061",
+    "description": "Medallion Pendant Necklace from Armani, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Brass with gold- or silver-tone finish",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p62",
+    "brand": "Moschino",
+    "name": "Pearl Logo Choker",
+    "category": "Women",
+    "type": "Necklaces",
+    "price": 750,
+    "stock": 12,
+    "image": "/assets/products/placeholders/moschino-pearl-logo-choker.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-pearl-logo-choker.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      },
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      }
+    ],
+    "code": "EA-MO-1062",
+    "description": "Pearl Logo Choker from Moschino, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Brass, glass pearls",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p63",
+    "brand": "Versace",
+    "name": "Chronograph Steel Watch",
+    "category": "Men",
+    "type": "Watches",
+    "price": 1450,
+    "stock": 7,
+    "image": "/assets/products/placeholders/versace-chronograph-steel-watch.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-chronograph-steel-watch.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      }
+    ],
+    "code": "EA-VE-1063",
+    "description": "Chronograph Steel Watch from Versace, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Stainless steel case and bracelet; sapphire crystal",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p64",
+    "brand": "Valentino",
+    "name": "Slim Mesh Bracelet Watch",
+    "category": "Women",
+    "type": "Watches",
+    "price": 990,
+    "stock": 4,
+    "image": "/assets/products/placeholders/valentino-slim-mesh-bracelet-watch.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-slim-mesh-bracelet-watch.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Rose Gold",
+        "hex": "#c58b7a"
+      },
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      },
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      }
+    ],
+    "code": "EA-VA-1064",
+    "description": "Slim Mesh Bracelet Watch from Valentino, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Stainless steel mesh; mineral crystal",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p65",
+    "brand": "Dolce & Gabbana",
+    "name": "Crystal Logo Ring",
+    "category": "Women",
+    "type": "Rings",
+    "price": 320,
+    "stock": 9,
+    "image": "/assets/products/placeholders/dolce-gabbana-crystal-logo-ring.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-crystal-logo-ring.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      },
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      }
+    ],
+    "code": "EA-DG-1065",
+    "description": "Crystal Logo Ring from Dolce & Gabbana, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Brass, crystals",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p66",
+    "brand": "Philipp Plein",
+    "name": "Engraved Signet Ring",
+    "category": "Men",
+    "type": "Rings",
+    "price": 380,
+    "stock": 9,
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-engraved-signet-ring.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-engraved-signet-ring.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      },
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      }
+    ],
+    "code": "EA-PP-1066",
+    "description": "Engraved Signet Ring from Philipp Plein, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "925 sterling silver",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p67",
+    "brand": "Armani",
+    "name": "Crystal Drop Earrings",
+    "category": "Women",
+    "type": "Earrings",
+    "price": 450,
+    "stock": 10,
+    "discount": 30,
+    "image": "/assets/products/placeholders/armani-crystal-drop-earrings.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-crystal-drop-earrings.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      },
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      },
+      {
+        "name": "Rose Gold",
+        "hex": "#c58b7a"
+      }
+    ],
+    "code": "EA-AR-1067",
+    "description": "Crystal Drop Earrings from Armani, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Brass, crystals",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p68",
+    "brand": "Moschino",
+    "name": "Logo Hoop Earrings",
+    "category": "Women",
+    "type": "Earrings",
+    "price": 390,
+    "stock": 4,
+    "image": "/assets/products/placeholders/moschino-logo-hoop-earrings.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-logo-hoop-earrings.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      },
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      }
+    ],
+    "code": "EA-MO-1068",
+    "description": "Logo Hoop Earrings from Moschino, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Brass with gold- or silver-tone finish",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p69",
+    "brand": "Versace",
+    "name": "Leather Wrap Bracelet",
+    "category": "Men",
+    "type": "Bracelets",
+    "price": 290,
+    "stock": 13,
+    "image": "/assets/products/placeholders/versace-leather-wrap-bracelet.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-leather-wrap-bracelet.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      }
+    ],
+    "code": "EA-VE-1069",
+    "description": "Leather Wrap Bracelet from Versace, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Calfskin leather, palladium clasp",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p70",
+    "brand": "Valentino",
+    "name": "Chain Link Bracelet",
+    "category": "Women",
+    "type": "Bracelets",
+    "price": 520,
+    "stock": 9,
+    "image": "/assets/products/placeholders/valentino-chain-link-bracelet.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-chain-link-bracelet.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      },
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      },
+      {
+        "name": "Rose Gold",
+        "hex": "#c58b7a"
+      }
+    ],
+    "code": "EA-VA-1070",
+    "description": "Chain Link Bracelet from Valentino, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Brass with polished finish",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p71",
+    "brand": "Dolce & Gabbana",
+    "name": "Enamel Logo Cufflinks",
+    "category": "Men",
+    "type": "Cufflinks",
+    "price": 340,
+    "stock": 12,
+    "image": "/assets/products/placeholders/dolce-gabbana-enamel-logo-cufflinks.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-enamel-logo-cufflinks.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      },
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      }
+    ],
+    "code": "EA-DG-1071",
+    "description": "Enamel Logo Cufflinks from Dolce & Gabbana, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Brass, enamel",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p72",
+    "brand": "Philipp Plein",
+    "name": "Onyx Cufflinks",
+    "category": "Men",
+    "type": "Cufflinks",
+    "price": 420,
+    "stock": 13,
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-onyx-cufflinks.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-onyx-cufflinks.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      }
+    ],
+    "code": "EA-PP-1072",
+    "description": "Onyx Cufflinks from Philipp Plein, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "925 sterling silver, onyx",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p73",
+    "brand": "Armani",
+    "name": "Cat-Eye Acetate Sunglasses",
+    "category": "Women",
+    "type": "Sunglasses",
+    "price": 390,
+    "stock": 5,
+    "image": "/assets/products/placeholders/armani-cat-eye-acetate-sunglasses.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-cat-eye-acetate-sunglasses.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      },
+      {
+        "name": "Pink",
+        "hex": "#e8a0b0"
+      }
+    ],
+    "code": "EA-AR-1073",
+    "description": "Cat-Eye Acetate Sunglasses from Armani, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Acetate frame; 100% UV protection lenses",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p74",
+    "brand": "Moschino",
+    "name": "Aviator Metal Sunglasses",
+    "category": "Unisex",
+    "type": "Sunglasses",
+    "price": 360,
+    "stock": 15,
+    "image": "/assets/products/placeholders/moschino-aviator-metal-sunglasses.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-aviator-metal-sunglasses.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Gold",
+        "hex": "#c9a24a"
+      },
+      {
+        "name": "Silver",
+        "hex": "#c0c0c4"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      }
+    ],
+    "code": "EA-MO-1074",
+    "description": "Aviator Metal Sunglasses from Moschino, finished by hand in Italy. A signature detail that completes any look.",
+    "composition": "Metal frame; 100% UV protection lenses",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Avoid contact with water, perfume and creams. Polish with a soft cloth and store in the pouch provided."
+  },
+  {
+    "id": "p75",
+    "brand": "Versace",
+    "name": "Reversible Leather Belt",
+    "category": "Men",
+    "type": "Belts",
+    "price": 450,
+    "stock": 13,
+    "image": "/assets/products/placeholders/versace-reversible-leather-belt.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-reversible-leather-belt.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      }
+    ],
+    "code": "EA-VE-1075",
+    "description": "Reversible Leather Belt from Versace, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "Calfskin leather; palladium buckle",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p76",
+    "brand": "Valentino",
+    "name": "Logo Buckle Leather Belt",
+    "category": "Women",
+    "type": "Belts",
+    "price": 490,
+    "stock": 15,
+    "discount": 30,
+    "image": "/assets/products/placeholders/valentino-logo-buckle-leather-belt.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-logo-buckle-leather-belt.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Tan",
+        "hex": "#c09a6b"
+      },
+      {
+        "name": "Red",
+        "hex": "#b3261e"
+      }
+    ],
+    "code": "EA-VA-1076",
+    "description": "Logo Buckle Leather Belt from Valentino, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "Calfskin leather; gold-tone buckle",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p77",
+    "brand": "Dolce & Gabbana",
+    "name": "Silk Jacquard Tie",
+    "category": "Men",
+    "type": "Ties",
+    "price": 210,
+    "stock": 6,
+    "image": "/assets/products/placeholders/dolce-gabbana-silk-jacquard-tie.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-silk-jacquard-tie.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#6d1a2a"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      }
+    ],
+    "code": "EA-DG-1077",
+    "description": "Silk Jacquard Tie from Dolce & Gabbana, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "100% silk",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p78",
+    "brand": "Philipp Plein",
+    "name": "Silk Knit Tie",
+    "category": "Men",
+    "type": "Ties",
+    "price": 190,
+    "stock": 7,
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-silk-knit-tie.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-silk-knit-tie.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Green",
+        "hex": "#2f6b3a"
+      }
+    ],
+    "code": "EA-PP-1078",
+    "description": "Silk Knit Tie from Philipp Plein, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "100% silk",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p79",
+    "brand": "Armani",
+    "name": "Bi-Fold Leather Wallet",
+    "category": "Men",
+    "type": "Wallets",
+    "price": 390,
+    "stock": 8,
+    "image": "/assets/products/placeholders/armani-bi-fold-leather-wallet.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-bi-fold-leather-wallet.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      }
+    ],
+    "code": "EA-AR-1079",
+    "description": "Bi-Fold Leather Wallet from Armani, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "Grained calfskin",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p80",
+    "brand": "Moschino",
+    "name": "Zip-Around Wallet",
+    "category": "Women",
+    "type": "Wallets",
+    "price": 520,
+    "stock": 14,
+    "image": "/assets/products/placeholders/moschino-zip-around-wallet.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-zip-around-wallet.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Red",
+        "hex": "#b3261e"
+      },
+      {
+        "name": "Blush",
+        "hex": "#f0c8c4"
+      }
+    ],
+    "code": "EA-MO-1080",
+    "description": "Zip-Around Wallet from Moschino, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "Calfskin leather",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p81",
+    "brand": "Versace",
+    "name": "Printed Silk Foulard",
+    "category": "Women",
+    "type": "Scarves",
+    "price": 380,
+    "stock": 12,
+    "image": "/assets/products/placeholders/versace-printed-silk-foulard.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/versace-printed-silk-foulard.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Ivory",
+        "hex": "#f6f1e3"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      },
+      {
+        "name": "Coral",
+        "hex": "#f07c6c"
+      }
+    ],
+    "code": "EA-VE-1081",
+    "description": "Printed Silk Foulard from Versace, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "100% silk twill",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p82",
+    "brand": "Valentino",
+    "name": "Cashmere Logo Scarf",
+    "category": "Unisex",
+    "type": "Scarves",
+    "price": 590,
+    "stock": 14,
+    "image": "/assets/products/placeholders/valentino-cashmere-logo-scarf.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/valentino-cashmere-logo-scarf.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Camel",
+        "hex": "#b58a5a"
+      },
+      {
+        "name": "Grey",
+        "hex": "#8c8c8c"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#6d1a2a"
+      }
+    ],
+    "code": "EA-VA-1082",
+    "description": "Cashmere Logo Scarf from Valentino, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "100% cashmere",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p83",
+    "brand": "Dolce & Gabbana",
+    "name": "Logo Baseball Cap",
+    "category": "Men",
+    "type": "Hats",
+    "price": 250,
+    "stock": 8,
+    "image": "/assets/products/placeholders/dolce-gabbana-logo-baseball-cap.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/dolce-gabbana-logo-baseball-cap.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "White",
+        "hex": "#ffffff"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1f2a44"
+      }
+    ],
+    "code": "EA-DG-1083",
+    "description": "Logo Baseball Cap from Dolce & Gabbana, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "100% cotton",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p84",
+    "brand": "Philipp Plein",
+    "name": "Wool Felt Fedora",
+    "category": "Women",
+    "type": "Hats",
+    "price": 480,
+    "stock": 8,
+    "isNew": true,
+    "image": "/assets/products/placeholders/philipp-plein-wool-felt-fedora.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/philipp-plein-wool-felt-fedora.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Camel",
+        "hex": "#b58a5a"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#6d1a2a"
+      }
+    ],
+    "code": "EA-PP-1084",
+    "description": "Wool Felt Fedora from Philipp Plein, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "100% wool felt",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p85",
+    "brand": "Armani",
+    "name": "Cashmere-Lined Leather Gloves",
+    "category": "Women",
+    "type": "Gloves",
+    "price": 390,
+    "stock": 13,
+    "discount": 30,
+    "image": "/assets/products/placeholders/armani-cashmere-lined-leather-gloves.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/armani-cashmere-lined-leather-gloves.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#111111"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#6d1a2a"
+      },
+      {
+        "name": "Camel",
+        "hex": "#b58a5a"
+      }
+    ],
+    "code": "EA-AR-1085",
+    "description": "Cashmere-Lined Leather Gloves from Armani, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "Lambskin leather; lining 100% cashmere",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
+  },
+  {
+    "id": "p86",
+    "brand": "Moschino",
+    "name": "Lambskin Driving Gloves",
+    "category": "Men",
+    "type": "Gloves",
+    "price": 360,
+    "stock": 6,
+    "image": "/assets/products/placeholders/moschino-lambskin-driving-gloves.svg",
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/products/placeholders/moschino-lambskin-driving-gloves.svg"
+      }
+    ],
+    "colors": [
+      {
+        "name": "Brown",
+        "hex": "#6b4329"
+      },
+      {
+        "name": "Black",
+        "hex": "#111111"
+      }
+    ],
+    "code": "EA-MO-1086",
+    "description": "Lambskin Driving Gloves from Moschino, made in Italy from carefully selected materials. The finishing touch to a wardrobe.",
+    "composition": "100% lambskin leather",
+    "details": [
+      "Made in Italy",
+      "Presented in a branded box"
+    ],
+    "careNote": "Store flat or rolled, away from direct sunlight. Professional cleaning recommended."
   }
 ]

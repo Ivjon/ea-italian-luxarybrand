@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+<rect width="800" height="1000" fill="#f1ede5"/>
+<rect x="36" y="36" width="728" height="928" fill="none" stroke="#d9d3c9" stroke-width="2"/>
+<text x="400" y="120" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" letter-spacing="7" fill="#6f6961">ARMANI</text>
+<g transform="translate(180 230) scale(4.4)" fill="none" fill-rule="evenodd" stroke="#111" stroke-width=".7" stroke-linejoin="round" stroke-linecap="round"><path d="M34 14 L34 30 M66 14 L66 30 M34 30 L42 50 L34 74 L26 50 Z M66 30 L74 50 L66 74 L58 50 Z"/></g>
+<text x="400" y="790" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,'Times New Roman',serif" font-size="46" font-style="italic" fill="#111">Earrings</text>
+<text x="400" y="836" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" letter-spacing="4" fill="#8a8379">CRYSTAL DROP EARRINGS</text>
+<circle cx="354" cy="880" r="13" fill="#c9a24a" stroke="#111" stroke-opacity=".35"/><circle cx="400" cy="880" r="13" fill="#c0c0c4" stroke="#111" stroke-opacity=".35"/><circle cx="446" cy="880" r="13" fill="#c58b7a" stroke="#111" stroke-opacity=".35"/>
+</svg>

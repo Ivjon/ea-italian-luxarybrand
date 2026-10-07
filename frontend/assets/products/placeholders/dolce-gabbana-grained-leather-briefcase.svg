@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+<rect width="800" height="1000" fill="#f1ede5"/>
+<rect x="36" y="36" width="728" height="928" fill="none" stroke="#d9d3c9" stroke-width="2"/>
+<text x="400" y="120" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" letter-spacing="7" fill="#6f6961">DOLCE &amp; GABBANA</text>
+<g transform="translate(180 230) scale(4.4)" fill="#111111" fill-rule="evenodd" stroke="#111" stroke-width=".7" stroke-linejoin="round" stroke-linecap="round"><path d="M12 34 L88 34 L88 86 L12 86 Z"/><path fill="none" stroke="#111" stroke-width="1.4" d="M38 34 L38 24 L62 24 L62 34"/></g>
+<text x="400" y="790" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,'Times New Roman',serif" font-size="46" font-style="italic" fill="#111">Briefcases</text>
+<text x="400" y="836" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" letter-spacing="4" fill="#8a8379">GRAINED LEATHER BRIEFCASE</text>
+<circle cx="354" cy="880" r="13" fill="#111111" stroke="#111" stroke-opacity=".35"/><circle cx="400" cy="880" r="13" fill="#6b4329" stroke="#111" stroke-opacity=".35"/><circle cx="446" cy="880" r="13" fill="#1f2a44" stroke="#111" stroke-opacity=".35"/>
+</svg>

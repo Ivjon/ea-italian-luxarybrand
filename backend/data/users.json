@@ -47,11 +47,11 @@
     "name": "Test Client",
     "email": "test.client@example.com",
     "phone": "+355 69 123 4567",
-    "username": "testclient",
+    "username": "test",
     "main": false,
     "customerId": "C1007",
-    "salt": "c4d387a6252c8dffac1e195397eceebc",
-    "hash": "6901ed81307a885c7493bf1f79fd67bcff4ace880fae0dba7e0a872422a3be4335bbf6e6e225aad62614cf22f9106f67db7094ef944b6f34d4a0b66c2bd983b7",
+    "salt": "38a7656fec7e7f560608f48d70d332e5",
+    "hash": "9b4c3495a12008e4b249ad4e4c6912406fbcdc7f2f617df6b92692aaf1fd2a10937a23572962288eb065a5457cbc70728d6086d1c4a22d278f64849efa80e15e",
     "termsAccepted": "2026-10-07T13:20:10.018Z",
     "created": "2026-10-07T13:20:10.018Z"
   }

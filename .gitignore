@@ -7,3 +7,5 @@ npm-debug.log*
 Thumbs.db
 .vscode/
 design/hero-man.jpg
+package-lock.json
+.impeccable/live/config.json

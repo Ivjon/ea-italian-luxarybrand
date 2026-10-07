@@ -61,8 +61,8 @@ const filterSections=view=>['search','price','sort','gender','category','brand',
 const passes=(f,top)=>{const lo=f.min??0,hi=f.max??top,q=f.q.trim();return p=>(!q||matchesSearch(p,q))&&priceOf(p)>=lo&&priceOf(p)<=hi&&(!f.genders.length||gendersOf(p).some(g=>f.genders.includes(g)))&&(!f.types.length||f.types.includes(p.type||'Other'))&&(!f.brands.length||f.brands.includes(p.brand))&&(!f.colors.length||productColors(p).some(c=>f.colors.includes(c.name)))};
 function renderCollection(){const inView=coll.inView=state.products.filter(coll.view.test),top=coll.top=inView.length?Math.max(...inView.map(priceOf)):0;
 // what this view offers: product types per group, colours (with their swatch), in-stock sizes per size family
-const opts={genders:new Set(),types:{},colors:new Map(),sizes:{clothing:new Set(),shoes:new Set()}};for(const p of inView){for(const x of gendersOf(p))opts.genders.add(x);const g=EA_CATALOG.typeGroup(p.type)||'Other';(opts.types[g]||=new Set()).add(p.type||'Other');for(const c of productColors(p))if(!opts.colors.get(c.name))opts.colors.set(c.name,c.hex||'');for(const sz of inStockSizes(p))opts.sizes[sizeFamily(p)].add(sz)}
-coll.opts=opts;for(const f of [coll,coll.applied]){f.genders=f.genders.filter(g=>opts.genders.has(g));f.types=f.types.filter(t=>inView.some(p=>(p.type||'Other')===t));f.colors=f.colors.filter(c=>opts.colors.has(c));for(const k in f.sizes)f.sizes[k]=f.sizes[k].filter(v=>opts.sizes[k].has(v));if(f.max!==null&&f.max>=top)f.max=null;if(f.min!==null&&f.min>(f.max??top))f.min=null}
+const opts={genders:new Set(),brands:new Set(),types:{},colors:new Map(),sizes:{clothing:new Set(),shoes:new Set()}};for(const p of inView){for(const x of gendersOf(p))opts.genders.add(x);opts.brands.add(p.brand);const g=EA_CATALOG.typeGroup(p.type)||'Other';(opts.types[g]||=new Set()).add(p.type||'Other');for(const c of productColors(p))if(!opts.colors.get(c.name))opts.colors.set(c.name,c.hex||'');for(const sz of inStockSizes(p))opts.sizes[sizeFamily(p)].add(sz)}
+coll.opts=opts;for(const f of [coll,coll.applied]){f.genders=f.genders.filter(g=>opts.genders.has(g));f.brands=f.brands.filter(b=>opts.brands.has(b));f.types=f.types.filter(t=>inView.some(p=>(p.type||'Other')===t));f.colors=f.colors.filter(c=>opts.colors.has(c));for(const k in f.sizes)f.sizes[k]=f.sizes[k].filter(v=>opts.sizes[k].has(v));if(f.max!==null&&f.max>=top)f.max=null;if(f.min!==null&&f.min>(f.max??top))f.min=null}
 const a=coll.applied,picked=Object.entries(a.sizes).filter(([,v])=>v.length),sizeOk=p=>!picked.length||picked.some(([f,v])=>sizeFamily(p)===f&&inStockSizes(p).some(x=>v.some(y=>sameSize(x,y))));
 const rows=inView.filter(passes(a,top)).filter(sizeOk);
 if(a.sort==='new'||a.sort==='sale'){rows.reverse();rows.sort((x,y)=>(y.isNew?1:0)-(x.isNew?1:0));if(a.sort==='sale')rows.sort((x,y)=>(y.discount||0)-(x.discount||0))}else rows.sort((x,y)=>a.sort==='price-asc'?priceOf(x)-priceOf(y):priceOf(y)-priceOf(x));
@@ -89,8 +89,9 @@ rebuild($('#fCats'),groups.map(g=>g+':'+[...opts.types[g]].join(',')).join('|'),
 $('#fCats').querySelectorAll('[data-cat-group]').forEach(i=>{const of=i.dataset.of.split('|'),n=of.filter(t=>coll.types.includes(t)).length;i.checked=n===of.length;i.indeterminate=n>0&&n<of.length});
 $('#fCats').querySelectorAll('[data-cat-type]').forEach(i=>{i.checked=coll.types.includes(i.dataset.catType)});
 $('#fCats').querySelectorAll('[data-more]').forEach(b=>{const open=coll.open.includes(b.dataset.more);b.setAttribute('aria-expanded',open);b.textContent=open?'−':'+';$(`#fCats [data-types="${CSS.escape(b.dataset.more)}"]`).hidden=!open});
-// Brands: all of them.
-rebuild($('#fBrands'),state.brands.join('|'),state.brands.map(b=>tick('data-brand',b,b)).join(''));$('#fBrands').querySelectorAll('[data-brand]').forEach(i=>{i.checked=coll.brands.includes(i.dataset.brand)});
+// Brands: those with pieces in this view.
+const brands=state.brands.filter(b=>opts.brands.has(b));if(!brands.length)sec('brand').hidden=true;
+rebuild($('#fBrands'),brands.join('|'),brands.map(b=>tick('data-brand',b,b)).join(''));$('#fBrands').querySelectorAll('[data-brand]').forEach(i=>{i.checked=coll.brands.includes(i.dataset.brand)});
 // Colour: two columns.
 const colors=[...opts.colors.keys()].sort((a,b)=>a.localeCompare(b));if(!colors.length)sec('colour').hidden=true;
 rebuild($('#fColors'),colors.join('|'),colors.map(c=>{const hex=opts.colors.get(c);return `<button type="button" data-filter-color="${esc(c)}"><span class="sq${hex?'':' none'}"${hex?` style="background:${esc(hex)}"`:''}></span>${esc(c)}</button>`}).join(''));

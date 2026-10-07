@@ -168,7 +168,7 @@ it is open, also over the hero); in the ☰ menu they open a sub-menu that slide
 from one list, `SHOP_GROUPS` in `app.js`. Each link opens a full-screen collection with a black **Filter** button that opens a
 black panel on the right, in this order: **Search** (within the collection, as you type), **Price** (two handles: a
 starting and a top price), **Sort by** (New Arrivals, On Sale (discounted first), Price: Low to High, High to Low),
-**Gender** (every store page but Men, Women and Kids: Women, Men, Kids; a Unisex piece counts as Women and Men), **Category** (the main groups; + shows a group's types, and ticking a group ticks all of them), **Brands** (all of them),
+**Gender** (every store page but Men, Women and Kids: Women, Men, Kids; a Unisex piece counts as Women and Men), **Category** (the main groups; + shows a group's types, and ticking a group ticks all of them), **Brands** (those with pieces on the page),
 **Colour** (two columns), **Clothing sizes** and **Shoe sizes** (those in stock). Every list in the panel is capped at
 the same height and scrolls inside when longer. Changes in the panel apply only with **Apply** or a click outside it
 (× or Escape closes it without applying); the brand loader shows while they apply. The applied filters are listed as

@@ -12,7 +12,7 @@ The primary user is the store manager (EA Manager, Store Admin). They open the a
 
 ## Product Purpose
 
-EA Luxury Italian Brand is a multi-brand luxury storefront with an in-house CRM. The store sells pieces from Italian fashion houses. The CRM is where the manager keeps products, stock, orders, customers, and leads. Success on the admin home is that the manager can tell whether the business is healthy without reading a dense dashboard.
+EA Italian Luxury  Brand is a multi-brand luxury storefront with an in-house CRM. The store sells pieces from Italian fashion houses. The CRM is where the manager keeps products, stock, orders, customers, and leads. Success on the admin home is that the manager can tell whether the business is healthy without reading a dense dashboard.
 
 ## Positioning
 
@@ -35,7 +35,7 @@ The manager uses the web CRM at `/admin/`, on a desk and on a phone. There is no
 
 ## Brand Commitments
 
-The name is EA Luxury Italian Brand. The manager asked for a home that is modern, easy to grasp, and not overwhelming. Logo and tab icon live in `frontend/assets/brand/`. Do not invent a new brand name.
+The name is EA Italian Luxury  Brand. The manager asked for a home that is modern, easy to grasp, and not overwhelming. Logo and tab icon live in `frontend/assets/brand/`. Do not invent a new brand name.
 
 ## Evidence on Hand
 

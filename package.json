@@ -2,7 +2,7 @@
   "name":"ea-luxury-italian-brand",
   "version":"2.1.0",
   "private":true,
-  "description":"EA Luxury Italian Brand storefront + CRM",
+  "description":"EA Italian Luxury  Brand storefront + CRM",
   "main":"backend/server.js",
   "scripts":{"start":"node backend/server.js","dev":"node --watch backend/server.js"},
   "engines":{"node":">=18"}

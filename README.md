@@ -1,4 +1,4 @@
-# EA Luxury Italian Brand — Store + CRM
+# EA Italian Luxury  Brand — Store + CRM
 
 The desktop first fold follows the final EA Luxury reference image (`design/references/`), built as a real header and hero: the photograph is `frontend/assets/editorial/hero-desktop-*.webp/.jpg` (the reference with its painted text removed) and the headline, navigation and bag count are live HTML. Phones get `hero-mobile.jpg` instead.
 

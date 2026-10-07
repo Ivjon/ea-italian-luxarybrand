@@ -219,10 +219,13 @@ body.with-header .site-header{position:fixed;top:0;left:0;right:0;z-index:48}
 .ucp-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
 .ucp-actions .pdp-btn{margin:0}
 @media(max-width:560px){.ucp-main{padding:70px 20px 90px}.ucp-actions .pdp-btn{width:100%}}
-/* Home New Arrivals: 8 pieces in two rows (6 on tablets, 8 in four rows on phones), then See more across the section. */
-@media(max-width:900px) and (min-width:561px){#productGrid>.product-card:nth-child(n+7){display:none}}
-.see-more{margin-top:44px;text-align:center}
-@media(max-width:560px){.see-more{margin-top:30px}}
+/* Home New Arrivals: full rows (8 on desktop and phones, 6 on tablets), then one more row cut to half height (showing
+   the middle of each picture, where the piece sits) and faded into the page, with See more under the fade: 4 faded on
+   desktop, 3 on tablets, 2 on phones. A click on the fade is a click on See more (app.js). */
+#productGrid>.product-card:nth-child(n+9){position:relative}#productGrid>.product-card:nth-child(n+9) .product-image{aspect-ratio:8/5}#productGrid>.product-card:nth-child(n+9) .product-image img{height:200%;margin-top:-22%}#productGrid>.product-card:nth-child(n+9) .product-meta{display:none}#productGrid>.product-card:nth-child(n+9):after{content:"";position:absolute;inset:0;z-index:2;cursor:pointer;background:linear-gradient(180deg,rgba(251,250,247,0) 20%,rgba(251,250,247,.72) 62%,#fbfaf7 94%)}
+@media(max-width:900px) and (min-width:561px){#productGrid>.product-card:nth-child(n+10){display:none}#productGrid>.product-card:nth-child(n+7){position:relative}#productGrid>.product-card:nth-child(n+7) .product-image{aspect-ratio:8/5}#productGrid>.product-card:nth-child(n+7) .product-image img{height:200%;margin-top:-22%}#productGrid>.product-card:nth-child(n+7) .product-meta{display:none}#productGrid>.product-card:nth-child(n+7):after{content:"";position:absolute;inset:0;z-index:2;cursor:pointer;background:linear-gradient(180deg,rgba(251,250,247,0) 20%,rgba(251,250,247,.72) 62%,#fbfaf7 94%)}}
+@media(max-width:560px){#productGrid>.product-card:nth-child(n+11){display:none}}
+.see-more{margin-top:14px;text-align:center}
 /* Albanian visitors: hidden for the moment it takes i18n.js to translate the page (index.html sets .lang-pending). */
 .lang-pending body{visibility:hidden}
 /* Language menu under the globe: a cream panel like the header drop-down, each language in its own name, the current

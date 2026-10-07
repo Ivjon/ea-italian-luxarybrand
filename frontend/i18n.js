@@ -20,6 +20,18 @@
     'Kids': 'Fëmijë',
     'Unisex': 'Uniseks',
     'About': 'Rreth nesh',
+    // Cookie banner
+    'Your privacy': 'Privatësia juaj',
+    'We use cookies to keep your bag, language and sign-in working. With your permission we also use them to understand how the store is used, so we can make it better.': 'Ne përdorim cookies që shporta, gjuha dhe hyrja juaj të funksionojnë. Me lejen tuaj i përdorim edhe për të kuptuar si përdoret dyqani, që ta bëjmë më të mirë.',
+    'Accept all': 'Prano të gjitha',
+    'Necessary only': 'Vetëm të domosdoshmet',
+    'Powered By: IJ Technology': 'Mundësuar nga: IJ Technology',
+    // About page
+    "EA Luxury Italian Brand brings the great Italian fashion houses together under one roof in Tirana: Armani, Moschino, Versace, Valentino, Dolce & Gabbana and Philipp Plein, chosen piece by piece for their craft, their cut and their character.": "EA Luxury Italian Brand bashkon nën një çati, në Tiranë, shtëpitë e mëdha italiane të modës: Armani, Moschino, Versace, Valentino, Dolce & Gabbana dhe Philipp Plein, të përzgjedhura pjesë pas pjese për mjeshtërinë, prerjen dhe karakterin e tyre.",
+    "We believe luxury should feel calm rather than loud: a coat you will wear for years, the right pair of shoes, a bag that only gets better with time. Our team will help you find the pieces that suit the way you live, in our boutique at Toptani Shopping Center or here online.": "Ne besojmë se luksi duhet të ndihet i qetë, jo i zhurmshëm: një pallto që do ta vishni për vite, palën e duhur të këpucëve, një çantë që sa vjen e bëhet më e bukur. Ekipi ynë do t’ju ndihmojë të gjeni pjesët që i përshtaten mënyrës suaj të jetesës, në butikun tonë në Toptani Shopping Center ose këtu online.",
+    'Toptani Shopping Center, 3rd floor · Tirana': 'Toptani Shopping Center, kati i 3-të · Tiranë',
+    'A man in a long brown herringbone coat and a cream turtleneck leaning on a travertine column of a Roman loggia, terracotta rooftops behind him': 'Burrë me pallto të gjatë kafe me model thumb peshku dhe pulovër krem, i mbështetur në një kolonë travertini të një lozhe romake, me çatitë prej tjegulle pas tij',
+    'Back to top': 'Kthehu lart',
     'Bag': 'Shporta',
     'Open menu': 'Hapni menunë',
     'Menu': 'Menuja',

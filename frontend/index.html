@@ -7,7 +7,9 @@
   <title>EA Luxury Italian Brand</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400&display=swap" />
+  <!-- display=block, not swap: text waits (a moment, cached on reload) for the real fonts instead of flashing in Georgia,
+       which is much heavier than Cormorant and made the whole page look bold for a split second. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400&display=block" />
   <link rel="preload" as="image" href="/assets/editorial/hero-desktop-1536.webp" media="(min-width: 901px)" imagesrcset="/assets/editorial/hero-desktop-1024.webp 1024w, /assets/editorial/hero-desktop-1536.webp 1536w" imagesizes="100vw" />
   <link rel="stylesheet" href="/styles.css" />
   <!-- Opened at a store page (/men, /product/…): the brand loader covers the home page until app.js shows that page, so
@@ -24,7 +26,7 @@
     <button class="hdr-btn hdr-menu" id="menuOpen" aria-label="Open menu" aria-controls="sideMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6.5h20M2 12h20M2 17.5h20" /></svg></button>
     <a class="hdr-logo" href="/"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" width="105" height="84" /></a>
     <!-- Men, Women and Kids share one drop-down panel listing their product groups (renderShopMenus and openDrop in app.js). -->
-    <nav class="hdr-nav" aria-label="Primary"><a href="/new-arrivals">New Arrivals</a><a href="/sale">On Sale</a><div class="hdr-item" data-group="men"><a href="/men" aria-expanded="false" aria-controls="hdrDrop">Men</a></div><div class="hdr-item" data-group="women"><a href="/women" aria-expanded="false" aria-controls="hdrDrop">Women</a></div><div class="hdr-item" data-group="kids"><a href="/kids" aria-expanded="false" aria-controls="hdrDrop">Kids</a></div><a href="#story">About</a></nav>
+    <nav class="hdr-nav" aria-label="Primary"><a href="/new-arrivals">New Arrivals</a><a href="/sale">On Sale</a><div class="hdr-item" data-group="men"><a href="/men" aria-expanded="false" aria-controls="hdrDrop">Men</a></div><div class="hdr-item" data-group="women"><a href="/women" aria-expanded="false" aria-controls="hdrDrop">Women</a></div><div class="hdr-item" data-group="kids"><a href="/kids" aria-expanded="false" aria-controls="hdrDrop">Kids</a></div><a href="/about">About</a></nav>
     <div class="hdr-end">
       <!-- Language: Shqip / English (i18n.js; the menu is wired in app.js). Each name is written in its own language. -->
       <div class="lang-wrap">
@@ -36,6 +38,9 @@
       <button class="hdr-btn hdr-bag" id="bagOpen" aria-label="Bag, 0 items" data-count="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8.5h14l-1.2 12.5H6.2z" /><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5" /></svg><span class="hdr-bag-label" aria-hidden="true">Bag</span> <b class="bag-count" aria-hidden="true">0</b></button>
     </div>
   </header>
+  <!-- Reloaded (or back/forward) on the home page while scrolled down: the header starts in its small solid form, without
+       animating, while the browser puts the page back at its scroll position (hdrHold in app.js). -->
+  <script>try { var nav = performance.getEntriesByType('navigation')[0]; if (location.pathname === '/' && nav && /^(reload|back_forward)$/.test(nav.type) && sessionStorage.getItem('ea-hdr-solid') === '1') { document.querySelector('.site-header').classList.add('is-solid', 'no-anim'); window.EA_HDR_HOLD = true } } catch (e) {}</script>
 
   <main>
     <section class="hero" aria-labelledby="heroTitle">
@@ -70,12 +75,13 @@
       <a class="pdp-btn see-more" href="/new-arrivals">See more</a>
     </section>
 
-    <section class="story-band" id="story">
+    <!-- The whole band is one link to the About page, framed and lifted on hover like the Women / Men cards above. -->
+    <section class="story" id="story"><a class="story-band" href="/about">
       <!-- Same mechanism as the Subashi Metal parallax band: the photo row clips a layer pinned to the viewport, so the page scrolls over still photos. -->
       <div class="story-bg" aria-hidden="true"><div class="story-layer"><img data-src="/assets/editorial/store-ea.jpg" alt="" width="1422" height="1176" decoding="async"><img data-src="/assets/editorial/store-plein.jpg" alt="" width="1036" height="980" decoding="async"></div></div>
       <h2>Italian character.<br>Quiet confidence.</h2>
-      <p>A focused selection of established fashion houses, presented through a calm and editorial shopping experience.</p>
-    </section>
+      <p>A focused selection of established fashion houses, presented through a calm and editorial shopping experience.<span class="story-cta">Discover</span></p>
+    </a></section>
 
     <section class="newsletter">
       <p class="kicker">PRIVATE ACCESS</p><h2>Join our world</h2><p>New arrivals, private edits and selected releases.</p>
@@ -108,7 +114,7 @@
   </main>
 
   <!-- Footer: also copied to the bottom of every page panel (app.js). Contact us has no action yet. -->
-  <footer><div class="footer-mark"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></div><nav aria-label="Footer"><a href="#story">About</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Luxury%20Italian%20Brands%2C%20Rruga%20Abdi%20Toptani%201001%2C%20Tiran%C3%AB" target="_blank" rel="noopener">Visit</a><a href="/terms">Terms of Service</a><button type="button" class="footer-contact">Contact us</button></nav><small>© 2026 EA Luxury Italian Brand.</small></footer>
+  <footer><div class="footer-mark"><img src="/assets/brand/ea-logo-dark.svg" alt="EA Luxury Italian Brand" /></div><nav aria-label="Footer"><a href="/about">About</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Luxury%20Italian%20Brands%2C%20Rruga%20Abdi%20Toptani%201001%2C%20Tiran%C3%AB" target="_blank" rel="noopener">Visit</a><a href="/terms">Terms of Service</a><button type="button" class="footer-contact">Contact us</button></nav><small>© 2026 EA Luxury Italian Brand.<span class="footer-credit">Powered By: IJ Technology</span></small></footer>
 
   <!-- Every page panel has data-site-header: the site header and ☰ menu stay on top of it (see syncLock in app.js). -->
   <section class="collection" id="collection" aria-labelledby="collectionTitle" data-site-header hidden>
@@ -187,6 +193,22 @@
   <section class="co trk" id="track" aria-labelledby="trackTitle" data-site-header hidden>
     <div class="trk-main" id="trackMain"></div>
   </section>
+  <!-- About (PAGES in app.js): the campaign photo beside the shop's name and story, after the editorial layout of the brief. -->
+  <section class="co about" id="about" aria-labelledby="aboutTitle" data-site-header hidden>
+    <div class="grid-loading about-loading" id="aboutLoading" hidden><div class="loader-mark"><img src="/assets/brand/ea-mark.svg" alt="" /><img class="loader-fill" src="/assets/brand/ea-mark.svg" alt="" /></div></div>
+    <div class="about-main">
+      <figure class="about-photo"><picture><source srcset="/assets/editorial/about-loggia.webp" type="image/webp"><img src="/assets/editorial/about-loggia.jpg" alt="A man in a long brown herringbone coat and a cream turtleneck leaning on a travertine column of a Roman loggia, terracotta rooftops behind him" width="1080" height="1440" loading="lazy" decoding="async"></picture></figure>
+      <div class="about-copy">
+        <h1 id="aboutTitle"><img class="about-logo" src="/assets/brand/ea-mark.svg" alt="EA" width="138" height="110" /> Luxury Italian Brand</h1>
+        <div class="about-text">
+          <p>EA Luxury Italian Brand brings the great Italian fashion houses together under one roof in Tirana: Armani, Moschino, Versace, Valentino, Dolce &amp; Gabbana and Philipp Plein, chosen piece by piece for their craft, their cut and their character.</p>
+          <p>We believe luxury should feel calm rather than loud: a coat you will wear for years, the right pair of shoes, a bag that only gets better with time. Our team will help you find the pieces that suit the way you live, in our boutique at Toptani Shopping Center or here online.</p>
+          <p class="about-where">Toptani Shopping Center, 3rd floor · Tirana</p>
+          <div class="about-actions"><a class="pdp-btn solid" href="/new-arrivals">Discover new arrivals</a><a class="pdp-btn" href="#visit">Visit the boutique</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="co acct" id="account" aria-labelledby="acctTitle" data-site-header hidden>
     <div class="acct-main" id="acctMain"></div>
   </section>
@@ -253,6 +275,15 @@
       <div class="map-foot"><p class="map-found" id="mapFound" role="status"></p><div class="map-actions"><button type="button" class="pdp-btn" id="mapLocate">Use my location</button><button type="button" class="pdp-btn solid" id="mapUse" disabled>Use this address</button></div></div>
     </div>
   </div>
+  <!-- Cookie banner (app.js): shown on every visit until the visitor makes a choice. -->
+  <section class="cookie-bar" id="cookieBar" aria-labelledby="cookieTitle" hidden>
+    <p class="kicker">Cookies</p>
+    <h2 id="cookieTitle">Your privacy</h2>
+    <p>We use cookies to keep your bag, language and sign-in working. With your permission we also use them to understand how the store is used, so we can make it better.</p>
+    <div class="cookie-actions"><button type="button" class="pdp-btn solid" data-consent="all">Accept all</button><button type="button" class="pdp-btn" data-consent="necessary">Necessary only</button></div>
+  </section>
+  <!-- Back to top (app.js): shown once the page, or the open page panel, is scrolled to its last stretch. -->
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" /></svg></button>
   <script src="/i18n.js" defer></script>
   <script src="/catalog.js" defer></script>
   <script src="/app.js" defer></script>

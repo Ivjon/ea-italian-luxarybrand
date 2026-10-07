@@ -128,23 +128,45 @@ function hideLoader(){clearTimeout(loaderTimer);$('#gridLoading').hidden=true;$(
 // The page behind full-screen panels doesn't scroll; the overlay dims the page while a drawer is open.
 // Shared header: when the top open panel is marked data-site-header (My account), the site header, and with it the
 // ☰ menu, search, account and bag, stays on top of it in its solid form (body.with-header). Other panels keep their own bar.
-const PANELS=['#collection','#product','#checkout','#account','#track','#page'];
-function syncLock(){const open=PANELS.map(s=>$(s)).filter(p=>!p.hidden),top=open.sort((a,b)=>getComputedStyle(b).zIndex-getComputedStyle(a).zIndex)[0];document.body.classList.toggle('locked',open.length>0);document.body.classList.toggle('with-header',!!top&&top.hasAttribute('data-site-header'));syncHeader()}
+const PANELS=['#collection','#product','#checkout','#account','#track','#page','#about'];
+const topPanel=()=>PANELS.map(s=>$(s)).filter(p=>!p.hidden).sort((a,b)=>getComputedStyle(b).zIndex-getComputedStyle(a).zIndex)[0];
+function syncLock(){const top=topPanel();document.body.classList.toggle('locked',!!top);document.body.classList.toggle('with-header',!!top&&top.hasAttribute('data-site-header'));syncHeader();syncToTop()}
+// Back to top: the round-trip for long pages. It shows in the bottom right corner once what is being scrolled (the top
+// open panel, or the page) is near its end, and takes it back to the top. Panels scroll on their own, so their scroll
+// events are caught on the way down (capture). It floats at the height that is the footer's middle once the page ends,
+// and rides up with the footer when that is further up, so at the end it sits in the footer, centred in its height.
+const scroller=()=>topPanel()||document.scrollingElement;
+function syncToTop(){const s=scroller(),left=s.scrollHeight-s.scrollTop-s.clientHeight,btn=$('#toTop'),foot=(s===document.scrollingElement?document.body:s).querySelector(':scope>footer');
+btn.classList.toggle('show',s.scrollTop>0&&left<Math.max(320,s.clientHeight*.4));
+if(!foot)return btn.style.removeProperty('--bottom');const r=foot.getBoundingClientRect(),h=btn.offsetHeight;
+btn.style.setProperty('--bottom',`${Math.max(16,r.height/2-h/2,innerHeight-r.top-r.height/2-h/2)}px`)}
+addEventListener('scroll',syncToTop,{capture:true,passive:true});addEventListener('resize',syncToTop);
+$('#toTop').addEventListener('click',()=>scroller().scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
 // Header: always shown. Transparent at the top of the page (over the hero), solid once the page has left the top,
-// and always solid with the shared header on a panel.
-let hdrRaf=0;
-function syncHeader(){hdrRaf=0;const h=$('.site-header');h.classList.toggle('is-solid',document.body.classList.contains('with-header')||scrollY>h.offsetHeight)}
+// and always solid with the shared header on a panel. Reloaded while scrolled down the home page, it starts small (index.html)
+// and stays so (hdrHold) until the scroll position is back, so it doesn't open big and shrink.
+let hdrRaf=0,hdrHold=!!window.EA_HDR_HOLD;
+function syncHeader(){hdrRaf=0;const h=$('.site-header');h.classList.toggle('is-solid',hdrHold||document.body.classList.contains('with-header')||scrollY>h.offsetHeight)}
 function syncOverlay(){$('#overlay').classList.toggle('show',['#cartDrawer','#sideMenu','#infoDrawer','#filterDrawer','#searchPanel'].some(s=>$(s).classList.contains('open')))}
 function openCollection(key,view){showLoader();if(coll.key!==key){clearFilters();coll.applied=pick(coll);coll.open=[]}coll.key=key;coll.view=view;if(view.noSort?.includes(coll.applied.sort))coll.sort=coll.applied.sort='new'; // a sort this page doesn't offer goes back to newest first
 $('#collectionTitle').textContent=view.title;renderCollection();$('#collection').hidden=false;$('#collection').scrollTop=0;syncLock()}
 function closeCollection(){hideLoader();closeFilters();$('#collection').hidden=true;syncLock()}
-// Pages still being built ("under construction"): the My Account links in the ☰ menu and Terms of Service. Account
+// Plain pages: the About page (panel: its own section in index.html) and the pages still being built ("under
+// construction", shown in #page): the My Account links in the ☰ menu and Terms of Service. Account
 // pages need a signed-in customer: signed out, the sign-in opens at /account?next=<page> and brings them back to it.
-const PAGES={'account/wishlist':{title:'Wishlist',auth:true},'account/order-history':{title:'Order History',auth:true},'account/returns':{title:'Returns',auth:true},terms:{title:'Terms of Service'}};
+const PAGES={'account/wishlist':{title:'Wishlist',auth:true},'account/order-history':{title:'Order History',auth:true},'account/returns':{title:'Returns',auth:true},about:{title:'About',panel:'#about'},terms:{title:'Terms of Service'}};
 // Where to go after signing in: only one of the account pages above, never another site.
 const nextPage=()=>{const n=new URLSearchParams(location.search).get('next')||'';return PAGES[n.slice(1)]?.auth||/^\/account\/orders\/[A-Za-z0-9]+$/.test(n)?n:''};
-function openPage(r){const pg=PAGES[r],back=$('#pageBack');$('#pageKicker').textContent=pg.auth?tr('My account'):'EA Luxury';$('#pageTitle').textContent=tr(pg.title);back.href=pg.auth?'/account':'/';back.textContent=tr(pg.auth?'Back to My account':'Back to the store');$('#page').hidden=false;$('#page').scrollTop=0;syncLock()}
-function closePage(){$('#page').hidden=true;syncLock()}
+const pagePanels=['#page',...new Set(Object.values(PAGES).map(p=>p.panel).filter(Boolean))];
+// Opening About from inside the store plays the brand loader first (as showLoader does for a collection), not when About
+// is already showing. When the site opens at /about, the full-screen cover (index.html) is already filling the same mark:
+// it stays up until that fill animation has actually finished (it only starts at first paint), holds a moment and fades
+// out (holdCover), instead of vanishing mid-fill once the store loads. Without motion (no animation) it just fades.
+let aboutTimer;
+function showAboutLoader(){const a=$('#about'),l=$('#aboutLoading');clearTimeout(aboutTimer);l.classList.remove('done');l.hidden=false;a.classList.add('loading');a.setAttribute('aria-busy','true');aboutTimer=setTimeout(()=>{l.classList.add('done');aboutTimer=setTimeout(()=>{l.hidden=true;a.classList.remove('loading');a.removeAttribute('aria-busy')},350)},1500)}
+function holdCover(){const c=$('#loader'),fill=c.querySelector('.loader-fill').getAnimations?.()[0];c.hidden=false;const fade=()=>setTimeout(()=>{c.classList.add('done');setTimeout(()=>{c.hidden=true;c.classList.remove('done')},350)},300);fill?fill.finished.then(fade,fade):fade()}
+function openPage(r){const pg=PAGES[r],back=$('#pageBack');if(pg.panel){const opening=document.documentElement.classList.contains('opening'),fresh=$(pg.panel).hidden;pagePanels.forEach(s=>{$(s).hidden=s!==pg.panel});$(pg.panel).scrollTop=0;if(pg.panel==='#about'){if(opening)holdCover();else if(fresh)showAboutLoader()}return syncLock()}$('#pageKicker').textContent=pg.auth?tr('My account'):'EA Luxury';$('#pageTitle').textContent=tr(pg.title);back.href=pg.auth?'/account':'/';back.textContent=tr(pg.auth?'Back to My account':'Back to the store');$('#page').hidden=false;$('#page').scrollTop=0;syncLock()}
+function closePage(){pagePanels.forEach(s=>{$(s).hidden=true});syncLock()}
 // Pages have plain addresses: / (home), /men, /brand/<brand>, /search/<words>, /product/<id>, /checkout, /account.
 // In-site links change the page without reloading (go: history.pushState, then route). Sections of the home page
 // (#story, #visit, …) are scrolled to and never go into the address bar; from another page, the home page opens first.
@@ -488,3 +510,14 @@ init();
 (()=>{const band=$('#story');if(!band)return;const io=new IntersectionObserver(([e])=>{if(!e.isIntersecting)return;band.querySelectorAll('img[data-src]').forEach(i=>{i.src=i.dataset.src});io.disconnect()},{rootMargin:'100% 0px'});io.observe(band)})();
 // Header scroll behaviour (see syncHeader).
 addEventListener('scroll',()=>{if(!hdrRaf)hdrRaf=requestAnimationFrame(syncHeader)},{passive:true});syncHeader();
+// Leaving the home page: remember whether the header was small, for a reload. The held header lets go at the browser's
+// scroll restore (a scroll event), or once the page has loaded without one; it then takes its real size without
+// animating, and animates again from the next frame.
+addEventListener('pagehide',()=>{try{sessionStorage.setItem('ea-hdr-solid',location.pathname==='/'&&scrollY>$('.site-header').offsetHeight?'1':'0')}catch{}});
+if(hdrHold){const release=()=>{if(!hdrHold)return;hdrHold=false;removeEventListener('scroll',release);syncHeader();requestAnimationFrame(()=>requestAnimationFrame(()=>$('.site-header').classList.remove('no-anim')))},late=()=>requestAnimationFrame(()=>requestAnimationFrame(release));if(scrollY>0)release();else{addEventListener('scroll',release,{passive:true});document.readyState==='complete'?late():addEventListener('load',late,{once:true})}}
+// Cookie banner: on every visit (first open, reload) until the visitor chooses; the choice ('all' or 'necessary') is kept
+// in localStorage ('ea-cookies') and in EA_CONSENT. The store loads nothing optional yet; anything added later that needs
+// consent (analytics, ads) should only start when EA_CONSENT is 'all'.
+(()=>{const bar=$('#cookieBar');let v=null;try{v=localStorage.getItem('ea-cookies')}catch{}window.EA_CONSENT=v;if(v)return;
+bar.hidden=false;requestAnimationFrame(()=>requestAnimationFrame(()=>bar.classList.add('show')));
+bar.addEventListener('click',e=>{const b=e.target.closest('[data-consent]');if(!b)return;window.EA_CONSENT=b.dataset.consent;try{localStorage.setItem('ea-cookies',b.dataset.consent)}catch{}bar.classList.remove('show');setTimeout(()=>{bar.hidden=true},450)})})();

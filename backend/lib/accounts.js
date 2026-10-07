@@ -118,16 +118,26 @@ function me(ctx) {
 
 // The customer's orders, newest first: those placed while signed in or with the account's email, and orders the
 // store entered in the CRM for the linked customer.
+function ownsOrder(account) {
+  const customer = store.read('customers').find(c => c.id === account.customerId);
+  return o => o.account === account.email || (o.email || '').toLowerCase() === account.email || (customer && o.customerId === customer.id);
+}
+
+// An order as its customer sees it, in the page's language. `deliveryKey` is the checkout option it uses.
+const publicOrder = (lang, { id, date, status, items, total, subtotal, shipping, delivery, payment, lines, address }) => ({
+  id, date, status, items, total, subtotal, shipping, delivery: trParts(lang, delivery), deliveryKey: /^express/i.test(delivery || '') ? 'express' : 'standard', payment: tr(lang, payment), lines, address,
+});
+
 function myOrders(ctx) {
   const account = requireCustomer(ctx.req);
-  const customer = store.read('customers').find(c => c.id === account.customerId);
-  return store.read('orders')
-    .filter(o => o.account === account.email || (o.email || '').toLowerCase() === account.email || (customer && o.customerId === customer.id))
-    .map(({ id, date, status, items, total, subtotal, shipping, delivery, payment, lines, address }) => ({ id, date, status, items, total, subtotal, shipping, delivery: trParts(ctx.lang, delivery), payment: tr(ctx.lang, payment), lines, address }));
+  return store.read('orders').filter(ownsOrder(account)).map(o => publicOrder(ctx.lang, o));
 }
 
 module.exports = {
   sessionAccount,
+  requireCustomer,
+  ownsOrder,
+  publicOrder,
   routes: {
     'POST /api/account/signup': signup,
     'POST /api/account/login': login,

@@ -6,7 +6,7 @@ const validate = require('../lib/validate');
 const { HttpError } = require('../lib/http');
 const { saveUpload } = require('../lib/uploads');
 
-const ORDER_STATUSES = ['Awaiting Payment', 'Processing', 'Shipped', 'Delivered'];
+const ORDER_STATUSES = ['Awaiting Payment', 'Processing', 'Packing', 'Shipped', 'Delivered']; // the store's tracker: Store, Store, Packing, Courier, Delivered
 const LEAD_STAGES = ['New', 'Warm', 'Qualified', 'Won', 'Lost'];
 const ROLES = users.STAFF_ROLES;
 const GENDERS = ['Women', 'Men', 'Unisex', 'Kids']; // saved as the product's `category`

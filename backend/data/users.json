@@ -40,5 +40,19 @@
     "hash": "f5b220d32919c14a8acf5700059e1ca8126b3a00d3123d732163f4c69851a50846af28c4ef72c35ae1c589357c80d49c49c11de42cf3e06609208197428ead21",
     "termsAccepted": "2026-10-07T11:14:59.537Z",
     "created": "2026-10-07T11:14:59.537Z"
+  },
+  {
+    "id": "U1004",
+    "role": "customer",
+    "name": "Test Client",
+    "email": "test.client@example.com",
+    "phone": "+355 69 123 4567",
+    "username": "testclient",
+    "main": false,
+    "customerId": "C1007",
+    "salt": "c4d387a6252c8dffac1e195397eceebc",
+    "hash": "6901ed81307a885c7493bf1f79fd67bcff4ace880fae0dba7e0a872422a3be4335bbf6e6e225aad62614cf22f9106f67db7094ef944b6f34d4a0b66c2bd983b7",
+    "termsAccepted": "2026-10-07T13:20:10.018Z",
+    "created": "2026-10-07T13:20:10.018Z"
   }
 ]

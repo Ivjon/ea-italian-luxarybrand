@@ -18,6 +18,11 @@ const SQ = {
   'Welcome to EA Luxury. You will hear from us soon.': 'Mirë se vini në EA Luxury. Do të dëgjoni nga ne së shpejti.',
   'Your message has been received.': 'Mesazhi juaj u mor.',
   'Thank you. A client advisor will contact you to arrange your visit.': 'Faleminderit. Një këshilltar klientësh do t’ju kontaktojë për të caktuar vizitën tuaj.',
+  // Track an order
+  'We could not find an order with these details. Check the order number and use the first and last name given at checkout.': 'Nuk gjetëm asnjë porosi me këto të dhëna. Kontrolloni numrin e porosisë dhe përdorni emrin dhe mbiemrin e dhënë gjatë blerjes.',
+  // Changing an order from My account
+  'Order not found.': 'Porosia nuk u gjet.',
+  'This order has already shipped, so its address can no longer change.': 'Kjo porosi është nisur tashmë, ndaj adresa nuk mund të ndryshohet më.',
   // Checkout
   'Your bag is empty.': 'Shporta juaj është bosh.',
   'A piece in your bag is no longer available. Please remove it and try again.': 'Një artikull në shportën tuaj nuk është më i disponueshëm. Ju lutemi hiqeni dhe provoni përsëri.',
@@ -43,6 +48,7 @@ const LABELS = {
   'Full name': 'Emri i plotë', Name: 'Emri', Email: 'Email', Phone: 'Telefoni', Username: 'Emri i përdoruesit',
   'First name': 'Emri', 'Last name': 'Mbiemri', Address: 'Adresa', 'Apartment, suite, floor': 'Apartamenti, hyrja, kati',
   'Postal code': 'Kodi postar', City: 'Qyteti', Country: 'Shteti', 'Order note': 'Shënimi për porosinë',
+  'Order number': 'Numri i porosisë',
 };
 const label = l => LABELS[l] || l;
 const PATTERNS = [

@@ -53,5 +53,15 @@
     "orders": 0,
     "spent": 0,
     "status": "New"
+  },
+  {
+    "id": "C1007",
+    "name": "Test Client",
+    "email": "test.client@example.com",
+    "phone": "+355 69 123 4567",
+    "city": "",
+    "orders": 0,
+    "spent": 0,
+    "status": "New"
   }
 ]

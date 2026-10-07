@@ -3,7 +3,7 @@ const store = require('../lib/store');
 const validate = require('../lib/validate');
 const { tr, trParts } = require('../lib/i18n');
 const { HttpError } = require('../lib/http');
-const { sessionAccount } = require('../lib/accounts');
+const { sessionAccount, requireCustomer, ownsOrder, publicOrder } = require('../lib/accounts');
 
 // Delivery and payment choices offered at checkout (the prices here are the ones charged).
 const DELIVERY = [
@@ -33,13 +33,18 @@ function contactFields(body) {
     lastName: field('lastName', () => validate.text(c.lastName, 'Last name', { required: true, max: 60 })),
     email: field('email', () => validate.email(c.email)),
     phone,
-    address: {
-      line1: field('line1', () => validate.text(a.line1, 'Address', { required: true })),
-      line2: field('line2', () => validate.text(a.line2, 'Apartment, suite, floor')),
-      postalCode: field('postalCode', () => validate.text(a.postalCode, 'Postal code', { required: true, max: 20 })),
-      city: field('city', () => validate.text(a.city, 'City', { required: true, max: 80 })),
-      country: field('country', () => validate.text(a.country, 'Country', { required: true, max: 60 })),
-    },
+    address: addressFields(a),
+  };
+}
+
+function addressFields(a = {}) {
+  const { field } = validate;
+  return {
+    line1: field('line1', () => validate.text(a.line1, 'Address', { required: true })),
+    line2: field('line2', () => validate.text(a.line2, 'Apartment, suite, floor')),
+    postalCode: field('postalCode', () => validate.text(a.postalCode, 'Postal code', { required: true, max: 20 })),
+    city: field('city', () => validate.text(a.city, 'City', { required: true, max: 80 })),
+    country: field('country', () => validate.text(a.country, 'Country', { required: true, max: 60 })),
   };
 }
 
@@ -145,7 +150,24 @@ function placeOrder({ req, body }) {
   return { ok: true, order, paymentNote: payment.note };
 }
 
+// Changing an order from My account: the delivery address, until the order ships (Awaiting Payment, Processing, Packing).
+const ADDRESS_OPEN = ['Awaiting Payment', 'Processing', 'Packing'];
+
+const orderChanges = {
+  'POST /api/account/orders/address': ctx => {
+    const account = requireCustomer(ctx.req);
+    const orders = store.read('orders');
+    const order = orders.find(o => o.id === String(ctx.body.id || '') && ownsOrder(account)(o));
+    if (!order) throw new HttpError(404, 'Order not found.');
+    if (!ADDRESS_OPEN.includes(order.status)) throw new HttpError(409, 'This order has already shipped, so its address can no longer change.');
+    order.address = addressFields(ctx.body.address);
+    store.write('orders', orders);
+    return publicOrder(ctx.lang, order);
+  },
+};
+
 module.exports = {
+  ...orderChanges,
   // Options and the confirmation in the store page's language; the order itself is saved in English for the CRM.
   'GET /api/checkout': ({ lang }) => {
     const local = o => ({ ...o, label: tr(lang, o.label), note: tr(lang, o.note) });

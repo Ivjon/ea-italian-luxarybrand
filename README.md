@@ -168,12 +168,12 @@ it is open, also over the hero); in the ☰ menu they open a sub-menu that slide
 from one list, `SHOP_GROUPS` in `app.js`. Each link opens a full-screen collection with a black **Filter** button that opens a
 black panel on the right, in this order: **Search** (within the collection, as you type), **Price** (two handles: a
 starting and a top price), **Sort by** (New Arrivals, On Sale (discounted first), Price: Low to High, High to Low),
-**Gender** (New Arrivals and On Sale only: Women, Men, Kids; a Unisex piece counts as Women and Men), **Category** (the main groups; + shows a group's types, and ticking a group ticks all of them), **Brands** (all of them),
+**Gender** (every store page but Men, Women and Kids: Women, Men, Kids; a Unisex piece counts as Women and Men), **Category** (the main groups; + shows a group's types, and ticking a group ticks all of them), **Brands** (all of them),
 **Colour** (two columns), **Clothing sizes** and **Shoe sizes** (those in stock). Every list in the panel is capped at
 the same height and scrolls inside when longer. Changes in the panel apply only with **Apply** or a click outside it
 (× or Escape closes it without applying); the brand loader shows while they apply. The applied filters are listed as
 chips beside the Filter button, each with × to remove it at once; the row scrolls sideways when they don't fit. Which sections a page shows is set in `filterSections` (`app.js`);
-brand pages leave out Brands, and New Arrivals and On Sale add Gender and offer only the two price sorts (newest first until one is
+brand pages leave out Brands, Men, Women and Kids leave out Gender, and New Arrivals and On Sale offer only the two price sorts (newest first until one is
 picked; clicking it again goes back). Collections:
 `/all`, `/new-arrivals` (the pieces ticked New arrival, newest first, topped up with the latest other
 pieces to at least 8; the home page shows the first 8, 6 on tablets, with See more), `/sale` (pieces with a discount), `/women`,

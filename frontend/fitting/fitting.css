@@ -1,0 +1,102 @@
+/* The 3D fitting room (fitting.js): white studio, black mannequin, quiet controls in the store's type. */
+.fit{position:relative;width:100%;height:100%;min-height:520px;background:#fff;overflow:hidden;color:#111;font-family:Arial,Helvetica,sans-serif;font-weight:300;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.fit-canvas{position:absolute;inset:0;outline:none}
+.fit-canvas canvas{display:block;width:100%!important;height:100%!important;cursor:ew-resize}
+.fit-canvas:focus-visible{box-shadow:inset 0 0 0 1px #111}
+.fit-ui{position:absolute;inset:0;pointer-events:none}
+.fit-ui button{font:inherit;color:inherit}
+.fit-ui button:focus-visible,.fit-ui input:focus-visible{outline:1px solid #111;outline-offset:2px}
+.fit-top,.fit-bottom{position:absolute;left:16px;right:16px;display:flex;justify-content:space-between;gap:12px}
+.fit-top{top:16px;align-items:center}
+.fit-bottom{bottom:16px;align-items:flex-end}
+.fit-top>*,.fit-bottom>*,.fit-zoom,.fit-drawer{pointer-events:auto}
+.fit-seg{display:inline-flex;border:1px solid #111;background:#fff}
+.fit-seg button{border:0;background:none;padding:10px 15px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+.fit-seg button[aria-pressed=true]{background:#111;color:#fff}
+.fit-tools{display:flex;gap:6px}
+.fit-icon{width:36px;height:36px;display:grid;place-items:center;flex:none;padding:0;border:1px solid #ddd8cf;background:rgba(255,255,255,.92);cursor:pointer;transition:border-color .2s}
+.fit-icon svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.fit-icon:hover,.fit-icon[aria-pressed=true]{border-color:#111}
+.fit-zoom{position:absolute;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px}
+.fit-poses{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.fit-poses button{flex:none;border:1px solid #ddd8cf;background:rgba(255,255,255,.92);padding:9px 12px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.fit-poses button:hover{border-color:#111}
+.fit-poses button[aria-pressed=true]{border-color:#111;background:#111;color:#fff}
+.fit-outfit-btn{display:inline-flex;flex:none;align-items:center;gap:9px;border:1px solid #111;background:#111;color:#fff!important;padding:9px 12px 9px 14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer}
+.fit-outfit-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linejoin:round}
+.fit-count{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#fff;color:#111;display:grid;place-items:center;font-size:10px;font-weight:400;letter-spacing:0}
+.fit-hint{position:absolute;left:0;right:0;bottom:66px;margin:0;text-align:center;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8a8379;transition:opacity .6s}
+.fit.fit-used .fit-hint{opacity:0}
+.fit-status{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.fit-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#fff;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#777067;transition:opacity .5s,visibility .5s}
+.fit-loading span{width:42px;height:1px;background:#111;animation:fit-load 1.2s ease-in-out infinite;transform-origin:left}
+@keyframes fit-load{0%{transform:scaleX(0)}50%{transform:scaleX(1);transform-origin:left}50.01%{transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
+.fit.fit-ready .fit-loading{opacity:0;visibility:hidden}
+.fit-error{position:absolute;inset:0;display:grid;place-items:center;margin:0;padding:40px;text-align:center;font-size:14px;color:#555;pointer-events:auto}
+
+/* Outfit drawer */
+.fit-drawer{position:absolute;top:0;right:0;bottom:0;width:min(340px,100%);display:flex;flex-direction:column;gap:18px;overflow:auto;overscroll-behavior:contain;padding:20px 20px 24px;background:#fff;border-left:1px solid #e8e3da;box-shadow:-24px 0 48px rgba(17,17,17,.06);animation:fit-in .35s cubic-bezier(.2,.7,.2,1)}
+.fit-drawer[hidden]{display:none}
+@keyframes fit-in{from{transform:translateX(24px);opacity:0}}
+.fit-drawer-head{display:flex;justify-content:space-between;align-items:center}
+.fit-drawer h3{margin:0;font:400 26px/1 'Cormorant Garamond',Georgia,serif}
+.fit-drawer h4{margin:0 0 10px;font-size:10px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:#777067}
+.fit-worn{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.fit-worn li{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:start}
+.fit-worn img{width:48px;height:60px;object-fit:cover;background:#f3f1ed}
+.fit-worn small,.fit-grid small{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#777067}
+.fit-worn span{display:block;font-size:13px;line-height:1.3;margin-top:2px}
+.fit-worn .fit-icon{width:30px;height:30px;border-color:transparent}
+.fit-worn .fit-icon:hover{border-color:#111}
+.fit-worn .fit-empty{display:block;font-size:13px;color:#777067}
+.fit-swatches{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.fit-swatches button{width:18px;height:18px;padding:0;border-radius:50%;border:1px solid rgba(0,0,0,.15);background:var(--c);cursor:pointer;box-shadow:0 0 0 2px #fff}
+.fit-swatches button[aria-pressed=true]{box-shadow:0 0 0 2px #fff,0 0 0 3px #111}
+.fit-link{display:inline-block;margin-top:6px;padding:0;border:0;background:none;font-size:10px;letter-spacing:.16em;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.fit-search{width:100%;padding:11px 12px;border:1px solid #ddd8cf;background:#fff;font:inherit;font-size:13px;color:#111;border-radius:0}
+.fit-tabs{display:flex;flex-wrap:wrap;gap:4px 14px;margin:12px 0}
+.fit-tabs button{padding:4px 0;border:0;background:none;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#777067;cursor:pointer}
+.fit-tabs button[aria-pressed=true]{color:#111;text-decoration:underline;text-underline-offset:6px}
+.fit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.fit-grid button{display:block;padding:0;border:0;background:none;text-align:left;cursor:pointer}
+.fit-grid img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#f3f1ed;border:1px solid transparent;transition:border-color .2s}
+.fit-grid button:hover img{border-color:#cfc8bc}
+.fit-grid button[aria-pressed=true] img{border-color:#111}
+.fit-grid span{display:block;margin-top:4px;font-size:11px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fit-grid small{margin-top:6px}
+.fit-grid .fit-empty{grid-column:1/-1;font-size:13px;color:#777067}
+.fit-clear{margin-top:auto;padding:12px;border:1px solid #111;background:none;font-size:10px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer}
+.fit-clear:hover{background:#111;color:#fff!important}
+
+/* Full screen */
+.fit.fit-full{position:fixed!important;inset:0;z-index:5000;min-height:0;height:100%}
+html.fit-locked,html.fit-locked body{overflow:hidden}
+
+@media (max-width:700px){
+  .fit{min-height:440px}
+  .fit-top{top:12px;left:12px;right:12px}
+  .fit-bottom{left:12px;right:12px;bottom:12px}
+  .fit-seg button{padding:9px 11px;letter-spacing:.16em}
+  .fit-tools .fit-icon[data-act="reset"],.fit-zoom{display:none}
+  .fit-full .fit-zoom{display:flex}
+  .fit-poses{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .fit-poses::-webkit-scrollbar{display:none}
+  .fit-hint{bottom:58px}
+  .fit-drawer{top:auto;left:0;width:100%;max-height:78%;border-left:0;border-top:1px solid #e8e3da;animation-name:fit-up}
+  @keyframes fit-up{from{transform:translateY(24px);opacity:0}}
+}
+@media (prefers-reduced-motion:reduce){.fit *{animation:none!important;transition:none!important}}
+
+/* On the product page (app.js): the 3D tile among the thumbnails, "Try it on in 3D", and the stage in 3D. */
+.pdp-stage.is-3d{padding:0;background:#fff;align-items:stretch;justify-content:stretch}
+.pdp-fit{position:relative;flex:1;min-width:0;min-height:min(80vh,860px)}
+.pdp-fit-error{margin:auto;padding:40px;text-align:center;color:#555}
+.pdp-thumb-3d{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:#111;color:#fff}
+.pdp-thumb-3d svg{width:42%;max-width:26px;fill:currentColor}
+.pdp-thumb-3d span{font-size:9px;letter-spacing:.2em}
+.pdp-thumb-3d.active{outline:1px solid #111;outline-offset:2px}
+.pdp-try{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin:0 0 10px;padding:14px 16px;border:0;border-bottom:1px solid #111;background:none;color:#111;font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.pdp-try svg{width:14px;height:18px;fill:currentColor}
+.pdp-try:hover{background:#f3f1ed}
+.pdp-try[hidden]{display:none}
+@media (max-width:900px){.pdp-fit{min-height:74vh}.pdp-thumb-3d{flex:0 0 64px}}

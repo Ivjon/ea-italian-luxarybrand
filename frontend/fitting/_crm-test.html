@@ -1,0 +1,7 @@
+<!doctype html><meta charset="utf-8"><style>html,body{margin:0;height:100%}iframe{border:0;width:100%;height:100%}</style>
+<iframe id="f"></iframe>
+<script>
+document.cookie='ea_admin=9ad989ecd5ae4892f3fa36f9d375b73b0fd15b48939eb17fd64ec52ea4b10b69; path=/';
+const f=document.getElementById('f');f.src='/admin/';
+f.onload=()=>setTimeout(()=>{const w=f.contentWindow;if(new URLSearchParams(location.search).get('v')==='list'){w.show('products');return}w.openProductForm(new URLSearchParams(location.search).get('id')||'p3');setTimeout(()=>{const c=w.document.querySelector('#edWear');if(c)c.scrollIntoView({block:'start'})},1500)},1500);
+</script>

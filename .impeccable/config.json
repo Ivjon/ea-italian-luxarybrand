@@ -29,6 +29,12 @@
         ],
         "createdAt": "2026-10-07T12:13:44.861Z",
         "reason": "Claude triage: styles.css L185 .map-pin:after is a CSS border triangle (pin tip), not an accent border on a rounded card"
+      },
+      {
+        "rule": "overused-font",
+        "value": "arial",
+        "createdAt": "2026-10-09T12:12:50.010Z",
+        "reason": "Existing design system: frontend/styles.css sets body font-family Arial,Helvetica,sans-serif for all store UI; the fitting room matches it"
       }
     ]
   }

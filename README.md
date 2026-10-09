@@ -110,12 +110,15 @@ ea-italian-luxarybrand/
 │   │   ├── accounts.js      the one sign-in (all roles), customer sign-up, My account orders
 │   │   ├── validate.js      input validation for request bodies
 │   │   ├── uploads.js       saves CRM uploads (type, size and file-content checks)
+│   │   ├── wearable.js      wearable specs: how each product goes on the 3D mannequin
+│   │   ├── agent.js         the wearable agent's AI vision (Claude), optional
 │   │   └── static.js        serves frontend/ and uploads safely, with byte ranges for video
 │   └── data/                products, orders, customers, leads (JSON)
 ├── frontend/                everything the browser loads
 │   ├── index.html, app.js, styles.css     storefront
 │   ├── catalog.js                         shared by store + CRM: menu product types, garment-care guide
-│   ├── admin/                             CRM (index.html, admin.js, admin.css)
+│   ├── admin/                             CRM (index.html, admin.js, admin.css, wearable-agent.js)
+│   ├── fitting/                           3D try-on: mannequin, garments, poses (Three.js in vendor/)
 │   └── assets/
 │       ├── uploads/         photos and videos uploaded in the CRM (created on first upload)
 │       ├── products/        product photos — 600×750 (4:5) on a #eeebe7 background
@@ -154,6 +157,53 @@ the colour (a dropdown with swatches when there are several; the chosen colour g
 **Find a store** and **Add to bag**, a breadcrumb, and the **Info & Details** and **Product care** panels (each only
 shown when that product has the information). **Find a store** asks for a name and email and saves the request as a
 lead in CRM → Leads ("Store request: …").
+
+## 3D try-on (product page) and the wearable agent (CRM)
+Every product page has a **3D** tile next to the photos (and **Try it on in 3D** under the sizes). It opens a
+real-time fitting room: a glossy black display mannequin on a white studio floor, with soft shadows and rim light.
+- **Man / Woman / Kids** switch the mannequin. The first piece picks the one that suits it (Kids pieces go on the
+  child); after that, the shopper's choice is kept.
+- **Turn**: drag empty space. Left alone, the mannequin turns slowly on its base (the ⟳ button stops it).
+  **Pose**: drag an arm, a leg, the head or the torso. Elbows and knees only bend the way a body does, and every
+  joint has limits. Presets: Stand, Relaxed, Walk, Hand on hip, Editorial. Zoom with + / −, a pinch, or a
+  double-click; the mouse wheel zooms only in full screen, so the page still scrolls. On phones a swipe turns the
+  mannequin, and posing works in full screen.
+- **Wearing**: the piece is shown in the colour and size chosen on the page; a larger size fits looser. Clothes are
+  skinned to the mannequin's skeleton, so they bend with every pose. Bags hang from the hand, and jewellery,
+  watches, glasses and hats ride on their joint. A new piece drapes on from the top with a gold-edged dissolve and
+  a shimmer of light. Coats, skirts, dresses and scarves sway when the mannequin turns. Heels lift the feet onto the
+  ball of the foot.
+- **Outfit**: **Outfit** opens the look. It lists the worn pieces (switch their colour, take them off, open their
+  page) and lets the shopper add any piece in the store, searchable by category. A piece replaces whatever is worn
+  in the same place: a dress replaces a top and trousers, a coat goes over a knit. The look is kept for the visit.
+  A link with `?view=3d` (`/product/p3?view=3d`) opens a product straight in 3D.
+
+The fitting room is `frontend/fitting/`. It runs on Three.js r170 in `fitting/vendor/`, kept in the project so it
+works offline and needs no CDN. It is loaded only when someone opens 3D. `body.js` holds the mannequins'
+proportions and skeleton, `garments.js` the garment templates, skinning, fabrics and effects, `poses.js` the
+presets and joint limits, and `fitting.js` the scene and controls. `/fitting/preview.html?kind=woman&wear=p3,p23&pose=walk`
+shows any look on its own, for checking.
+
+**How products become wearable.** Each product has a `wearable` spec in `products.json`: the garment template
+(coat, blazer, dress, trousers, heels, handbag, necklace… 43 in all), the cut (length, sleeves, legs, shape, collar,
+closure), the material (wool, leather, silk, denim, metal…) and the pattern. `backend/lib/wearable.js` writes it on
+every save, from the product's type, name and composition. The **wearable agent** in the CRM improves it:
+1. It cleans the cover photo in the browser: it removes the studio background, keeps the piece and crops it.
+2. It takes the piece's colours and, when the cloth has texture, a swatch from its calmest part (no buttons or
+   seams). The 3D garment uses that swatch in the main colour.
+3. It uploads both, then fits the cut. With AI switched on, Claude reads the cleaned photo for the template, cut,
+   material and pattern (`backend/lib/agent.js`). Otherwise the rules decide.
+
+The agent runs by itself when a product is saved with a new photo. In the product editor, the **3D try-on** card
+shows a live 3D preview, each step as it runs, the cleaned photo, the swatch and the colours, plus **Correct the
+fit** for fixing anything by hand. Hand corrections and the agent's results are kept until the photo or the type
+changes. **Products → Make all wearable** runs the agent on the whole catalogue. Product cards show a **3D** tag
+(**3D · AI** when the AI fitted them).
+
+**Switching on AI vision**: run `npm install` once, which adds the optional Anthropic SDK, then start the server with
+`ANTHROPIC_API_KEY` set (PowerShell: `$env:ANTHROPIC_API_KEY="sk-ant-…"; npm start`). It uses `claude-opus-5-5`;
+set `WEARABLE_MODEL` to use another model. Without a key, everything works the same, and the cut comes from the
+product details instead of the photo.
 
 ## Product images
 Product photos are shown whole (`object-fit: contain`) inside a 4:5 frame with a `#eeebe7` background.
@@ -206,6 +256,10 @@ first, so add new products at the end. While a collection opens, the EA mark fil
 | PUT | `/api/crm/products` | same fields plus `id` — replaces the product |
 | DELETE | `/api/crm/products` | `{ id }` |
 | POST | `/api/crm/uploads` | raw file body with its `Content-Type` → `{ type, src }` |
+| GET | `/api/crm/wearable/status` | → whether AI vision is on, and the templates, fit choices, materials and patterns |
+| POST | `/api/crm/wearable/agent` | `{ id, cleanImage?, texture?, palette? }`: the wearable agent for one product (uploads made by the CRM) |
+| PUT | `/api/crm/wearable` | `{ id, wearable: { template?, fit?, material?, pattern? } }`: hand corrections |
+| POST | `/api/crm/wearable/all` | `{ missingOnly? }`: rule-based specs for every product |
 | POST | `/api/store-request` | `{ name, email, productId }` — saved as a lead |
 
 Errors come back as `{ ok: false, message }` with a 4xx status.
@@ -227,6 +281,7 @@ Errors come back as `{ ok: false, message }` with a 4xx status.
 - Inventory / low-stock view
 - CRM search (customers, leads, orders, products)
 - Add-customer, add-lead and new-order actions validated and persisted to local JSON files
+- 3D try-on on every product page (man, woman and child mannequins, poses, outfits), with the CRM's wearable agent
 
 ## Important
 This is a development/demo CRM. The `/api/crm/*` routes have no authentication — on a public server anyone could

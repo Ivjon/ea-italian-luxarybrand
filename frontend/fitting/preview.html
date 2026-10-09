@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fitting room preview</title>
+<!-- Development preview of the 3D fitting room: /fitting/preview.html?kind=woman&pose=walk&wear=p3,p23,p39&yaw=0.4&zoom=1 -->
+<link rel="stylesheet" href="/fitting/fitting.css">
+<style>html,body{margin:0;height:100%;background:#fff}#room{position:fixed;inset:0}</style>
+</head>
+<body>
+<div id="room"></div>
+<script type="module">
+import { mountFitting } from '/fitting/fitting.js';
+const q = new URLSearchParams(location.search);
+const products = await (await fetch('/api/products')).json();
+try { sessionStorage.clear(); } catch {}
+const room = mountFitting(document.getElementById('room'), { products, mode: q.get('mode') || 'store' });
+if (q.get('kind')) room.setBody(q.get('kind'), { chosen: true, quiet: true });
+for (const id of (q.get('wear') || '').split(',').filter(Boolean)) { const p = products.find(x => x.id === id); if (p) room.wear(p, { colorIndex: Number(q.get('color') || 0), suggestBody: false }); }
+if (q.get('pose')) { room.setPose(q.get('pose')); room.tween.t = 0.999; }
+if (q.get('yaw')) room.yaw = Number(q.get('yaw'));
+if (q.get('zoom')) room.zoom = Number(q.get('zoom'));
+if (q.get('focus')) room.focusY = Number(q.get('focus'));
+if (q.get('pitch')) room.pitch = Number(q.get('pitch'));
+room.autoTurn = q.get('turn') === '1';
+if (q.get('drawer')) room.toggleDrawer(true);
+for (const g of [...room.outfit.values()].map(x => x.garment)) if (g) { g.reveal.value = 1; g.fading = 0; }
+window.room = room;
+</script>
+</body>
+</html>

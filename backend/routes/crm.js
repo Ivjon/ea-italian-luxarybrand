@@ -5,6 +5,8 @@ const users = require('../lib/users');
 const validate = require('../lib/validate');
 const { HttpError } = require('../lib/http');
 const { saveUpload } = require('../lib/uploads');
+const wearable = require('../lib/wearable');
+const agent = require('../lib/agent');
 
 const ORDER_STATUSES = ['Awaiting Payment', 'Processing', 'Packing', 'Shipped', 'Delivered']; // the store's tracker: Store, Store, Packing, Courier, Delivered
 const LEAD_STAGES = ['New', 'Warm', 'Qualified', 'Won', 'Lost'];
@@ -91,6 +93,7 @@ function findProduct(products, id) {
 function createProduct({ body }) {
   const products = store.read('products');
   const product = { id: store.nextId(products, 'p', 1), ...productFields(body) };
+  product.wearable = wearable.fromRules(product); // how it goes on the fitting-room mannequin
   products.push(product); // last in the file = newest, for the "New arrivals" sort
   store.write('products', products);
   return product;
@@ -99,9 +102,12 @@ function createProduct({ body }) {
 function updateProduct({ body }) {
   const products = store.read('products');
   const index = findProduct(products, body.id);
-  products[index] = { id: products[index].id, ...productFields(body) };
+  const updated = { id: products[index].id, ...productFields(body) };
+  // The wearable spec follows the product: rules again, keeping the agent's work while the photo and type are the same.
+  updated.wearable = wearable.fromRules(updated, products[index].wearable);
+  products[index] = updated;
   store.write('products', products);
-  return products[index];
+  return updated;
 }
 
 // Stock of a one-size piece, changed from the CRM's product list (sized pieces are edited per size in the editor).
@@ -119,6 +125,51 @@ function deleteProduct({ body }) {
   const [removed] = products.splice(findProduct(products, body.id), 1);
   store.write('products', products);
   return { ok: true, id: removed.id };
+}
+
+// The wearable agent (CRM product editor). The CRM cleans the photo in the browser (background removed, fabric
+// swatch and colours taken from it) and uploads the results; this saves them on the product and, when AI is set up,
+// has Claude read the cleaned photo for the cut and surface. Without AI, the rules decide (lib/wearable.js).
+async function runAgent({ body }) {
+  const products = store.read('products');
+  const product = products[findProduct(products, String(body.id || ''))];
+  const assets = wearable.pickSpec({ cleanImage: body.cleanImage, texture: body.texture, palette: body.palette });
+  let spec = wearable.merge(wearable.fromRules(product, product.wearable), assets);
+  let ai = { used: false };
+  if (body.useAi !== false && agent.status().ai) {
+    try {
+      spec = wearable.merge(spec, { ...(await agent.analyze(product, spec.cleanImage || product.image)), source: 'ai' });
+      ai = { used: true, model: agent.MODEL };
+    } catch (err) {
+      ai = { used: false, error: err.message };
+    }
+  }
+  product.wearable = spec;
+  store.write('products', products);
+  return { product, ai };
+}
+
+// The manager's corrections to the agent's choices (template, fit, material, pattern).
+function updateWearable({ body }) {
+  const products = store.read('products');
+  const product = products[findProduct(products, String(body.id || ''))];
+  const changes = wearable.pickSpec(body.wearable || {});
+  product.wearable = wearable.merge(product.wearable || wearable.fromRules(product), { ...changes, source: 'manual' });
+  store.write('products', products);
+  return product;
+}
+
+// Rules for every product (or only those without a spec); keeps the agent's and the manager's work.
+function wearAll({ body }) {
+  const products = store.read('products');
+  let count = 0;
+  for (const p of products) {
+    if (body.missingOnly && p.wearable) continue;
+    p.wearable = wearable.fromRules(p, p.wearable);
+    count++;
+  }
+  store.write('products', products);
+  return { ok: true, count };
 }
 
 const upload = async ({ req }) => saveUpload(req);
@@ -272,4 +323,8 @@ module.exports = {
   'PUT /api/crm/products': updateProduct,
   'DELETE /api/crm/products': deleteProduct,
   'POST /api/crm/uploads': created(upload),
+  'GET /api/crm/wearable/status': () => ({ ...agent.status(), templates: wearable.TEMPLATES, fit: wearable.FIT, materials: wearable.MATERIALS, patterns: wearable.PATTERNS }),
+  'POST /api/crm/wearable/agent': runAgent,
+  'PUT /api/crm/wearable': updateWearable,
+  'POST /api/crm/wearable/all': wearAll,
 };

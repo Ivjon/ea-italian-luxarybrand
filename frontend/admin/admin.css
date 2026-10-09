@@ -106,3 +106,41 @@ html{scroll-padding:84px 0 96px}.ed-side{max-height:calc(100vh - 170px);overflow
 @media(max-width:650px){.order-board:not(.single){display:flex;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -14px;padding:0 14px 8px;gap:10px}.order-board:not(.single) .order-col{flex:0 0 84%;scroll-snap-align:start;scroll-margin-left:14px}.order-board.single .order-cards{grid-template-columns:1fr}.order-board-tools .chips{flex-wrap:nowrap;overflow-x:auto;width:calc(100% + 28px);margin:0 -14px;padding:0 14px 2px}.chip{white-space:nowrap}.order-board-tools .primary{width:100%}}
 /* Tablet: two board columns a row, so cards keep a readable width. */
 @media(min-width:651px) and (max-width:1000px){.order-board:not(.single){grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Wearable agent (wearable-agent.js): the editor's 3D try-on card and Products > Make all wearable */
+.head-actions{display:flex;gap:8px;flex-wrap:wrap}
+.table-head .wear-all{background:#fff;color:#111}
+.table-head .wear-all:hover{background:var(--soft)}
+.table-head .wear-all:disabled{opacity:.6;cursor:wait}
+.tag.tag-3d{background:#111;color:#fff}
+.ed-wear .wear-src{margin:0 0 10px;font-size:12px;line-height:1.5;color:var(--muted)}
+.ed-wear .wear-src b{color:var(--ink);font-weight:600}
+.wear-room{position:relative;height:340px;margin:0 0 12px;border:1px solid var(--line)}
+.wear-room .fit{min-height:0;height:100%}
+.wear-room .fit-seg button{padding:7px 9px;font-size:9px;letter-spacing:.14em}
+.wear-room .fit-poses button{padding:6px 8px;font-size:9px;letter-spacing:.12em}
+.wear-room .fit-tools [data-act="reset"],.wear-room .fit-zoom,.wear-room .fit-hint{display:none}
+.wear-room .fit-full .fit-zoom{display:flex}
+.wear-assets{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;margin:0 0 12px}
+.wear-assets:empty{display:none}
+.wear-assets figure{margin:0;text-align:center}
+.wear-assets img{display:block;width:64px;height:80px;object-fit:contain;background:repeating-conic-gradient(#f1eee8 0 25%,#fff 0 50%) 0 0/12px 12px;border:1px solid var(--line)}
+.wear-assets figcaption{margin-top:4px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.wear-palette{display:flex;gap:4px;align-self:center}
+.wear-palette span{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.12)}
+.wear-assets .ed-hint{flex-basis:100%}
+.wear-log{margin:0 0 12px;padding:0;list-style:none;display:grid;gap:6px;font-size:12px;line-height:1.4}
+.wear-log li{position:relative;padding-left:18px}
+.wear-log li::before{content:'';position:absolute;left:2px;top:5px;width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.wear-log li[data-state="run"]::before{background:#c9a24a;animation:wear-pulse 1s ease-in-out infinite}
+.wear-log li[data-state="warn"]{color:var(--warn)}
+.wear-log li[data-state="warn"]::before{background:var(--warn)}
+@keyframes wear-pulse{50%{opacity:.25}}
+.ed-wear .ed-save:disabled{opacity:.6;cursor:wait}
+.wear-fix{margin-top:12px;font-size:12px}
+.wear-fix summary{cursor:pointer;color:var(--muted);letter-spacing:.06em}
+.wear-fix form{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.wear-fix label{display:grid;gap:4px;font-size:11px;color:var(--muted)}
+.wear-fix select{padding:6px;border:1px solid var(--line);background:#fff;font:inherit;font-size:12px;color:var(--ink)}
+.wear-fix .ed-ghost{grid-column:1/-1;margin-top:4px}
+.wear-room .fit-top{flex-wrap:wrap;row-gap:6px}

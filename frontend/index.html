@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400&display=block" />
   <link rel="preload" as="image" href="/assets/editorial/hero-desktop-1536.webp" media="(min-width: 901px)" imagesrcset="/assets/editorial/hero-desktop-1024.webp 1024w, /assets/editorial/hero-desktop-1536.webp 1536w" imagesizes="100vw" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/fitting/fitting.css" />
   <!-- Opened at a store page (/men, /product/…): the brand loader covers the home page until app.js shows that page, so
        the home page doesn't flash underneath at its restored scroll position (.opening in styles.css). -->
   <script>if (location.pathname !== '/') document.documentElement.classList.add('opening');</script>
@@ -135,6 +136,7 @@
         <p class="pdp-price" id="pdpPrice"></p>
         <div class="pdp-color" id="pdpColor"></div>
         <div class="pdp-sizes" id="pdpSizes"></div>
+        <button class="pdp-try" id="pdpTry" hidden><svg viewBox="0 0 40 50" aria-hidden="true"><circle cx="20" cy="9" r="5"/><path d="M12 19c2-3 14-3 16 0l2 13h-4l-1 14h-10l-1-14h-4z"/></svg>Try it on in 3D</button>
         <button class="pdp-btn" id="pdpStore">Find a store</button>
         <button class="pdp-btn solid" id="pdpAdd" data-add="">Add to bag</button>
         <nav class="pdp-crumbs" id="pdpCrumbs" aria-label="Breadcrumb"></nav>

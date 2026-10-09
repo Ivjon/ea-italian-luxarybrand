@@ -1,9 +1,17 @@
 {
-  "name":"ea-luxury-italian-brand",
-  "version":"2.1.0",
-  "private":true,
-  "description":"EA Italian Luxury  Brand storefront + CRM",
-  "main":"backend/server.js",
-  "scripts":{"start":"node backend/server.js","dev":"node --watch backend/server.js"},
-  "engines":{"node":">=18"}
+  "name": "ea-luxury-italian-brand",
+  "version": "2.1.0",
+  "private": true,
+  "description": "EA Italian Luxury  Brand storefront + CRM",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "optionalDependencies": {
+    "@anthropic-ai/sdk": "^0.132.1"
+  }
 }
